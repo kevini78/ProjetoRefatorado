@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro - Sistema de Naturalização</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .error-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+        .error-icon {
+            font-size: 100px;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .error-code {
+            font-size: 80px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 0;
+            line-height: 1;
+        }
+        .error-message {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+        }
+        .error-description {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .btn-home {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .btn-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <i class="bi bi-exclamation-triangle error-icon"></i>
+        
+        {% if code %}
+        <h1 class="error-code">{{ code }}</h1>
+        {% endif %}
+        
+        <h2 class="error-message">{{ error or 'Ocorreu um erro' }}</h2>
+        
+        <p class="error-description">
+            {% if code == 404 %}
+                A página que você está procurando não foi encontrada.
+            {% elif code == 500 %}
+                Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde.
+            {% elif code == 403 %}
+                Você não tem permissão para acessar este recurso.
+            {% else %}
+                Algo deu errado. Por favor, tente novamente.
+            {% endif %}
+        </p>
+        
+        <a href="/" class="btn-home">
+            <i class="bi bi-house-door"></i> Voltar para Home
+        </a>
+        
+        <div style="margin-top: 30px;">
+            <a href="javascript:history.back()" style="color: #667eea; text-decoration: none;">
+                <i class="bi bi-arrow-left"></i> Voltar para página anterior
+            </a>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

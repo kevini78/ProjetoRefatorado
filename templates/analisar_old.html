@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Analisar Portaria - Automações MJ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Rawline:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary-default: #1351b4;
+            --color-primary-hover: #0c326f;
+            --color-primary-light: #eaf6ff;
+            --color-secondary-01: #fff;
+            --color-secondary-02: #f8f8f8;
+            --color-secondary-03: #ededed;
+            --color-secondary-04: #ccc;
+            --color-secondary-07: #555;
+            --color-secondary-08: #333;
+            --font-family-base: Rawline, Raleway, sans-serif;
+            --gradient-primary: linear-gradient(90deg, #1351b4 0%, #0c326f 100%);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body { 
+            font-family: var(--font-family-base);
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-08);
+            font-size: 1.6rem;
+            line-height: 1.75;
+        }
+        
+        .header {
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-08);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-secondary-03);
+            box-shadow: 0 2px 8px 0 rgba(19,81,180,0.07);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2.5rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            min-width: 260px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .header-divider {
+            height: 32px;
+            border-left: 1px solid var(--color-secondary-04);
+        }
+        
+        .site-name {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .nav a {
+            color: var(--color-secondary-07);
+            text-decoration: none;
+            font-weight: 500;
+            font-family: var(--font-family-base);
+            margin-left: 2rem;
+            font-size: 1.6rem;
+            padding: 0.5rem 1.2rem 0.5rem 1.2rem;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            background: none;
+            transition: color 0.2s, background 0.2s;
+        }
+        
+        .nav a::after {
+            content: '';
+            display: block;
+            height: 3px;
+            width: 0;
+            background: #1976d2;
+            border-radius: 2px 2px 0 0;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        
+        .nav a.active,
+        .nav a:hover {
+            color: #1351b4;
+            background: var(--color-primary-light);
+        }
+        
+        .nav a.active::after,
+        .nav a:hover::after {
+            width: 100%;
+        }
+        
+        .main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .card {
+            background: var(--color-secondary-01);
+            border-radius: 8px;
+            padding: 3rem;
+            border: 1px solid var(--color-secondary-03);
+            margin-bottom: 3rem;
+        }
+        
+        .card h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group input[type="text"], .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid var(--color-secondary-04);
+            border-radius: 6px;
+            font-size: 1.6rem;
+            transition: border-color 0.2s;
+            font-family: var(--font-family-base);
+        }
+        
+        .form-group input[type="text"]:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary-default);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .radio-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            border: 1px solid var(--color-primary-default);
+            border-radius: 6px;
+            font-size: 1.6rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+            font-family: var(--font-family-base);
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: var(--color-primary-default);
+            color: var(--color-secondary-01);
+        }
+        
+        .btn-primary:hover {
+            background: #0c326f;
+            border-color: #0c326f;
+        }
+        
+        .btn-secondary {
+            background: var(--color-secondary-01);
+            color: var(--color-primary-default);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-secondary-02);
+        }
+
+        .resultado-card {
+            background: var(--color-secondary-01);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--color-secondary-03);
+        }
+        
+        .resultado-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .resultado-card.success {
+            border-left: 4px solid var(--color-success);
+        }
+        
+        .resultado-card.error {
+            border-left: 4px solid var(--color-danger);
+        }
+        
+        .portaria-item {
+            background: var(--color-secondary-01);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--color-secondary-03);
+        }
+        
+        .portaria-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-secondary-03);
+        }
+        
+        .portaria-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .portaria-meta {
+            font-size: 1.4rem;
+            color: var(--color-secondary-07);
+        }
+        
+        .erro-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .erro-list li {
+            background: #ffebee;
+            color: var(--color-danger);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--color-danger);
+            font-size: 1.5rem;
+        }
+        
+        .erro-list li small {
+            display: block;
+            color: #b71c1c;
+            opacity: 0.9;
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-secondary-03);
+        }
+
+        .erros-section .section-title {
+            color: var(--color-danger);
+        }
+        
+        .pessoas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pessoa-item {
+            background: var(--color-secondary-02);
+            border: 1px solid var(--color-secondary-03);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+        
+        .pessoa-item strong {
+            font-weight: 600;
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pessoa-item small {
+            color: var(--color-secondary-07);
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.3rem;
+        }
+        
+        .sucesso-message {
+            background: #e8f5e9;
+            color: var(--color-success);
+            padding: 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            margin-top: 1rem;
+            border: 1px solid var(--color-success);
+        }
+        
+        .footer {
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-07);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 6rem;
+            border-top: 1px solid var(--color-secondary-03);
+        }
+        
+        .footer p {
+            font-size: 1.4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .nav a {
+                margin: 0 1rem;
+            }
+            
+            .card {
+                padding: 2.5rem 2rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .portaria-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        .radio-inline-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+            margin-top: 1em;
+        }
+        .radio-inline-group input[type="radio"] {
+            margin-right: 0.5em;
+        }
+        .radio-inline-group label {
+            margin-right: 1.5em;
+            font-weight: 500;
+            color: #1351b4;
+        }
+
+        .analise-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(19,81,180,0.08);
+            max-width: 650px;
+            margin: 3em auto 2em auto;
+            padding: 2.5em 2em 2em 2em;
+        }
+        .analise-title {
+            color: #1351b4;
+            font-size: 2.2em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.2em;
+        }
+        .analise-radio-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+            margin-bottom: 2em;
+        }
+        .analise-radio-group input[type="radio"] {
+            accent-color: #1351b4;
+            margin-right: 0.5em;
+        }
+        .analise-radio-group label {
+            font-weight: 500;
+            color: #1351b4;
+            margin-right: 1em;
+            cursor: pointer;
+        }
+        .analise-form-block {
+            margin-bottom: 2em;
+        }
+        .analise-label {
+            color: #1351b4;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .analise-input {
+            width: 100%;
+            padding: 1em;
+            border: 1.5px solid #b3c7e6;
+            border-radius: 8px;
+            background: #f8f9fa;
+            font-size: 1.1em;
+            color: #222;
+            margin-bottom: 1.2em;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .analise-input:focus {
+            border-color: #1351b4;
+            outline: none;
+            box-shadow: 0 0 0 2px #e9f1fb;
+        }
+        .analise-btn {
+            width: 100%;
+            background: #1351b4;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 1em;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 0.5em;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .analise-btn:hover {
+            background: #0d3c7b;
+        }
+        .analise-result {
+            background: #e9f1fb;
+            border-radius: 8px;
+            padding: 1.2em;
+            margin-top: 1.5em;
+        }
+        @media (max-width: 700px) {
+            .analise-card { padding: 1em; }
+            .analise-title { font-size: 1.3em; }
+            .analise-radio-group { flex-direction: column; gap: 1em; }
+        }
+        .page-enter {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .page-enter.page-enter-active {
+            opacity: 1;
+            transform: none;
+        }
+        /* Garantir fonte igual nos cards */
+        .analise-card, .analise-title, .analise-btn, .analise-label, .analise-input, .analise-result, .analise-radio-group, .analise-form-block {
+            font-family: var(--font-family-base) !important;
+        }
+        .stagger {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .stagger.stagger-in {
+            opacity: 1;
+            transform: none;
+        }
+        .resultado-card.success {
+            background: #e8f5e9 !important;
+            color: #388e3c !important;
+            border-left: 4px solid #388e3c !important;
+        }
+        .resultado-card.error {
+            background: #ffebee !important;
+            color: #b71c1c !important;
+            border-left: 4px solid #b71c1c !important;
+        }
+    </style>
+</head>
+<body>
+    {% set current_path = request.path %}
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo"><img src="/static/images/logo-mj.png" alt="Logo MJ"></a>
+                <span class="header-divider"></span>
+                <span class="site-name">Automações MJ</span>
+            </div>
+            <nav class="nav">
+                <a href="/" class="{% if current_path == '/' %}active{% endif %}">Início</a>
+                <a href="/configurar" class="{% if current_path.startswith('/configurar') %}active{% endif %}">Configurar</a>
+                <a href="/analisar" class="{% if current_path.startswith('/analisar') %}active{% endif %}">Analisar</a>
+                <a href="/ocr" class="{% if current_path.startswith('/ocr') %}active{% endif %}">Leitor OCR</a>
+                <a href="/busca_automatica" class="{% if current_path.startswith('/busca_automatica') %}active{% endif %}">Busca Automática</a>
+                <a href="/complementacao" class="{% if current_path.startswith('/complementacao') %}active{% endif %}">Complementação</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="analise-card stagger">
+            <div class="analise-title">
+                <i class="fas fa-file-alt"></i> Análise de Portarias
+            </div>
+            <div class="analise-radio-group">
+                <input type="radio" id="analise-url" name="tipo_analise" value="url" {% if not resultados_lecom %}checked{% endif %}>
+                <label for="analise-url">Analisar por URL</label>
+                <input type="radio" id="analise-texto" name="tipo_analise" value="texto">
+                <label for="analise-texto">Analisar por Texto</label>
+                <input type="radio" id="analise-lecom" name="tipo_analise" value="lecom" {% if resultados_lecom %}checked{% endif %}>
+                <label for="analise-lecom">Analisar pelo Lecom</label>
+            </div>
+
+            <div id="analise-url-campos" class="analise-form-block" style="display:block;">
+                <form id="form-analisar-url" method="post" action="/analisar">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="tipo_analise" value="url">
+                    <label for="url_portaria" class="analise-label">URL da Portaria:</label>
+                    <input type="text" name="url_portaria" id="url_portaria" class="analise-input" placeholder="https://www.in.gov.br/...">
+                    <button type="submit" class="analise-btn">Analisar</button>
+                </form>
+            </div>
+            <div id="analise-texto-campos" class="analise-form-block" style="display:none;">
+                <form id="form-analisar" method="post" action="/analisar">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="tipo_analise" value="texto">
+                    <label for="texto_portaria" class="analise-label">Texto da Portaria:</label>
+                    <textarea name="texto_portaria" id="texto_portaria" rows="6" class="analise-input" placeholder="Cole aqui o texto completo da portaria..."></textarea>
+                    <button type="submit" class="analise-btn">Analisar</button>
+                </form>
+            </div>
+            <div id="analise-lecom-campos" class="analise-form-block" style="display:none;">
+                <form method="post" action="/analisar_lecom">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <label class="analise-label">Tipo de análise:</label>
+                    <select id="tipo_lecom" name="tipo_lecom" class="analise-input" onchange="mostrarCampoTextoLecom()">
+                        <option value="ocr">OCR</option>
+                        <option value="texto">Texto</option>
+                    </select>
+                    <label for="texto_deferimento" class="analise-label">Cole o texto de deferimento:</label>
+                    <textarea id="texto_deferimento" name="texto_deferimento" rows="10" class="analise-input" placeholder="Cole aqui o texto de deferimento..." required></textarea>
+                    <div id="campo-texto-lecom" style="display:none; margin-top:1em;">
+                        <label for="texto_manual_lecom" class="analise-label">Texto manual:</label>
+                        <textarea id="texto_manual_lecom" name="texto_manual_lecom" rows="6" class="analise-input" placeholder="Cole aqui o texto manual..."></textarea>
+                    </div>
+                    <button type="submit" class="analise-btn">Analisar no Lecom</button>
+                </form>
+                <script>
+                function mostrarCampoTextoLecom() {
+                    var tipo = document.getElementById('tipo_lecom').value;
+                    document.getElementById('campo-texto-lecom').style.display = (tipo === 'texto') ? 'block' : 'none';
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                    mostrarCampoTextoLecom();
+                    document.getElementById('tipo_lecom').addEventListener('change', mostrarCampoTextoLecom);
+                });
+                </script>
+                {% if resultados_lecom %}
+                    <div class="analise-result">
+                        <h4>Resultados da Análise no Lecom:</h4>
+                        {% for resultado in resultados_lecom %}
+                            {% if resultado.campos_comparados %}
+                                <table style="width:100%; border-collapse:collapse; margin-bottom:1em;">
+                                    <thead>
+                                        <tr style="background:#f0f4fa;">
+                                            <th style="padding:8px; border:1px solid #b3c7e6;">Campo</th>
+                                            <th style="padding:8px; border:1px solid #b3c7e6;">Esperado</th>
+                                            <th style="padding:8px; border:1px solid #b3c7e6;">Extraído OCR</th>
+                                            <th style="padding:8px; border:1px solid #b3c7e6;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for campo, info in resultado.campos_comparados.items() %}
+                                        <tr {% if not info.ok %}style="background:#ffebee;"{% endif %}>
+                                            <td style="padding:8px; border:1px solid #b3c7e6;">{{ campo|capitalize }}</td>
+                                            <td style="padding:8px; border:1px solid #b3c7e6;">{{ info.esperado }}</td>
+                                            <td style="padding:8px; border:1px solid #b3c7e6;">{{ info.ocr if info.ocr is string else info.ocr|join(' / ') }}</td>
+                                            <td style="padding:8px; border:1px solid #b3c7e6; text-align:center; font-size:1.3em;">{% if info.ok %}✔️{% else %}❌{% endif %}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div style="margin-bottom:1em;">
+                                    <strong>Resultado geral:</strong> {{ resultado.comparacao }}
+                                </div>
+                                {% if resultado.divergencias %}
+                                    <div style="color:#e60000; margin-bottom:1em;">
+                                        <strong>Divergências:</strong> {{ resultado.divergencias|join(', ') }}
+                                    </div>
+                                {% endif %}
+                                <details style="margin-bottom:1em;">
+                                    <summary style="cursor:pointer; color:#1351b4;">Ver texto OCR completo</summary>
+                                    <pre style="background:#f8f9fa; border:1px solid #b3c7e6; border-radius:6px; padding:1em; font-size:1em;">{{ resultado.texto_ocr }}</pre>
+                                </details>
+                                {% if resultado.pdf_filename %}
+                                    <div style="margin-bottom:1em;">
+                                        <strong>Documento original (OCR):</strong>
+                                        <a href="/download/{{ resultado.pdf_filename }}" target="_blank" style="color:#1351b4; text-decoration:underline; margin-left:1em;">Baixar PDF</a>
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div style="color:#e60000;">{{ resultado.erro }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="resultado" id="resultado"></div>
+    </main>
+    
+    <footer class="footer">
+        <p>Ministério da Justiça e Segurança Pública</p>
+    </footer>
+    
+    <script>
+        const radios = document.getElementsByName('tipo_analise');
+        const urlCampos = document.getElementById('analise-url-campos');
+        const textoCampos = document.getElementById('analise-texto-campos');
+        const lecomCampos = document.getElementById('analise-lecom-campos');
+        radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                urlCampos.style.display = this.value === 'url' ? 'block' : 'none';
+                textoCampos.style.display = this.value === 'texto' ? 'block' : 'none';
+                lecomCampos.style.display = this.value === 'lecom' ? 'block' : 'none';
+            });
+        });
+        
+        // Função única para exibir o resultado formatado (usada por ambos os formulários)
+        function exibirResultadoFormatado(data) {
+            let html = '';
+            if(data.success && data.resultado) {
+                html += `<div class=\"resultado-card success\">
+                    <h3>✅ Análise Concluída</h3>
+                    <p><strong>Total de portarias:</strong> ${data.resultado.total_portarias || 0}</p>
+                    <p><strong>Total de erros:</strong> ${data.resultado.total_erros || 0}</p>
+                </div>`;
+                
+                if(data.resultado.portarias && data.resultado.portarias.length > 0) {
+                    data.resultado.portarias.forEach(function(p, idx) {
+                        html += `<div class=\"portaria-item\">
+                            <div class=\"portaria-header\">
+                                <span class=\"portaria-numero\">PORTARIA ${p.numero || ''} ${p.tipo ? '('+p.tipo+')' : ''}</span>
+                                <span class=\"portaria-data\">${p.data || ''}${p.pessoas ? ' • ' + p.pessoas.length + ' pessoas' : ''}</span>
+                            </div>`;
+                        if(p.erros && p.erros.length > 0) {
+                            html += `<div class=\"resultado-card error\"><strong>Erros Encontrados (${p.erros.length})</strong>`;
+                            p.erros.forEach(function(erro) {
+                                html += `<div class=\"erro-item\"><strong>${erro.tipo || erro.codigo || ''}:</strong> ${erro.descricao || erro['descrição'] || erro.mensagem || ''}<br>Pessoa: ${erro.pessoa || ''}</div>`;
+                            });
+                            html += `</div>`;
+                        } else {
+                            html += `<div class=\"resultado-card success\">Nenhum erro encontrado nesta portaria.</div>`;
+                        }
+                        if(p.pessoas && p.pessoas.length > 0) {
+                            html += `<div><h4 class=\"section-title\">Pessoas Processadas (${p.pessoas.length})</h4><div class=\"pessoas-grid\">`;
+                            p.pessoas.forEach(function(pessoa) {
+                                html += `<div class=\"pessoa-item\"><strong>👤 ${pessoa.nome}</strong>`;
+                                if(pessoa.documento) html += `<small>🆔 Documento: ${pessoa.documento} (${pessoa.tipo_documento || ''})</small>`;
+                                if(pessoa.processo) html += `<br>📁 Processo: ${pessoa.processo}`;
+                                if(pessoa.pais) html += `<br>🌎 País: ${pessoa.pais}`;
+                                if(pessoa.estado) html += `<br>🏙️ Estado: ${pessoa.estado}`;
+                                if(pessoa.idade) html += `<br>🎂 Idade: ${pessoa.idade} anos`;
+                                if(pessoa.data_nascimento) html += `<br>🗓️ Nascimento: ${pessoa.data_nascimento}`;
+                                if(pessoa.nome_pai) html += `<br>👨‍👧 Pai: ${pessoa.nome_pai}`;
+                                if(pessoa.nome_mae) html += `<br>👩‍👧 Mãe: ${pessoa.nome_mae}`;
+                                html += `</div>`;
+                            });
+                            html += `</div></div>`;
+                        }
+                        html += `</div>`;
+                    });
+                }
+                
+                if(data.resultado.arquivos_excel && data.resultado.arquivos_excel.length > 0) {
+                    html += `<div class="resultado-card">
+                        <h3>Relatórios Excel Gerados</h3>
+                        <ul class="erro-list">`;
+                    data.resultado.arquivos_excel.forEach(function(f) {
+                        html += `<li><a href="/download/${encodeURIComponent(f)}" style="color: var(--color-primary-default);">${f.split('/').pop()}</a></li>`;
+                    });
+                    html += `</ul></div>`;
+                }
+            } else if(data.message) {
+                html = `<div class=\"resultado-card error\">${data.message}</div>`;
+            } else {
+                html = `<div class=\"resultado-card error\">Erro inesperado ao analisar.</div>`;
+            }
+            document.getElementById('resultado').innerHTML = html;
+        }
+        // Interceptar submit do formulário de texto
+        if(document.getElementById('form-analisar')) {
+            document.getElementById('form-analisar').addEventListener('submit', function(e) {
+                e.preventDefault();
+                let form = e.target;
+                let formData = new FormData(form);
+                fetch('/analisar', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    exibirResultadoFormatado(data);
+                })
+                .catch(err => {
+                    document.getElementById('resultado').innerHTML = '<div class="resultado-card error">Erro ao analisar: ' + err + '</div>';
+                });
+            });
+        }
+        // Interceptar submit do formulário de URL
+        if(document.getElementById('form-analisar-url')) {
+            document.getElementById('form-analisar-url').addEventListener('submit', function(e) {
+                e.preventDefault();
+                let form = e.target;
+                let formData = new FormData(form);
+                fetch('/analisar', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    exibirResultadoFormatado(data);
+                })
+                .catch(err => {
+                    document.getElementById('resultado').innerHTML = '<div class="resultado-card error">Erro ao analisar: ' + err + '</div>';
+                });
+            });
+        }
+
+        // Efeito stagger
+        window.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.stagger');
+            items.forEach((el, i) => {
+                setTimeout(() => el.classList.add('stagger-in'), 120 * i);
+            });
+        });
+    </script>
+</body>
+</html> 

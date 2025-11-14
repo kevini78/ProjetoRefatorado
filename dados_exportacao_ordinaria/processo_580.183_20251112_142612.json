@@ -1,0 +1,24 @@
+{
+  "numero_processo": "580.183",
+  "data_processamento": "2025-11-12T14:26:12.418205",
+  "resultado_elegibilidade": {
+    "elegibilidade_final": "indeferimento_automatico",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos_atendidos": 1,
+    "total_requisitos": 4
+  },
+  "resultado_decisao": {
+    "tipo_decisao": "ERRO",
+    "despacho_completo": "Erro ao gerar decisão: 'int' object has no attribute 'get'",
+    "motivos_indeferimento": [],
+    "fundamentos_legais": [],
+    "resumo_analise": "Erro no processamento",
+    "data_decisao": "12/11/2025",
+    "percentual_atendimento": 0
+  },
+  "versao_sistema": "2.0"
+}

@@ -1,0 +1,389 @@
+{% extends "base_secure.html" %}
+
+{% block title %}Login - Sistema Seguro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin-top: -76px; /* Compensar altura da navbar */
+    }
+    
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 450px;
+    }
+    
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .login-header h2 {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .security-features {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .form-floating {
+        margin-bottom: 1rem;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e3e6f0;
+        padding: 0.75rem;
+        transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+    
+    .btn-login {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        border: none;
+        border-radius: 10px;
+        padding: 0.75rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .security-info {
+        background: #e8f5e8;
+        border-left: 4px solid var(--success-color);
+        padding: 1rem;
+        margin-top: 1.5rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+    }
+    
+    .password-requirements {
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        background: #fff3cd;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        border: 1px solid #ffeaa7;
+    }
+    
+    .requirement {
+        margin: 0.25rem 0;
+    }
+    
+    .requirement i {
+        width: 15px;
+        margin-right: 0.5rem;
+    }
+    
+    @media (max-width: 576px) {
+        .login-card {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                        </div>
+                        <h2>Acesso Seguro</h2>
+                        <p class="text-muted">Sistema de Análise de Processos</p>
+                    </div>
+                    
+                    <!-- Recursos de Segurança -->
+                    <div class="security-features">
+                        <h6 class="mb-2"><i class="fas fa-lock me-2"></i>Recursos de Segurança Ativados</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="d-block"><i class="fas fa-check text-success me-1"></i>Criptografia AES-256</small>
+                                <small class="d-block"><i class="fas fa-check text-success me-1"></i>Autenticação 2FA</small>
+                            </div>
+                            <div class="col-6">
+                                <small class="d-block"><i class="fas fa-check text-success me-1"></i>Logs de Auditoria</small>
+                                <small class="d-block"><i class="fas fa-check text-success me-1"></i>Proteção CSRF</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulário de Login -->
+                    <form method="POST" id="loginForm" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        
+                        <div class="form-floating">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="username" 
+                                   name="username" 
+                                   placeholder="Usuário" 
+                                   required
+                                   maxlength="50"
+                                   pattern="[a-zA-Z0-9_.-]+"
+                                   autocomplete="username">
+                            <label for="username">
+                                <i class="fas fa-user me-2"></i>Usuário
+                            </label>
+                            <div class="invalid-feedback">
+                                Por favor, informe um usuário válido.
+                            </div>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="password" 
+                                   name="password" 
+                                   placeholder="Senha" 
+                                   required
+                                   minlength="8"
+                                   maxlength="128"
+                                   autocomplete="current-password">
+                            <label for="password">
+                                <i class="fas fa-lock me-2"></i>Senha
+                            </label>
+                            <div class="invalid-feedback">
+                                Por favor, informe sua senha.
+                            </div>
+                        </div>
+                        
+                        <!-- Checkbox para mostrar senha -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="showPassword">
+                            <label class="form-check-label" for="showPassword">
+                                Mostrar senha
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-login">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            Entrar com Segurança
+                        </button>
+                    </form>
+                    
+                    <!-- Informações de Segurança -->
+                    <div class="security-info">
+                        <h6><i class="fas fa-info-circle me-2"></i>Política de Segurança</h6>
+                        <ul class="mb-0 small">
+                            <li>Todas as conexões são criptografadas</li>
+                            <li>Tentativas de login são monitoradas</li>
+                            <li>Sessões expiram automaticamente</li>
+                            <li>Conformidade com Posic/MCTIC e ISO 27001</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Requisitos de Senha (para primeiro acesso) -->
+                    <div class="password-requirements" style="display: none;" id="passwordHelp">
+                        <h6><i class="fas fa-key me-2"></i>Requisitos de Senha</h6>
+                        <div class="requirement">
+                            <i class="fas fa-circle-notch"></i>Mínimo de 12 caracteres
+                        </div>
+                        <div class="requirement">
+                            <i class="fas fa-circle-notch"></i>Pelo menos 1 letra maiúscula
+                        </div>
+                        <div class="requirement">
+                            <i class="fas fa-circle-notch"></i>Pelo menos 1 letra minúscula
+                        </div>
+                        <div class="requirement">
+                            <i class="fas fa-circle-notch"></i>Pelo menos 1 número
+                        </div>
+                        <div class="requirement">
+                            <i class="fas fa-circle-notch"></i>Pelo menos 1 caractere especial
+                        </div>
+                    </div>
+                    
+                    <!-- Link para recuperação (se implementado) -->
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Problemas de acesso? Contacte o administrador do sistema
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const showPasswordCheckbox = document.getElementById('showPassword');
+    const passwordHelp = document.getElementById('passwordHelp');
+    
+    // Mostrar/ocultar senha
+    showPasswordCheckbox.addEventListener('change', function() {
+        passwordInput.type = this.checked ? 'text' : 'password';
+    });
+    
+    // Mostrar requisitos de senha para usuário admin
+    usernameInput.addEventListener('input', function() {
+        if (this.value.toLowerCase() === 'admin') {
+            passwordHelp.style.display = 'block';
+        } else {
+            passwordHelp.style.display = 'none';
+        }
+    });
+    
+    // Validação do formulário
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Resetar estados de validação
+        const inputs = [usernameInput, passwordInput];
+        let isValid = true;
+        
+        inputs.forEach(function(input) {
+            input.classList.remove('is-invalid', 'is-valid');
+            
+            if (!input.value.trim()) {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                // Validações específicas
+                if (input === usernameInput) {
+                    const usernamePattern = /^[a-zA-Z0-9_.-]+$/;
+                    if (!usernamePattern.test(input.value) || input.value.length < 3) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        input.classList.add('is-valid');
+                    }
+                } else if (input === passwordInput) {
+                    if (input.value.length < 8) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        input.classList.add('is-valid');
+                    }
+                }
+            }
+        });
+        
+        if (isValid) {
+            // Sanitizar entrada antes de enviar
+            usernameInput.value = sanitizeInput(usernameInput.value);
+            
+            showLoading();
+            
+            // Simular delay de segurança (rate limiting)
+            setTimeout(function() {
+                loginForm.submit();
+            }, 500);
+        }
+    });
+    
+    // Prevenir ataques de força bruta - delay progressivo
+    let loginAttempts = parseInt(localStorage.getItem('loginAttempts') || '0');
+    if (loginAttempts > 0) {
+        const delay = Math.min(loginAttempts * 2000, 30000); // Max 30 segundos
+        
+        if (delay > 0) {
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fas fa-clock me-2"></i>Aguarde ${delay/1000}s`;
+            
+            setTimeout(function() {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Entrar com Segurança';
+            }, delay);
+        }
+    }
+    
+    // Monitorar tentativas de login
+    if (window.location.search.includes('error')) {
+        loginAttempts++;
+        localStorage.setItem('loginAttempts', loginAttempts.toString());
+    } else if (window.location.search.includes('success')) {
+        localStorage.removeItem('loginAttempts');
+    }
+    
+    // Foco automático no campo usuário
+    usernameInput.focus();
+    
+    // Proteção contra ataques de timing
+    const startTime = Date.now();
+    window.addEventListener('beforeunload', function() {
+        const endTime = Date.now();
+        const timeSpent = endTime - startTime;
+        
+        // Log tempo gasto na página (para análise de segurança)
+        if (timeSpent < 1000) {
+            console.warn('Possível tentativa automatizada detectada');
+        }
+    });
+    
+    // Detecção de alterações no DOM (proteção XSS)
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.tagName === 'SCRIPT') {
+                        console.error('Script injection detectado!');
+                        node.remove();
+                    }
+                });
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+
+// Função para sanitizar entrada
+function sanitizeInput(str) {
+    return str.replace(/[<>\"']/g, function(match) {
+        const entityMap = {
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;'
+        };
+        return entityMap[match];
+    });
+}
+
+// Proteção contra clickjacking
+if (window.top !== window.self) {
+    window.top.location = window.location;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3.5rem;
+            margin-top: 3.5rem;
+            justify-items: center;
+            width: 100%;
+            max-width: 1100px;
+        }
+        .nav-card {
+            background: var(--color-secondary-01);
+            border-radius: 20px;
+            padding: 4.5rem 2.5rem 3.5rem 2.5rem;
+            text-align: center;
+            border: 1px solid var(--color-secondary-03);
+            box-shadow: 0 8px 32px 0 rgba(19,81,180,0.10);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 320px;
+            max-width: 400px;
+        }
+        .nav-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px 0 rgba(19,81,180,0.15);
+        }
+        .nav-card .icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: #fff;
+            font-size: 3.2rem;
+            box-shadow: 0 4px 16px 0 rgba(19,81,180,0.13);
+            transition: background 0.2s;
+        }
+        .nav-card:hover .icon {
+            background: var(--gradient-secondary);
+        }
+        .nav-card h3 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .nav-card p {
+            font-size: 1.7rem;
+            color: var(--color-secondary-07);
+            margin-bottom: 0;
+        }
+        .page-enter {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .page-enter.page-enter-active {
+            opacity: 1;
+            transform: none;
+        }
+        @media (max-width: 768px) {
+            .cards-grid { 
+                grid-template-columns: 1fr; 
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+            .nav-card {
+                min-width: auto;
+                max-width: none;
+                padding: 3rem 2rem 2.5rem 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cards-grid {
+                gap: 1.5rem;
+            }
+            .nav-card {
+                padding: 2.5rem 1.5rem 2rem 1.5rem;
+            }
+        }
+{% endblock %}
+
+{% block content %}
+    <div class="page-enter">
+        <h2 style="text-align:center;font-size:3.5rem;font-weight:700;">Bem-vindo ao Sistema</h2>
+        <p style="text-align:center;font-size:1.7rem;color:#555;max-width:600px;margin:1rem auto 2.5rem auto;">Sistema integrado para gestão de processos administrativos com eficiência e transparência.</p>
+        <div class="cards-grid">
+            <a href="/configurar" class="nav-card">
+                <div class="icon">⚙️</div>
+                <h3>Configurar Histórico</h3>
+                <p>Configure planilhas e parâmetros do sistema</p>
+            </a>
+            <a href="/analisar" class="nav-card">
+                <div class="icon">🔍</div>
+                <h3>Analisador de Portarias</h3>
+                <p>Ferramentas de análise e revisão de deferimentos</p>
+            </a>
+            <a href="/busca_automatica" class="nav-card">
+                <div class="icon">⚡</div>
+                <h3>Busca Automática</h3>
+                <p>Robô para busca automatica no DOU</p>
+            </a>
+            <a href="/ocr" class="nav-card">
+                <div class="icon">📄</div>
+                <h3>Leitor OCR</h3>
+                <p>Extraia texto automaticamente de imagens e documentos digitalizados</p>
+            </a>
+            <a href="/teste-preprocessing" class="nav-card">
+                <div class="icon">🔬</div>
+                <h3>Teste de Pré-processamento</h3>
+                <p>Valide pré-processamento de imagens com OCR Mistral e mascaramento LGPD</p>
+            </a>
+            <a href="/complementacao" class="nav-card">
+                <div class="icon">📝</div>
+                <h3>Complementação</h3>
+                <p>Complementar informações do indeferimento com busca automatica</p>
+            </a>
+            <a href="/analise_automatica" class="nav-card">
+                <div class="icon">🤖</div>
+                <h3>Análise Automática</h3>
+                <p>Análise automática de processos por tipo: Definitiva, Ordinária, Extraordinária e Provisória</p>
+            </a>
+            <a href="/extracao_ocr" class="nav-card">
+                <div class="icon">📋</div>
+                <h3>Extração de OCR</h3>
+                <p>Extração massiva de OCR com mascaramento LGPD para treinamento Doccano</p>
+            </a>
+            <a href="/aprovacao_lote" class="nav-card">
+                <div class="icon">✅</div>
+                <h3>Aprovação em Lote</h3>
+                <p>Automação para aprovação em lote de processos no sistema LECOM</p>
+            </a>
+            <a href="/aprovacao_parecer_analista" class="nav-card">
+                <div class="icon">👨‍⚖️</div>
+                <h3>Aprovar Parecer do Analista</h3>
+                <p>Automação para aprovar pareceres do analista com validação automática de requisitos</p>
+            </a>
+            <a href="/aprovacao_conteudo_recurso" class="nav-card">
+                <div class="icon">⚖️</div>
+                <h3>Aprovação do Conteúdo de Recurso</h3>
+                <p>Automação para aprovação do conteúdo de recurso com decisão automática baseada no tipo de recurso</p>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const pageEnterElement = document.querySelector('.page-enter');
+        if (pageEnterElement) {
+            pageEnterElement.classList.add('page-enter-active');
+        }
+    });
+    </script>
+{% endblock %} 

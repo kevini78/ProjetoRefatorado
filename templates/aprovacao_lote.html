@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block title %}Aprovação em Lote - Automações MJ{% endblock %}
+
+{% block extra_css %}
+        .main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-primary-default);
+        }
+        .page-header p {
+            font-size: 1.8rem;
+            color: var(--color-secondary-07);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .control-panel {
+            background: var(--color-secondary-01);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 4px 16px 0 rgba(19,81,180,0.08);
+            border: 1px solid var(--color-secondary-03);
+            margin-bottom: 3rem;
+        }
+        
+        .control-section {
+            margin-bottom: 2.5rem;
+        }
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-section h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary-default);
+        }
+        
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--color-secondary-08);
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 1.2rem;
+            border: 1px solid var(--color-secondary-04);
+            border-radius: 6px;
+            font-size: 1.6rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary-default);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.4rem 2.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 48px;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px 0 rgba(19,81,180,0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-secondary {
+            background: var(--color-secondary-03);
+            color: var(--color-secondary-08);
+        }
+        .btn-secondary:hover {
+            background: var(--color-secondary-04);
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        
+        .status-card {
+            background: var(--color-secondary-02);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--color-secondary-03);
+        }
+        
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-detail {
+            font-size: 1.4rem;
+            color: var(--color-secondary-07);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--color-secondary-03);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        @media (max-width: 768px) {
+            .main { padding: 0 1rem; }
+            .control-grid { grid-template-columns: 1fr; }
+            .control-panel { padding: 2rem; }
+        }
+        
+        .hidden { display: none; }
+        
+        .spinner {
+            border: 3px solid var(--color-secondary-03);
+            border-top: 3px solid var(--color-primary-default);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>✅ Aprovação em Lote</h1>
+        <p>Automação para aprovação em lote de processos no sistema LECOM. O sistema irá navegar automaticamente pelo LECOM, selecionar a etapa "Aprovação do Conteúdo" e processar todos os processos disponíveis. Após cada ciclo completo, aguardará o tempo configurado antes de iniciar o próximo ciclo.</p>
+        <div style="background: #e3f2fd; border: 1px solid #1976d2; border-radius: 8px; padding: 1.5rem; margin-top: 2rem; color: #1976d2;">
+            <strong>🖥️ MODO VISUAL ATIVADO:</strong> Uma janela do navegador será aberta e você poderá acompanhar toda a execução em tempo real!
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <div class="control-section">
+            <h3>Configurações de Execução</h3>
+            <div class="control-grid">
+                <div class="form-group">
+                    <label for="max_iteracoes">Número Máximo de Ciclos:</label>
+                    <input type="number" id="max_iteracoes" value="10" min="1" max="50">
+                </div>
+                <div class="form-group">
+                    <label for="modo_execucao">Modo de Execução:</label>
+                    <select id="modo_execucao">
+                        <option value="continuo">Ciclo Contínuo</option>
+                        <option value="unico">Execução Única</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tempo_espera_minutos">Tempo de Espera entre Ciclos (minutos):</label>
+                    <input type="number" id="tempo_espera_minutos" value="10" min="1" max="60">
+                    <small style="color: var(--color-secondary-07); font-size: 1.2rem; margin-top: 0.5rem; display: block;">
+                        ⏰ Tempo de pausa entre cada ciclo completo de aprovação
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Controles de Execução</h3>
+            <div class="control-grid">
+                <button id="btn-iniciar" class="btn btn-primary">
+                    <span id="spinner" class="spinner hidden"></span>
+                    🚀 Iniciar Aprovação Automática
+                </button>
+                <button id="btn-parar" class="btn btn-danger" disabled>
+                    ⏹️ Parar Execução
+                </button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h3>Status da Execução</h3>
+            <div class="control-grid">
+                <div class="status-card">
+                    <div class="status-icon" id="status-icon">⏸️</div>
+                    <div class="status-text" id="status-text">Aguardando Início</div>
+                    <div class="status-detail" id="status-detail">Clique em "Iniciar" para começar</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        let isRunning = false;
+        let currentProcess = null;
+
+        // Elementos DOM
+        const btnIniciar = document.getElementById('btn-iniciar');
+        const btnParar = document.getElementById('btn-parar');
+        const spinner = document.getElementById('spinner');
+        const statusIcon = document.getElementById('status-icon');
+        const statusText = document.getElementById('status-text');
+        const statusDetail = document.getElementById('status-detail');
+        const progressFill = document.getElementById('progress-fill');
+        const maxIteracoes = document.getElementById('max_iteracoes');
+        const modoExecucao = document.getElementById('modo_execucao');
+        const tempoEsperaMinutos = document.getElementById('tempo_espera_minutos');
+
+
+        // Funções de status
+        function updateStatus(icon, text, detail, progress = 0) {
+            statusIcon.textContent = icon;
+            statusText.textContent = text;
+            statusDetail.textContent = detail;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Event listeners
+        btnIniciar.addEventListener('click', async () => {
+            if (isRunning) return;
+            
+            isRunning = true;
+            btnIniciar.disabled = true;
+            btnParar.disabled = false;
+            spinner.classList.remove('hidden');
+            
+            updateStatus('🚀', 'Iniciando...', 'Preparando automação', 10);
+            
+            try {
+                const response = await fetch('/api/aprovacao_lote/iniciar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        max_iteracoes: parseInt(maxIteracoes.value),
+                        modo_execucao: modoExecucao.value,
+                        tempo_espera_minutos: parseInt(tempoEsperaMinutos.value)
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    startStatusPolling(data.process_id);
+                } else {
+                    throw new Error('Falha ao iniciar processo');
+                }
+            } catch (error) {
+                updateStatus('❌', 'Erro', `Erro ao iniciar: ${error.message}`, 0);
+                resetControls();
+            }
+        });
+
+        btnParar.addEventListener('click', async () => {
+            if (!isRunning || !currentProcess) return;
+            
+            updateStatus('⏹️', 'Parando...', 'Solicitando parada do processo', 0);
+            
+            try {
+                const response = await fetch(`/api/aprovacao_lote/parar/${currentProcess}`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    updateStatus('⏸️', 'Parado', 'Processo interrompido pelo usuário', 0);
+                } else {
+                    updateStatus('❌', 'Erro', 'Erro ao parar processo', 0);
+                }
+            } catch (error) {
+                updateStatus('❌', 'Erro', `Erro ao parar: ${error.message}`, 0);
+            }
+        });
+
+        // Polling de status
+        function startStatusPolling(processId) {
+            currentProcess = processId;
+            
+            const pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/api/aprovacao_lote/status/${processId}`);
+                    const data = await response.json();
+                    
+                    // Atualizar status
+                    updateStatus(
+                        data.status === 'running' ? '⚙️' : 
+                        data.status === 'completed' ? '✅' : 
+                        data.status === 'error' ? '❌' : '⏸️',
+                        data.status_text,
+                        data.detail,
+                        data.progress
+                    );
+                    
+                    
+                    // Verificar se terminou
+                    if (data.status === 'completed' || data.status === 'error' || data.status === 'stopped') {
+                        clearInterval(pollInterval);
+                        resetControls();
+                        
+                        if (data.status === 'completed') {
+                            updateStatus('✅', 'Concluído', 'Processo de aprovação em lote concluído com sucesso!', 100);
+                        }
+                    }
+                    
+                } catch (error) {
+                    updateStatus('❌', 'Erro', `Erro ao verificar status: ${error.message}`, 0);
+                    clearInterval(pollInterval);
+                    resetControls();
+                }
+            }, 2000); // Verificar a cada 2 segundos
+        }
+
+        function resetControls() {
+            isRunning = false;
+            currentProcess = null;
+            btnIniciar.disabled = false;
+            btnParar.disabled = true;
+            spinner.classList.add('hidden');
+            updateStatus('⏸️', 'Aguardando Início', 'Clique em "Iniciar" para começar', 0);
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('⏸️', 'Aguardando Início', 'Clique em "Iniciar" para começar', 0);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+
+{% block title %}Busca Automática DOU - Automações MJ{% endblock %}
+
+{% block extra_head %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block extra_css %}
+        .main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            background: var(--color-secondary-01);
+            border-radius: 8px;
+            padding: 4rem;
+            text-align: center;
+            border: 1px solid var(--color-secondary-03);
+        }
+        .card h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .card p {
+            font-size: 1.8rem;
+            color: var(--color-secondary-07);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        .feature-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .feature-card {
+            background: var(--color-secondary-02);
+            border-radius: 10px;
+            padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+            border-left: 5px solid var(--color-primary-default);
+            flex: 1 1 320px;
+            min-width: 320px;
+            max-width: 400px;
+            box-shadow: 0 2px 8px rgba(19,81,180,0.04);
+            text-align: left;
+        }
+        .feature-card h5 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-default);
+        }
+        .feature-card p {
+            color: var(--color-secondary-08);
+            font-size: 1.4rem;
+        }
+        .info-icon {
+            color: var(--color-primary-default);
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
+        }
+        .form-label {
+            font-weight: 600;
+            color: var(--color-secondary-08);
+            margin-bottom: 0.3rem;
+            display: block;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        .form-select, .form-control {
+            font-size: 1.7rem;
+            border-radius: 8px;
+            border: 1.5px solid var(--color-secondary-03);
+            padding: 1.2rem 1.1rem;
+            margin-bottom: 0.2rem;
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-08);
+            width: 100%;
+            transition: border 0.2s;
+        }
+        .form-select:focus, .form-control:focus {
+            border: 1.5px solid var(--color-primary-default);
+            outline: none;
+        }
+        .btn {
+            padding: 1.2rem 2.5rem;
+            border: 1px solid var(--color-primary-default);
+            border-radius: 6px;
+            font-size: 1.6rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+            font-family: var(--font-family-base);
+        }
+        .btn-primary {
+            background: var(--color-primary-default);
+            color: var(--color-secondary-01);
+        }
+        .btn-primary:hover {
+            background: #0c326f;
+            border-color: #0c326f;
+        }
+        .btn-secondary {
+            background: var(--color-secondary-01);
+            color: var(--color-primary-default);
+        }
+        .btn-secondary:hover {
+            background: var(--color-secondary-02);
+        }
+        .progress-container {
+            display: none;
+            margin-top: 2.5rem;
+        }
+        .result-container {
+            margin-top: 2.5rem;
+            display: none;
+        }
+        .status-card {
+            background: var(--color-secondary-02);
+            border-radius: 10px;
+            padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--color-primary-default);
+            box-shadow: 0 2px 8px rgba(19,81,180,0.04);
+            text-align: left;
+        }
+        .status-card h5, .status-card h6 {
+            color: var(--color-primary-default);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.7rem;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--color-primary-default);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            background: var(--color-secondary-01);
+            box-shadow: 0 1px 4px rgba(19,81,180,0.04);
+            border: 1.5px solid var(--color-secondary-03);
+        }
+        .table {
+            font-size: 1.5rem;
+            background: var(--color-secondary-01);
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 900px;
+        }
+        .table th, .table td {
+            border: 1px solid var(--color-secondary-03);
+            padding: 0.7rem 1.2rem;
+            text-align: left;
+        }
+        .table th {
+            background: var(--color-secondary-02);
+            color: var(--color-primary-default);
+            font-weight: 700;
+        }
+        .table tr:nth-child(even) {
+            background: #f4f8fd;
+        }
+        .alert {
+            font-size: 1.5rem;
+            border-radius: 8px;
+            border: 1.5px solid var(--color-secondary-03);
+            box-shadow: 0 1px 4px rgba(19,81,180,0.04);
+        }
+        .alert-success {
+            background: #eaf6ff;
+            color: #1351b4;
+            border-color: #b3d6f7;
+        }
+        .alert-info {
+            background: #f0f6fa;
+            color: #1351b4;
+            border-color: #b3d6f7;
+        }
+        .alert-warning {
+            background: #fff8e1;
+            color: #b48a13;
+            border-color: #ffe082;
+        }
+        .alert-danger {
+            background: #ffeaea;
+            color: #b41313;
+            border-color: #f7b3b3;
+        }
+        @media (max-width: 1200px) {
+            .main { max-width: 100vw; }
+        }
+        @media (max-width: 960px) {
+            .main { max-width: 100vw; }
+            .card { padding: 2.5rem 1rem; }
+        }
+        @media (max-width: 768px) {
+            .card { padding: 2.5rem 2rem; }
+            .feature-row { flex-direction: column; gap: 1rem; }
+            .btn { width: 100%; }
+        }
+        .page-enter {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .page-enter.page-enter-active {
+            opacity: 1;
+            transform: none;
+        }
+        /* Garantir fonte igual nos cards */
+        .card, .feature-card, .feature-card h5, .feature-card p, .btn, .form-label, .form-control, .form-select {
+            font-family: var(--font-family-base) !important;
+        }
+        .stagger {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .stagger.stagger-in {
+            opacity: 1;
+            transform: none;
+        }
+{% endblock %}
+
+{% block content %}
+    {% set current_path = request.path %}
+    <div class="card stagger">
+        <h2><i class="fas fa-search"></i> Busca Automática DOU</h2>
+        <p style="margin-bottom:2.5rem;">Sistema para busca automática de portarias do Diário Oficial da União por link personalizado</p>
+        <div class="feature-row">
+            <div class="feature-card">
+                <h5><i class="fas fa-info-circle info-icon"></i>Como funciona</h5>
+                <p class="mb-0">O sistema busca automaticamente no Diário Oficial da União pelas portarias do tipo selecionado, utilizando o link filtrado fornecido pelo usuário, e extrai todos os dados relevantes.</p>
+            </div>
+            <div class="feature-card">
+                <h5><i class="fas fa-download info-icon"></i>Resultado</h5>
+                <p class="mb-0">Uma planilha Excel será gerada com todos os dados extraídos: nome, documento, processo, país, estado, idade, data de nascimento e informações da portaria.</p>
+            </div>
+        </div>
+        <form id="buscaForm" style="max-width:700px; margin:2.5rem auto 0 auto; text-align:left;">
+            <div class="form-group">
+                <label for="tipoPortaria" class="form-label">
+                    <i class="fas fa-list"></i> Tipo de Portaria
+                </label>
+                <select class="form-select" id="tipoPortaria" name="tipoPortaria" required>
+                    <option value="deferimento">Deferimento</option>
+                    <option value="indeferimento">Indeferimento</option>
+                    <option value="perda">Perda de nacionalidade</option>
+                    <option value="tornar_sem_efeito">Tornar sem Efeito</option>
+                    <option value="expulsao">Expulsão</option>
+                    <option value="revogacao">Revogação</option>
+                    <option value="igualdade">Igualdade de Direito</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="linkPersonalizado" class="form-label">
+                    <i class="fas fa-link"></i> Link de Busca Personalizada (cole aqui o link do DOU já filtrado)
+                </label>
+                <input type="url" class="form-control" id="linkPersonalizado" name="linkPersonalizado" placeholder="Cole aqui o link da busca filtrada do DOU" required>
+            </div>
+            <div class="text-center" style="margin-top:2.5rem;">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-search"></i> Iniciar Busca Automática
+                </button>
+            </div>
+        </form>
+        <div class="progress-container" id="progressContainer">
+            <div class="status-card">
+                <h5><i class="fas fa-spinner loading-spinner"></i> Buscando portarias...</h5>
+                <div class="progress mb-3" style="height: 1.2rem; background: var(--color-secondary-03); border-radius: 6px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%; background: var(--color-primary-default); border-radius: 6px; height: 100%;" id="progressBar"></div>
+                </div>
+                <p id="statusText">Iniciando busca...</p>
+            </div>
+        </div>
+        <div class="result-container" id="resultContainer">
+            <div class="status-card">
+                <h5><i class="fas fa-check-circle" style="color: #28a745;"></i> Busca Concluída!</h5>
+                <div id="resultContent"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.getElementById('buscaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tipoPortaria = document.getElementById('tipoPortaria').value;
+            const linkPersonalizado = document.getElementById('linkPersonalizado').value;
+            if (!linkPersonalizado) {
+                alert('Por favor, preencha o link de busca.');
+                return;
+            }
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('statusText');
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+                statusText.textContent = 'Buscando portarias...';
+            }, 500);
+            const formData = new FormData();
+            formData.append('csrf_token', '{{ csrf_token() }}');
+            formData.append('tipo_portaria', tipoPortaria);
+            formData.append('link_personalizado', linkPersonalizado);
+            
+            fetch('/buscar_automatico', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                statusText.textContent = 'Concluído!';
+                setTimeout(() => {
+                    document.getElementById('progressContainer').style.display = 'none';
+                    document.getElementById('resultContainer').style.display = 'block';
+                    const resultContent = document.getElementById('resultContent');
+                    if (data.success) {
+                        let previewHtml = '';
+                        if (data.pessoas && data.pessoas.length > 0) {
+                            previewHtml += `<div class="alert alert-info mt-3"><b>Prévia dos dados extraídos (máx. 20 registros):</b></div>`;
+                            previewHtml += `<div class="table-responsive"><table class="table"><thead><tr>` +
+                                `<th>Nome</th><th>Documento</th><th>Processo</th><th>País</th><th>Estado</th><th>Idade</th><th>Nascimento</th><th>Nº Portaria</th><th>Data Portaria</th><th>Tipo Portaria</th>` +
+                                `</tr></thead><tbody>`;
+                            data.pessoas.forEach(function(p) {
+                                previewHtml += `<tr>` +
+                                    `<td>${p.nome || p["Nome"] || ''}</td>` +
+                                    `<td>${p.documento || p["Documento"] || ''}</td>` +
+                                    `<td>${p.processo || p["Processo"] || p["Número do Processo"] || ''}</td>` +
+                                    `<td>${p.pais || p["País"] || p["Nacionalidade"] || ''}</td>` +
+                                    `<td>${p.estado || p["Estado"] || ''}</td>` +
+                                    `<td>${p.idade || p["Idade"] || ''}</td>` +
+                                    `<td>${p.data_nascimento || p["Data Nascimento"] || ''}</td>` +
+                                    `<td>${p.numero_portaria || p["numero_portaria"] || p["Nº Portaria"] || ''}</td>` +
+                                    `<td>${p.data_portaria || p["data_portaria"] || ''}</td>` +
+                                    `<td>${p.tipo_portaria || p["tipo_portaria"] || ''}</td>` +
+                                `</tr>`;
+                            });
+                            previewHtml += `</tbody></table></div>`;
+                        }
+                        resultContent.innerHTML = `
+                            <div class="alert alert-success">
+                                <h6><i class="fas fa-file-excel"></i> Planilha gerada com sucesso!</h6>
+                                <p><strong>Arquivo:</strong> ${data.arquivo}</p>
+                                <p><strong>Total de registros:</strong> ${data.total_registros}</p>
+                                <p><strong>Tipo de busca:</strong> ${tipoPortaria}</p>
+                                <a href="/download/${data.arquivo}" class="btn btn-success" style="border:1.5px solid #1351b4; color:#1351b4; background:#eaf6ff; font-weight:600; font-size:1.5rem; border-radius:8px; margin-top:1rem;">
+                                    <i class="fas fa-download"></i> Baixar Planilha
+                                </a>
+                            </div>
+                            ${previewHtml}
+                        `;
+                    } else {
+                        resultContent.innerHTML = `
+                            <div class="alert alert-warning">
+                                <h6><i class="fas fa-exclamation-triangle"></i> ${data.mensagem || data.message || 'Erro desconhecido.'}</h6>
+                                <p>Nenhuma portaria foi encontrada no período especificado ou ocorreu um erro.</p>
+                                <p><strong>Mensagem detalhada:</strong> ${(data.mensagem || data.message || 'Sem detalhes do erro.')}</p>
+                                <p><strong>Dicas:</strong></p>
+                                <ul>
+                                    <li>Tente um período menor (ex: 3 meses)</li>
+                                    <li>Use a busca específica para melhores resultados</li>
+                                    <li>Verifique se o Chrome está instalado e atualizado</li>
+                                    <li>Verifique se o ChromeDriver pode ser baixado</li>
+                                </ul>
+                            </div>
+                        `;
+                    }
+                }, 1000);
+            })
+            .catch(error => {
+                clearInterval(progressInterval);
+                document.getElementById('progressContainer').style.display = 'none';
+                document.getElementById('resultContainer').style.display = 'block';
+                document.getElementById('resultContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-times-circle"></i> Erro na busca</h6>
+                        <p>Ocorreu um erro durante a busca: ${error.message}</p>
+                        <p><strong>Possíveis causas:</strong></p>
+                        <ul>
+                            <li>Problema de conexão com a internet</li>
+                            <li>API do Querido Diário temporariamente indisponível</li>
+                            <li>Período muito longo (tente dividir em partes menores)</li>
+                        </ul>
+                    </div>
+                `;
+            });
+        });
+    </script>
+    <script>
+    // Efeito stagger
+    window.addEventListener('DOMContentLoaded', function() {
+        const items = document.querySelectorAll('.stagger');
+        items.forEach((el, i) => {
+            setTimeout(() => el.classList.add('stagger-in'), 120 * i);
+        });
+    });
+    </script>
+{% endblock %}

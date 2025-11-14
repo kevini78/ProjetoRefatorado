@@ -1,0 +1,3 @@
+"""
+Utilitários para automação
+"""

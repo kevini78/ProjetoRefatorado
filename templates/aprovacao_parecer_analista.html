@@ -1,0 +1,683 @@
+{% extends "base.html" %}
+
+{% block title %}Aprovação de Parecer do Analista - Automações MJ{% endblock %}
+
+{% block extra_css %}
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 120px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .page-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--color-primary-default);
+            margin-bottom: 1rem;
+        }
+        .page-description {
+            font-size: 1.7rem;
+            color: var(--color-secondary-07);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .control-panel {
+            background: var(--color-secondary-01);
+            border: 1px solid var(--color-secondary-03);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .status-display {
+            background: var(--color-secondary-02);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--color-info);
+        }
+        .status-display.running { border-left-color: var(--color-warning); }
+        .status-display.completed { border-left-color: var(--color-success); }
+        .status-display.error { border-left-color: var(--color-danger); }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--color-secondary-04);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 2.4rem;
+            background: var(--gradient-primary);
+            color: var(--color-secondary-01);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.6rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19,81,180,0.3);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-danger {
+            background: linear-gradient(90deg, #dc3545 0%, #c82333 100%);
+        }
+        .btn-secondary {
+            background: var(--color-secondary-04);
+            color: var(--color-secondary-08);
+        }
+
+        .info-section {
+            background: var(--color-secondary-02);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .info-section h3 {
+            color: var(--color-primary-default);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-section li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .info-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .log-container {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            line-height: 1.4;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.3rem 0;
+        }
+        .log-entry.info { color: #8be9fd; }
+        .log-entry.success { color: #50fa7b; }
+        .log-entry.warning { color: #ffb86c; }
+        .log-entry.error { color: #ff5555; }
+        .log-timestamp {
+            color: #6272a4;
+            margin-right: 1rem;
+        }
+
+        .alert {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid;
+        }
+        .alert-info {
+            background: #e3f2fd;
+            border-left-color: #17a2b8;
+            color: #0277bd;
+        }
+        .alert-warning {
+            background: #fff8e1;
+            border-left-color: #ffc107;
+            color: #f57c00;
+        }
+        .alert-success {
+            background: #e8f5e8;
+            border-left-color: #28a745;
+            color: #2e7d32;
+        }
+
+        .hidden { display: none; }
+        .loading {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .mode-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--color-secondary-01);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .mode-option.selected {
+            border-color: var(--color-primary-default);
+            background: #e3f2fd;
+        }
+
+        @media (max-width: 768px) {
+            .main { padding: 2rem 1rem; }
+            .control-panel, .info-section { padding: 1.5rem; }
+            .page-title { font-size: 2.4rem; }
+        }
+
+        /* Definir cores de variáveis CSS que estão sendo usadas */
+        :root {
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            --color-danger: #dc3545;
+            --color-info: #17a2b8;
+        }
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 class="page-title">👨‍⚖️ Aprovação de Parecer do Analista</h1>
+        <p class="page-description">
+            Automação para aprovar pareceres do analista com validação automática de requisitos (idade, biometria, divergências)
+        </p>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>🔧 Modo Visual Ativado:</strong> Esta automação roda em modo visual para que você possa acompanhar a execução em tempo real no navegador.
+    </div>
+
+    <div class="info-section">
+        <h3>📋 Como Funciona</h3>
+        <ul>
+            <li>Acessa a Caixa de Entrada do sistema LECOM</li>
+            <li>Aplica filtros para mostrar apenas processos "Naturalizar-se Brasileiro - Fluxo Principal" com atividade "Aprovar Parecer do Analista"</li>
+            <li>Processa todos os processos filtrados</li>
+            <li>Verifica se pareceres PF e MJ são iguais (aceita qualquer proposta: deferimento, indeferimento ou arquivamento)</li>
+            <li>Valida se biometria foi coletada (aceita "Sim" ou "Não se aplica")</li>
+            <li>Verifica idade conforme tipo de naturalização:
+                <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                    <li>Ordinária e Extraordinária: ≥ 18 anos</li>
+                    <li>Provisória: ≤ 17 anos</li>
+                </ul>
+            </li>
+            <li>Se todos os requisitos forem atendidos: marca para "ENVIAR PARA CPMIG"</li>
+            <li>Se algum requisito falhar: marca para "ANÁLISE MANUAL"</li>
+            <li>Gera planilha Excel com resultados (conforme LGPD)</li>
+        </ul>
+    </div>
+
+    <div class="control-panel">
+        <div id="initial-controls">
+            <h3 style="margin-bottom: 2rem; color: var(--color-primary-default);">🚀 Iniciar Automação</h3>
+            
+            <!-- Seleção do Modo de Execução -->
+            <div style="margin-bottom: 2rem; padding: 2rem; background: var(--color-secondary-02); border-radius: 8px; border: 1px solid var(--color-secondary-03);">
+                <h4 style="margin-bottom: 1.5rem; color: var(--color-primary-default);">🔧 Modo de Execução</h4>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <label class="mode-option selected" style="border-color: var(--color-primary-default); background: #e3f2fd;">
+                        <input type="radio" name="execution_mode" value="versao" checked style="margin-right: 1rem; transform: scale(1.2);">
+                        <div>
+                            <strong style="display: block; color: var(--color-primary-default); margin-bottom: 0.5rem;">📋 Seleção por Versão (Padrão)</strong>
+                            <span style="color: var(--color-secondary-07); font-size: 1.4rem;">Processa todos os processos da atividade "Aprovar Parecer do Analista" filtrados por versão do fluxo (v.11)</span>
+                        </div>
+                    </label>
+                    
+                    <label class="mode-option">
+                        <input type="radio" name="execution_mode" value="planilha" style="margin-right: 1rem; transform: scale(1.2);">
+                        <div>
+                            <strong style="display: block; color: var(--color-primary-default); margin-bottom: 0.5rem;">📊 Seleção por Planilha</strong>
+                            <span style="color: var(--color-secondary-07); font-size: 1.4rem;">Processa apenas os processos listados em uma planilha Excel (.xlsx) que você fará upload</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Upload de Planilha (inicialmente oculto) -->
+            <div id="planilha-upload-section" style="margin-bottom: 2rem; padding: 2rem; background: var(--color-secondary-02); border-radius: 8px; border: 1px solid var(--color-secondary-03); display: none;">
+                <h4 style="margin-bottom: 1.5rem; color: var(--color-primary-default);">📎 Upload da Planilha</h4>
+                
+                <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+                    <strong>📋 Formato da Planilha:</strong>
+                    <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                        <li>Arquivo Excel (.xlsx)</li>
+                        <li>Deve conter uma coluna chamada <strong>"codigo"</strong> com os códigos dos processos</li>
+                        <li>Exemplo: uma coluna com valores como "12345", "67890", etc.</li>
+                    </ul>
+                </div>
+                
+                <div style="border: 2px dashed var(--color-secondary-04); border-radius: 8px; padding: 2rem; text-align: center; background: var(--color-secondary-01);">
+                    <input type="file" id="planilha-file" accept=".xlsx,.xls" style="display: none;">
+                    <button type="button" onclick="document.getElementById('planilha-file').click()" class="btn btn-secondary" style="margin-bottom: 1rem;">
+                        📁 Selecionar Planilha Excel
+                    </button>
+                    <div id="file-info" style="margin-top: 1rem; color: var(--color-secondary-07); font-size: 1.4rem;">
+                        Nenhum arquivo selecionado
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Importante:</strong> 
+                <ul style="margin-top: 1rem; margin-left: 2rem;">
+                    <li>Certifique-se de que está logado no sistema LECOM</li>
+                    <li id="process-count-info">A automação processará TODOS os processos na Caixa de Entrada</li>
+                    <li>Uma planilha Excel será gerada automaticamente com os resultados</li>
+                    <li>O processo pode demorar vários minutos dependendo da quantidade de processos</li>
+                </ul>
+            </div>
+
+            <button id="start-btn" class="btn">
+                🎯 Iniciar Aprovação de Parecer
+            </button>
+        </div>
+
+        <div id="progress-controls" class="hidden">
+            <h3 style="margin-bottom: 1rem; color: var(--color-primary-default);">📊 Progresso da Execução</h3>
+            
+            <div class="status-display" id="status-display">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <strong id="status-text">Preparando...</strong>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div id="status-detail" style="margin-top: 1rem; font-size: 1.4rem; color: var(--color-secondary-07);">
+                    Inicializando automação...
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button id="stop-btn" class="btn btn-danger">
+                    ⏹️ Parar Execução
+                </button>
+                <button id="new-process-btn" class="btn btn-secondary hidden">
+                    🔄 Nova Execução
+                </button>
+            </div>
+
+            <div id="planilha-section" class="hidden" style="margin-top: 2rem;">
+                <h4 style="margin-bottom: 1rem;">📊 Resultados Processados</h4>
+                <div class="results-summary" id="results-summary" style="margin-bottom: 1.5rem; padding: 1.5rem; background: var(--color-secondary-01); border-radius: 8px; border: 1px solid var(--color-secondary-03);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--color-primary-default);" id="total-processes">0</div>
+                            <div style="font-size: 1.2rem; color: var(--color-secondary-07);">Total Processados</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: #27ae60;" id="cpmig-processes">0</div>
+                            <div style="font-size: 1.2rem; color: var(--color-secondary-07);">Para CPMIG</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: #f39c12;" id="manual-processes">0</div>
+                            <div style="font-size: 1.2rem; color: var(--color-secondary-07);">Análise Manual</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="planilha-container" id="planilha-container" style="overflow-x: auto; max-height: 400px; border: 1px solid var(--color-secondary-03); border-radius: 8px; background: var(--color-secondary-01);">
+                    <table id="results-table" style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: var(--color-secondary-02); position: sticky; top: 0;">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Processo</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Parecer PF</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Parecer MJ</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Biometria</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Tipo</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Status</th>
+                                <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary-03);">Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-tbody">
+                            <tr>
+                                <td colspan="7" style="padding: 2rem; text-align: center; color: var(--color-secondary-07);">
+                                    Nenhum processo processado ainda...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 1rem; text-align: center;">
+                    <button id="download-planilha" class="btn btn-secondary hidden">
+                        📥 Baixar Planilha Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        let currentProcessId = null;
+        let statusCheckInterval = null;
+
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const newProcessBtn = document.getElementById('new-process-btn');
+        const initialControls = document.getElementById('initial-controls');
+        const progressControls = document.getElementById('progress-controls');
+        const statusDisplay = document.getElementById('status-display');
+        const statusText = document.getElementById('status-text');
+        const statusDetail = document.getElementById('status-detail');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+
+        startBtn.addEventListener('click', iniciarProcesso);
+        stopBtn.addEventListener('click', pararProcesso);
+        newProcessBtn.addEventListener('click', novaExecucao);
+
+        // Controle do modo de execução
+        const modeRadios = document.querySelectorAll('input[name="execution_mode"]');
+        const planilhaUploadSection = document.getElementById('planilha-upload-section');
+        const planilhaFileInput = document.getElementById('planilha-file');
+        const fileInfo = document.getElementById('file-info');
+        const processCountInfo = document.getElementById('process-count-info');
+
+        // Estilo dos radio buttons quando selecionados
+        function updateModeSelection() {
+            modeRadios.forEach(radio => {
+                const label = radio.closest('.mode-option');
+                if (radio.checked) {
+                    label.classList.add('selected');
+                } else {
+                    label.classList.remove('selected');
+                }
+            });
+
+            // Mostrar/ocultar seção de upload baseado no modo selecionado
+            const selectedMode = document.querySelector('input[name="execution_mode"]:checked').value;
+            if (selectedMode === 'planilha') {
+                planilhaUploadSection.style.display = 'block';
+                processCountInfo.textContent = 'A automação processará apenas os processos listados na planilha';
+            } else {
+                planilhaUploadSection.style.display = 'none';
+                processCountInfo.textContent = 'A automação processará TODOS os processos na Caixa de Entrada';
+            }
+        }
+
+        modeRadios.forEach(radio => {
+            radio.addEventListener('change', updateModeSelection);
+        });
+
+        // Controle do upload de arquivo
+        planilhaFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                fileInfo.innerHTML = `
+                    <span style="color: var(--color-success); font-weight: bold;">✅ ${file.name}</span><br>
+                    <span style="font-size: 1.2rem;">${(file.size / 1024).toFixed(1)} KB</span>
+                `;
+            } else {
+                fileInfo.innerHTML = 'Nenhum arquivo selecionado';
+            }
+        });
+
+        // Inicializar estado
+        updateModeSelection();
+
+        function iniciarProcesso() {
+            const selectedMode = document.querySelector('input[name="execution_mode"]:checked').value;
+            
+            // Validar se modo planilha tem arquivo selecionado
+            if (selectedMode === 'planilha') {
+                const file = planilhaFileInput.files[0];
+                if (!file) {
+                    alert('Por favor, selecione uma planilha Excel para executar no modo planilha.');
+                    return;
+                }
+                
+                // Validar extensão do arquivo
+                if (!file.name.toLowerCase().endsWith('.xlsx') && !file.name.toLowerCase().endsWith('.xls')) {
+                    alert('Por favor, selecione um arquivo Excel (.xlsx ou .xls).');
+                    return;
+                }
+            }
+            
+            startBtn.disabled = true;
+            startBtn.textContent = 'Iniciando...';
+
+            // Preparar dados para envio
+            const formData = new FormData();
+            formData.append('execution_mode', selectedMode);
+            
+            if (selectedMode === 'planilha') {
+                formData.append('planilha', planilhaFileInput.files[0]);
+            }
+
+            fetch('/api/aprovacao_parecer_analista/iniciar', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentProcessId = data.process_id;
+                    mostrarProgresso();
+                    iniciarMonitoramento();
+                } else {
+                    alert('Erro ao iniciar processo: ' + data.error);
+                    startBtn.disabled = false;
+                    startBtn.textContent = '🎯 Iniciar Aprovação de Parecer';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao iniciar processo');
+                startBtn.disabled = false;
+                startBtn.textContent = '🎯 Iniciar Aprovação de Parecer';
+            });
+        }
+
+        function pararProcesso() {
+            if (!currentProcessId) return;
+
+            stopBtn.disabled = true;
+            stopBtn.textContent = 'Parando...';
+
+            fetch(`/api/aprovacao_parecer_analista/parar/${currentProcessId}`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Log será adicionado via polling
+                } else {
+                    alert('Erro ao parar processo: ' + data.error);
+                    stopBtn.disabled = false;
+                    stopBtn.textContent = '⏹️ Parar Execução';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao parar processo');
+                stopBtn.disabled = false;
+                stopBtn.textContent = '⏹️ Parar Execução';
+            });
+        }
+
+        function novaExecucao() {
+            // Reset da interface
+            currentProcessId = null;
+            clearInterval(statusCheckInterval);
+            
+            initialControls.classList.remove('hidden');
+            progressControls.classList.add('hidden');
+            newProcessBtn.classList.add('hidden');
+            
+            startBtn.disabled = false;
+            startBtn.textContent = '🎯 Iniciar Aprovação de Parecer';
+            stopBtn.disabled = false;
+            stopBtn.textContent = '⏹️ Parar Execução';
+            
+            // Limpar planilha
+            const tbody = document.getElementById('results-tbody');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="padding: 2rem; text-align: center; color: var(--color-secondary-07);">
+                        Nenhum processo processado ainda...
+                    </td>
+                </tr>
+            `;
+            
+            // Ocultar seção de planilha
+            document.getElementById('planilha-section').classList.add('hidden');
+            
+            // Resetar contadores
+            document.getElementById('total-processes').textContent = '0';
+            document.getElementById('cpmig-processes').textContent = '0';
+            document.getElementById('manual-processes').textContent = '0';
+        }
+
+        function mostrarProgresso() {
+            initialControls.classList.add('hidden');
+            progressControls.classList.remove('hidden');
+        }
+
+        function iniciarMonitoramento() {
+            statusCheckInterval = setInterval(verificarStatus, 2000);
+        }
+
+        function verificarStatus() {
+            if (!currentProcessId) return;
+
+            fetch(`/api/aprovacao_parecer_analista/status/${currentProcessId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Erro ao verificar status:', data.error);
+                        return;
+                    }
+
+                    // Atualizar status
+                    statusText.textContent = data.status_text;
+                    statusDetail.textContent = data.detail;
+                    progressFill.style.width = data.progress + '%';
+                    progressPercent.textContent = data.progress + '%';
+
+                    // Atualizar classe do status display
+                    statusDisplay.className = 'status-display ' + data.status;
+
+                    // Verificar se processo terminou
+                    if (data.status === 'completed' || data.status === 'error') {
+                        clearInterval(statusCheckInterval);
+                        stopBtn.classList.add('hidden');
+                        newProcessBtn.classList.remove('hidden');
+                        
+                        if (data.status === 'completed') {
+                            mostrarResumoFinal();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar status:', error);
+                });
+        }
+
+        function addResultToTable(resultado) {
+            const tbody = document.getElementById('results-tbody');
+            
+            // Se é o primeiro resultado, limpar a mensagem de "nenhum processo"
+            if (tbody.children.length === 1 && tbody.children[0].children.length === 1) {
+                tbody.innerHTML = '';
+            }
+            
+            const row = document.createElement('tr');
+            row.style.borderBottom = '1px solid var(--color-secondary-03)';
+            
+            const statusColor = resultado.status === 'ENVIAR PARA CPMIG' ? '#27ae60' : '#f39c12';
+            
+            row.innerHTML = `
+                <td style="padding: 1rem;">${resultado.processo}</td>
+                <td style="padding: 1rem;">${resultado.parecer_pf}</td>
+                <td style="padding: 1rem;">${resultado.parecer_mj}</td>
+                <td style="padding: 1rem;">${resultado.biometria}</td>
+                <td style="padding: 1rem;">${resultado.tipo_naturalizacao}</td>
+                <td style="padding: 1rem; color: ${statusColor}; font-weight: bold;">${resultado.status}</td>
+                <td style="padding: 1rem;">${resultado.motivo_analise_manual || '-'}</td>
+            `;
+            
+            tbody.appendChild(row);
+            
+            // Atualizar resumo
+            updateSummary();
+        }
+        
+        function updateSummary() {
+            const tbody = document.getElementById('results-tbody');
+            const rows = tbody.querySelectorAll('tr');
+            
+            let total = 0;
+            let cpmig = 0;
+            let manual = 0;
+            
+            rows.forEach(row => {
+                if (row.children.length > 1) { // Não contar a linha de "nenhum processo"
+                    total++;
+                    const status = row.children[5].textContent.trim();
+                    if (status === 'ENVIAR PARA CPMIG') {
+                        cpmig++;
+                    } else if (status === 'ANÁLISE MANUAL') {
+                        manual++;
+                    }
+                }
+            });
+            
+            document.getElementById('total-processes').textContent = total;
+            document.getElementById('cpmig-processes').textContent = cpmig;
+            document.getElementById('manual-processes').textContent = manual;
+            
+            // Mostrar seção de planilha se há resultados
+            if (total > 0) {
+                document.getElementById('planilha-section').classList.remove('hidden');
+            }
+        }
+
+        function mostrarResumoFinal() {
+            // Mostrar mensagem de conclusão no status
+            statusText.textContent = 'Execução Concluída';
+            statusDetail.innerHTML = `
+                ✅ Todos os processos foram analisados<br>
+                📁 Planilha Excel gerada na pasta do projeto<br>
+                📋 Verifique os resultados na tabela abaixo
+            `;
+        }
+    </script>
+{% endblock %}

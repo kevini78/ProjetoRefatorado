@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Automática + Planilha - Sistema de Perda</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        .container { margin-top: 2rem; }
+        .card { margin-bottom: 2rem; }
+        .file-field { margin-bottom: 1rem; }
+        .btn-large { margin: 1rem 0; }
+        .resultado { margin-top: 2rem; }
+        .codigos-lista { max-height: 300px; overflow-y: auto; }
+        .codigo-item { padding: 0.5rem; margin: 0.25rem 0; background: #f5f5f5; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <nav class="blue darken-3">
+        <div class="nav-wrapper container">
+            <a href="{{ url_for('index') }}" class="brand-logo">
+                <i class="material-icons left">home</i>
+                Sistema de Perda
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('analise_automatica') }}">Análise Automática</a></li>
+                <li><a href="{{ url_for('gerar_planilha_resultados') }}" class="active">Gerar Planilha</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="blue-text text-darken-3">
+                    <i class="material-icons left">play_circle</i>
+                    Análise Automática de Processos + Planilha
+                </h4>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">🚀 Análise Automática + Modificação de Planilha</span>
+                        <p>
+                            Esta funcionalidade <strong>analisa automaticamente</strong> todos os processos da sua planilha e <strong>atualiza em tempo real</strong>:
+                        </p>
+                        <ul class="browser-default">
+                            <li><strong>🔍 Busca Automática</strong> - Cada código é pesquisado no Lecom</li>
+                            <li><strong>📄 Download de Documentos</strong> - Baixa todos os documentos necessários</li>
+                            <li><strong>🤖 OCR Automático</strong> - Extrai texto de todos os documentos</li>
+                            <li><strong>🧠 Análise com IA</strong> - Determina deferimento/indeferimento</li>
+                            <li><strong>📊 Atualização em Tempo Real</strong> - Planilha é modificada a cada processo</li>
+                            <li><strong>💾 Salvamento Automático</strong> - Sua planilha fica completa no final</li>
+                        </ul>
+                        <p class="green-text">
+                            <i class="material-icons tiny">check_circle</i>
+                            <strong>PERFEITO:</strong> Agora funciona exatamente como você queria! A planilha é analisada e atualizada automaticamente.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">📁 Upload da Planilha de Códigos</span>
+                        
+                        <form method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="file-field input-field">
+                                <div class="btn blue darken-3">
+                                    <span>Escolher Arquivo</span>
+                                    <input type="file" name="planilha_codigos" accept=".xlsx,.xls" required>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Selecione uma planilha Excel (.xlsx ou .xls)">
+                                </div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <input id="nome_arquivo" name="nome_arquivo" type="text" class="validate">
+                                <label for="nome_arquivo">Nome do arquivo de saída (opcional)</label>
+                                <span class="helper-text">Deixe em branco para nome automático</span>
+                            </div>
+                            
+                            <button type="submit" class="btn-large blue darken-3 waves-effect waves-light">
+                                <i class="material-icons left">play_arrow</i>
+                                Iniciar Análise Automática
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {% if codigos_carregados %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">📋 Códigos Carregados</span>
+                        <p>Total de códigos encontrados: <strong>{{ codigos_carregados|length }}</strong></p>
+                        
+                        <div class="codigos-lista">
+                            {% for codigo in codigos_carregados %}
+                            <div class="codigo-item">
+                                <i class="material-icons tiny green-text">check_circle</i>
+                                {{ codigo }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% if arquivo_gerado %}
+                        <div class="resultado">
+                            {% if analise_concluida %}
+                            <div class="card-panel green lighten-4 green-text text-darken-4">
+                                <i class="material-icons left">check_circle</i>
+                                <strong>✅ Análise Automática Concluída!</strong>
+                                <br>
+                                <p>Arquivo: <strong>{{ arquivo_gerado }}</strong></p>
+                                <p>Processos analisados: <strong>{{ resultados_encontrados }}</strong> de {{ codigos_carregados|length }} códigos</p>
+                                
+                                <div style="margin-top: 1rem;">
+                                    <a href="{{ url_for('download_planilha_modificada', nome_arquivo=arquivo_gerado) }}" 
+                                       class="btn-large green darken-2 waves-effect waves-light">
+                                        <i class="material-icons left">file_download</i>
+                                        Download da Planilha Completa
+                                    </a>
+                                </div>
+                                
+                                <p style="margin-top: 1rem; font-size: 0.9em;">
+                                    <i class="material-icons tiny">info</i>
+                                    Sua planilha foi analisada automaticamente e está completa com todos os resultados!
+                                </p>
+                            </div>
+                            {% else %}
+                            <div class="card-panel blue lighten-4 blue-text text-darken-4">
+                                <i class="material-icons left">info</i>
+                                <strong>📊 Planilha com Resultados Existentes</strong>
+                                <br>
+                                <p>Arquivo: <strong>{{ arquivo_gerado }}</strong></p>
+                                <p>Resultados encontrados: <strong>{{ resultados_encontrados }}</strong> de {{ codigos_carregados|length }} códigos</p>
+                                
+                                <div style="margin-top: 1rem;">
+                                    <a href="{{ url_for('download_planilha_modificada', nome_arquivo=arquivo_gerado) }}" 
+                                       class="btn-large blue darken-2 waves-effect waves-light">
+                                        <i class="material-icons left">file_download</i>
+                                        Download da Planilha
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <div class="resultado">
+                            <p class="blue-text">
+                                <i class="material-icons left">info</i>
+                                Códigos carregados com sucesso! Clique em "Iniciar Análise Automática" para processar todos os processos.
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">ℹ️ Como Funciona</span>
+                        <ol class="browser-default">
+                            <li><strong>Upload da Planilha</strong> - Faça upload da planilha contendo apenas a coluna "Codigo"</li>
+                            <li><strong>Iniciar Análise</strong> - Clique em "Iniciar Análise Automática"</li>
+                            <li><strong>Processamento Automático</strong> - Sistema analisa cada processo no Lecom</li>
+                            <li><strong>Atualização em Tempo Real</strong> - Planilha é modificada a cada processo</li>
+                            <li><strong>Download Final</strong> - Sua planilha completa com todos os resultados</li>
+                        </ol>
+                        
+                        <div class="divider" style="margin: 2rem 0;"></div>
+                        
+                        <h6>📊 Estrutura da Planilha Modificada:</h6>
+                        <table class="striped">
+                            <thead>
+                                <tr>
+                                    <th>Coluna</th>
+                                    <th>Descrição</th>
+                                    <th>Exemplo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Codigo</strong></td>
+                                    <td>Código do processo</td>
+                                    <td>679380</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Texto_Portaria_Provisoria</strong></td>
+                                    <td>Texto extraído da portaria</td>
+                                    <td>PORTARIA Nº 121, DE 13 DE JUNHO DE 2018...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Texto_Identidade</strong></td>
+                                    <td>Texto extraído da identidade</td>
+                                    <td>REPÚBLICA FEDERATIVA DO BRASIL...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Texto_Antecedentes_Criminais</strong></td>
+                                    <td>Texto extraído dos antecedentes</td>
+                                    <td>CERTIDÃO DE ANTECEDENTES CRIMINAIS...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Resultado_Analise</strong></td>
+                                    <td>Deferimento ou Indeferimento</td>
+                                    <td>Deferimento</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Status_Processamento</strong></td>
+                                    <td>Status do processamento</td>
+                                    <td>Sucesso total</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        // Inicializar componentes do Materialize
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+        });
+    </script>
+</body>
+</html> 

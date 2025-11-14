@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload - Sistema de Análise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .upload-area {
+            border: 2px dashed #007bff;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            background: #f8f9ff;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: #0056b3;
+            background: #e3f2fd;
+        }
+        .upload-area.dragover {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fas fa-shield-alt me-2"></i>
+                {{ system_name }}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">
+                    <i class="fas fa-home me-1"></i>Dashboard
+                </a>
+                <a class="nav-link" href="{{ url_for('list_files') }}">
+                    <i class="fas fa-folder me-1"></i>Arquivos
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Alertas -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Header -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">
+                    <i class="fas fa-cloud-upload-alt me-2"></i>Upload de Arquivos
+                </h2>
+            </div>
+        </div>
+
+        <!-- Área de Upload -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt fa-4x text-primary mb-3"></i>
+                                <h4>Arraste arquivos aqui ou clique para selecionar</h4>
+                                <p class="text-muted mb-3">
+                                    Formatos aceitos: PDF, PNG, JPG, JPEG, XLSX, XLS
+                                </p>
+                                <input type="file" 
+                                       class="form-control d-none" 
+                                       id="fileInput" 
+                                       name="file" 
+                                       accept=".pdf,.png,.jpg,.jpeg,.xlsx,.xls"
+                                       multiple>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()">
+                                    <i class="fas fa-folder-open me-2"></i>Selecionar Arquivos
+                                </button>
+                            </div>
+                            
+                            <div id="fileList" class="mt-3"></div>
+                            
+                            <div class="text-center mt-3" id="uploadButton" style="display: none;">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-upload me-2"></i>Enviar Arquivos
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-info-circle me-2"></i>Informações
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Tamanho máximo: 50MB por arquivo</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Upload múltiplo suportado</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Validação automática de tipos</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Armazenamento seguro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-file-alt me-2"></i>Formatos Aceitos
+                        </h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="d-block"><i class="fas fa-file-pdf text-danger me-1"></i>PDF</small>
+                                <small class="d-block"><i class="fas fa-file-image text-primary me-1"></i>PNG</small>
+                                <small class="d-block"><i class="fas fa-file-image text-primary me-1"></i>JPG</small>
+                            </div>
+                            <div class="col-6">
+                                <small class="d-block"><i class="fas fa-file-image text-primary me-1"></i>JPEG</small>
+                                <small class="d-block"><i class="fas fa-file-excel text-success me-1"></i>XLSX</small>
+                                <small class="d-block"><i class="fas fa-file-excel text-success me-1"></i>XLS</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="row mt-3" id="progressContainer" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Enviando arquivo...</h6>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 role="progressbar" 
+                                 style="width: 0%" 
+                                 id="progressBar">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Elementos
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const uploadButton = document.getElementById('uploadButton');
+        const uploadForm = document.getElementById('uploadForm');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            fileInput.files = files;
+            displayFiles(files);
+        });
+
+        // Seleção de arquivos
+        fileInput.addEventListener('change', (e) => {
+            displayFiles(e.target.files);
+        });
+
+        // Exibir arquivos selecionados
+        function displayFiles(files) {
+            fileList.innerHTML = '';
+            
+            if (files.length > 0) {
+                const listGroup = document.createElement('div');
+                listGroup.className = 'list-group';
+                
+                Array.from(files).forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-group-item d-flex justify-content-between align-items-center';
+                    
+                    const fileInfo = document.createElement('div');
+                    fileInfo.innerHTML = `
+                        <i class="fas fa-file me-2"></i>
+                        <strong>${file.name}</strong>
+                        <small class="text-muted ms-2">(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+                    `;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'btn btn-sm btn-outline-danger';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.onclick = () => removeFile(index);
+                    
+                    item.appendChild(fileInfo);
+                    item.appendChild(removeBtn);
+                    listGroup.appendChild(item);
+                });
+                
+                fileList.appendChild(listGroup);
+                uploadButton.style.display = 'block';
+            } else {
+                uploadButton.style.display = 'none';
+            }
+        }
+
+        // Remover arquivo
+        function removeFile(index) {
+            const dt = new DataTransfer();
+            const files = fileInput.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(files[i]);
+                }
+            }
+            
+            fileInput.files = dt.files;
+            displayFiles(fileInput.files);
+        }
+
+        // Submit do formulário
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (fileInput.files.length === 0) {
+                alert('Selecione pelo menos um arquivo');
+                return;
+            }
+            
+            // Mostrar progress bar
+            progressContainer.style.display = 'block';
+            uploadButton.style.display = 'none';
+            
+            // Simular progresso
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+                
+                if (progress >= 90) {
+                    clearInterval(progressInterval);
+                }
+            }, 200);
+            
+            // Enviar arquivo
+            const formData = new FormData();
+            for (let file of fileInput.files) {
+                formData.append('file', file);
+            }
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                // Completar progresso
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                progressBar.textContent = '100%';
+                
+                setTimeout(() => {
+                    if (result.success) {
+                        // Mostrar sucesso
+                        const alert = document.createElement('div');
+                        alert.className = 'alert alert-success alert-dismissible fade show';
+                        alert.innerHTML = `
+                            <i class="fas fa-check-circle me-2"></i>
+                            ${result.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        `;
+                        document.querySelector('.container').insertBefore(alert, document.querySelector('.row'));
+                        
+                        // Reset form
+                        fileInput.value = '';
+                        fileList.innerHTML = '';
+                        uploadButton.style.display = 'none';
+                        progressContainer.style.display = 'none';
+                        progressBar.style.width = '0%';
+                        progressBar.textContent = '0%';
+                        
+                    } else {
+                        throw new Error(result.message);
+                    }
+                }, 500);
+                
+            } catch (error) {
+                clearInterval(progressInterval);
+                
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-danger alert-dismissible fade show';
+                alert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Erro no upload: ${error.message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.querySelector('.container').insertBefore(alert, document.querySelector('.row'));
+                
+                progressContainer.style.display = 'none';
+                uploadButton.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

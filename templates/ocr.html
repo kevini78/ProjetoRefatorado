@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Leitor OCR de Documentos - Automações MJ{% endblock %}
+
+{% block extra_css %}
+        body { background: #f4f8fb; }
+        .ocr-center-container {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ocr-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(19,81,180,0.08);
+            padding: 2.5em 2em 2em 2em;
+            max-width: 700px;
+            width: 100%;
+            margin: 2em 0;
+        }
+        .ocr-title {
+            color: #1351b4;
+            font-size: 2.1em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        .ocr-desc {
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 1.5em;
+            font-size: 1.1em;
+        }
+        .ocr-upload-area {
+            background: #e9f1fb;
+            border: 2px dashed #1351b4;
+            border-radius: 8px;
+            padding: 1.5em 1em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            transition: background 0.2s;
+        }
+        .ocr-upload-area:hover {
+            background: #d4e3fa;
+        }
+        .ocr-upload-area input[type="file"] {
+            display: none;
+        }
+        .ocr-upload-label {
+            display: inline-block;
+            background: #1351b4;
+            color: #fff;
+            padding: 0.7em 2em;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 0.5em;
+            transition: background 0.2s;
+        }
+        .ocr-upload-label:hover {
+            background: #0d3c7b;
+        }
+        .ocr-btn {
+            width: 100%;
+            background: #1351b4;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 1em;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 1em;
+            transition: background 0.2s;
+        }
+        .ocr-btn:hover {
+            background: #0d3c7b;
+        }
+        #loading-box, #success-box {
+            display: none;
+            width: 100%;
+            margin: 1.5em 0;
+            padding: 1.5em 1em;
+            border-radius: 8px;
+            font-size: 1.15em;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #loading-box {
+            background: #e9f1fb;
+            color: #1351b4;
+            border: 2px solid #b3c7e6;
+            text-align: center;
+        }
+        #success-box {
+            display: none;
+            background: #e6f9ed;
+            color: #218838;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 1.2em 1em;
+            text-align: center;
+            font-size: 1.15em;
+            margin: 1.5em 0;
+            box-shadow: 0 2px 8px #d4f5e3;
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: unset;
+        }
+        #success-box i {
+            color: #28a745;
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .ocr-section-title {
+            color: #1351b4;
+            font-size: 1.25em;
+            font-weight: 600;
+            margin-top: 2em;
+            margin-bottom: 0.7em;
+        }
+        .ocr-fields-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-bottom: 1.5em;
+        }
+        .ocr-fields-table td {
+            background: #f8f9fa;
+            padding: 0.8em 1em;
+            border-radius: 6px;
+            font-size: 1.08em;
+            border: none;
+        }
+        .ocr-fields-table td.label {
+            font-weight: bold;
+            color: #1351b4;
+            width: 38%;
+            text-align: right;
+            padding-right: 1.2em;
+            background: #e9f1fb;
+        }
+        .ocr-fields-table td.value {
+            color: #222;
+            text-align: left;
+            background: #f8f9fa;
+        }
+        .ocr-extracted-text {
+            background: #f4f4f4;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.2em;
+            font-size: 1.08em;
+            margin-top: 1em;
+            white-space: pre-wrap;
+            color: #444;
+            min-height: 80px;
+        }
+        .ocr-result-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(19,81,180,0.08);
+            padding: 2em 1.5em 1.5em 1.5em;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1.5px solid #e9f1fb;
+        }
+        @media (max-width: 700px) {
+            .ocr-card { padding: 1em; }
+            .ocr-fields-table td.label { font-size: 1em; }
+            .ocr-fields-table td.value { font-size: 1em; }
+        }
+        .page-enter {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .page-enter.page-enter-active {
+            opacity: 1;
+            transform: none;
+        }
+        /* Garantir fonte igual nos cards */
+        .ocr-card, .ocr-title, .ocr-desc, .ocr-btn, .ocr-upload-label, .ocr-section-title, .ocr-fields-table, .ocr-extracted-text {
+            font-family: var(--font-family-base) !important;
+        }
+        .stagger {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .stagger.stagger-in {
+            opacity: 1;
+            transform: none;
+        }
+{% endblock %}
+
+{% block content %}
+    {% set current_path = request.path %}
+    <div class="ocr-center-container">
+        <div class="ocr-card">
+            <div class="ocr-title stagger"><i class="fas fa-file-alt"></i> Leitor OCR de Documentos</div>
+            <div class="ocr-desc stagger">Faça upload de uma imagem ou PDF de um documento de identificação para extrair automaticamente os principais dados.</div>
+            <form method="post" enctype="multipart/form-data" id="ocr-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="ocr-upload-area stagger">
+                    <label for="documento" class="ocr-upload-label"> <i class="fas fa-upload"></i> Selecione o arquivo (JPG, PNG ou PDF)</label>
+                    <input type="file" id="documento" name="documento" accept=".jpg,.jpeg,.png,.pdf" required>
+                    <div id="file-chosen" style="margin-top:0.5em; color:#1351b4; font-size:0.98em;"></div>
+                </div>
+                <button type="submit" class="ocr-btn stagger"><i class="fas fa-search"></i> Ler Documento</button>
+            </form>
+            <div id="loading-box" class="stagger">
+                <i class="fas fa-spinner fa-spin"></i> Processando documento, por favor aguarde...
+            </div>
+            {% if resultado %}
+                <div id="success-box" class="stagger" style="display:block;">
+                    <i class="fas fa-check-circle"></i><br>
+                    <span style="font-size:1.15em;">Documento processado com sucesso!</span>
+                </div>
+                <div id="ocr-result" class="stagger" style="display:block;">
+                    <div class="ocr-result-card">
+                        <div class="ocr-section-title">Campos extraídos:</div>
+                        <table class="ocr-fields-table">
+                          {% set ordem_campos = [
+                              ('nome', 'Nome completo'),
+                              ('cpf', 'CPF'),
+                              ('filiação', 'Filiação'),
+                              ('data_nasc', 'Data de nascimento'),
+                              ('nacionalidade', 'Nacionalidade'),
+                              ('validade', 'Validade'),
+                              ('rnm', 'RNM'),
+                              ('classificação', 'Classificação'),
+                              ('prazo_de_residência', 'Prazo de residência')
+                          ] %}
+                          {% for chave, label in ordem_campos %}
+                            {% if campos.get(chave) %}
+                              <tr>
+                                <td class="label">{{ label }}:</td>
+                                <td class="value">{{ campos[chave] }}</td>
+                              </tr>
+                            {% endif %}
+                          {% endfor %}
+                        </table>
+                        {% set ordem_campos_keys = ordem_campos | map(attribute=0) | list %}
+                        {% set tem_extras = false %}
+                        {% for chave in campos.keys() %}
+                          {% if chave not in ordem_campos_keys %}
+                            {% set tem_extras = true %}
+                          {% endif %}
+                        {% endfor %}
+                        {% if tem_extras %}
+                          <div class="ocr-section-title">Campos adicionais:</div>
+                          <table class="ocr-fields-table">
+                            {% for chave, valor in campos.items() %}
+                              {% if chave not in ordem_campos_keys %}
+                                <tr>
+                                  <td class="label">{{ chave|replace('_', ' ')|capitalize }}:</td>
+                                  <td class="value">{{ valor }}</td>
+                                </tr>
+                              {% endif %}
+                            {% endfor %}
+                          </table>
+                        {% endif %}
+                        <div class="ocr-section-title">Texto extraído:</div>
+                        <div class="ocr-extracted-text">{{ texto_extraido }}</div>
+                    </div>
+                </div>
+            {% else %}
+                <div id="success-box" class="stagger" style="display:none;"></div>
+                <div id="ocr-result" class="stagger" style="display:none;"></div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+    const form = document.getElementById('ocr-form');
+    const loadingBox = document.getElementById('loading-box');
+    const successBox = document.getElementById('success-box');
+    const ocrResult = document.getElementById('ocr-result');
+    const fileInput = document.getElementById('documento');
+    const fileChosen = document.getElementById('file-chosen');
+
+    fileInput && fileInput.addEventListener('change', function(){
+        fileChosen.textContent = this.files.length ? this.files[0].name : '';
+    });
+
+    form && form.addEventListener('submit', function() {
+        loadingBox.style.display = 'block';
+        successBox.style.display = 'none';
+        ocrResult.style.display = 'none';
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        {% if resultado %}
+            loadingBox.style.display = 'none';
+            successBox.style.display = 'block';
+            ocrResult.style.display = 'block';
+        {% endif %}
+    });
+
+    // Efeito stagger
+    window.addEventListener('DOMContentLoaded', function() {
+        const items = document.querySelectorAll('.stagger');
+        items.forEach((el, i) => {
+            setTimeout(() => el.classList.add('stagger-in'), 120 * i);
+        });
+    });
+    </script>
+{% endblock %}

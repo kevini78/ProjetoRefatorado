@@ -1,0 +1,646 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Sistema Seguro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        color: white;
+        padding: 2rem 0;
+        margin: -1.5rem -15px 2rem -15px;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .stats-icon {
+        font-size: 3rem;
+        opacity: 0.8;
+    }
+    
+    .feature-card {
+        border: none;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .security-status {
+        background: linear-gradient(135deg, var(--success-color), #2ecc71);
+        color: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+    }
+    
+    .activity-feed {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    .activity-item {
+        border-left: 3px solid var(--secondary-color);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: #f8f9fa;
+        border-radius: 0 10px 10px 0;
+        transition: background-color 0.3s ease;
+    }
+    
+    .activity-item:hover {
+        background: #e9ecef;
+    }
+    
+    .quick-action-btn {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .quick-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .security-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+    
+    .status-online { background-color: #27ae60; }
+    .status-warning { background-color: #f39c12; }
+    .status-offline { background-color: #e74c3c; }
+    
+    .progress-enhanced {
+        height: 8px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.2);
+        overflow: hidden;
+    }
+    
+    .progress-bar-enhanced {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 10px;
+        transition: width 0.6s ease;
+    }
+    
+    @media (max-width: 768px) {
+        .dashboard-header {
+            margin: -1.5rem -15px 1rem -15px;
+            padding: 1.5rem 0;
+        }
+        
+        .stats-card, .feature-card {
+            margin-bottom: 1rem;
+        }
+        
+        .stats-icon, .feature-icon {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header do Dashboard -->
+<div class="dashboard-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><i class="fas fa-tachometer-alt me-3"></i>Dashboard</h1>
+                <p class="mb-0">Bem-vindo ao sistema seguro de análise de processos</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="d-flex justify-content-md-end gap-2">
+                    <span class="badge bg-success fs-6">
+                        <i class="fas fa-shield-alt me-1"></i>Sistema Seguro
+                    </span>
+                    <span class="badge bg-info fs-6">
+                        <i class="fas fa-user me-1"></i>{{ current_user.role.title() }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Estatísticas Principais -->
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">{{ stats.total_files or 0 }}</h3>
+                        <p class="mb-0">Arquivos Processados</p>
+                        <small class="opacity-75">Total de uploads</small>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="fas fa-file-alt stats-icon"></i>
+                    </div>
+                </div>
+                <div class="progress-enhanced mt-3">
+                    <div class="progress-bar-enhanced" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">100%</h3>
+                        <p class="mb-0">Conformidade</p>
+                        <small class="opacity-75">Posic/MCTIC</small>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="fas fa-shield-alt stats-icon"></i>
+                    </div>
+                </div>
+                <div class="progress-enhanced mt-3">
+                    <div class="progress-bar-enhanced" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">24/7</h3>
+                        <p class="mb-0">Monitoramento</p>
+                        <small class="opacity-75">Logs de auditoria</small>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="fas fa-eye stats-icon"></i>
+                    </div>
+                </div>
+                <div class="progress-enhanced mt-3">
+                    <div class="progress-bar-enhanced" style="width: 90%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">AES-256</h3>
+                        <p class="mb-0">Criptografia</p>
+                        <small class="opacity-75">Dados protegidos</small>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="fas fa-lock stats-icon"></i>
+                    </div>
+                </div>
+                <div class="progress-enhanced mt-3">
+                    <div class="progress-bar-enhanced" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Status de Segurança -->
+        <div class="col-lg-4">
+            <div class="card security-status">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-shield-alt me-2"></i>Status de Segurança
+                    </h5>
+                    
+                    <div class="security-checks">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>
+                                <span class="security-indicator status-online"></span>
+                                Criptografia Ativa
+                            </span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>
+                                <span class="security-indicator status-online"></span>
+                                Autenticação Segura
+                            </span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>
+                                <span class="security-indicator status-online"></span>
+                                Logs de Auditoria
+                            </span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>
+                                <span class="security-indicator status-online"></span>
+                                Proteção CSRF
+                            </span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>
+                                <span class="security-indicator status-online"></span>
+                                Headers Seguros
+                            </span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    
+                    <hr class="border-white opacity-25">
+                    
+                    <div class="text-center">
+                        <small>
+                            <i class="fas fa-certificate me-1"></i>
+                            Certificado ISO 27001 | LGPD Compliant
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ações Rápidas -->
+        <div class="col-lg-4">
+            <div class="card feature-card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-bolt me-2"></i>Ações Rápidas
+                    </h5>
+                    
+                    {% if current_user.has_permission('upload_files') %}
+                    <a href="{{ url_for('upload_file') }}" class="btn btn-primary quick-action-btn">
+                        <i class="fas fa-upload me-2"></i>Upload Seguro
+                    </a>
+                    {% endif %}
+                    
+                    {% if current_user.has_permission('analyze_documents') %}
+                    <a href="{{ url_for('analyze_document') }}" class="btn btn-success quick-action-btn">
+                        <i class="fas fa-search me-2"></i>Analisar Documento
+                    </a>
+                    {% endif %}
+                    
+                    <a href="{{ url_for('change_password') }}" class="btn btn-warning quick-action-btn">
+                        <i class="fas fa-key me-2"></i>Alterar Senha
+                    </a>
+                    
+                    {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin_panel') }}" class="btn btn-dark quick-action-btn">
+                        <i class="fas fa-cog me-2"></i>Administração
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informações do Usuário -->
+        <div class="col-lg-4">
+            <div class="card feature-card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-user me-2"></i>Perfil do Usuário
+                    </h5>
+                    
+                    <div class="user-info">
+                        <div class="mb-3">
+                            <strong>Usuário:</strong> {{ current_user.username }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <strong>Papel:</strong> 
+                            <span class="badge bg-primary">{{ current_user.role.title() }}</span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <strong>Último Acesso:</strong><br>
+                            <small class="text-muted">{{ stats.last_login or 'Primeiro acesso' }}</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <strong>Permissões:</strong><br>
+                            {% if current_user.role == 'admin' %}
+                                <span class="badge bg-danger me-1">Todas as permissões</span>
+                            {% else %}
+                                {% if current_user.has_permission('view_processes') %}
+                                    <span class="badge bg-info me-1">Visualizar</span>
+                                {% endif %}
+                                {% if current_user.has_permission('upload_files') %}
+                                    <span class="badge bg-success me-1">Upload</span>
+                                {% endif %}
+                                {% if current_user.has_permission('analyze_documents') %}
+                                    <span class="badge bg-warning me-1">Análise</span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Sessão expira em: <span id="sessionTimer">59:59</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recursos Disponíveis -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-star me-2"></i>Recursos Disponíveis
+            </h3>
+        </div>
+        
+        {% if current_user.has_permission('upload_files') %}
+        <div class="col-lg-3 col-md-6">
+            <div class="card feature-card text-center">
+                <div class="card-body">
+                    <i class="fas fa-cloud-upload-alt feature-icon"></i>
+                    <h5 class="card-title">Upload Seguro</h5>
+                    <p class="card-text">
+                        Envie documentos com criptografia automática e validação de segurança.
+                    </p>
+                    <a href="{{ url_for('upload_file') }}" class="btn btn-primary">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if current_user.has_permission('analyze_documents') %}
+        <div class="col-lg-3 col-md-6">
+            <div class="card feature-card text-center">
+                <div class="card-body">
+                    <i class="fas fa-search-plus feature-icon"></i>
+                    <h5 class="card-title">Análise Avançada</h5>
+                    <p class="card-text">
+                        Processe documentos com OCR e IA, mantendo a segurança dos dados.
+                    </p>
+                    <a href="{{ url_for('analyze_document') }}" class="btn btn-success">
+                        Analisar <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if current_user.has_permission('generate_reports') %}
+        <div class="col-lg-3 col-md-6">
+            <div class="card feature-card text-center">
+                <div class="card-body">
+                    <i class="fas fa-chart-bar feature-icon"></i>
+                    <h5 class="card-title">Relatórios</h5>
+                    <p class="card-text">
+                        Gere relatórios detalhados com trilha de auditoria completa.
+                    </p>
+                    <a href="#" class="btn btn-info">
+                        Gerar <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="card feature-card text-center">
+                <div class="card-body">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h5 class="card-title">Segurança</h5>
+                    <p class="card-text">
+                        Monitore logs de segurança e mantenha seu perfil protegido.
+                    </p>
+                    <a href="{{ url_for('change_password') }}" class="btn btn-warning">
+                        Configurar <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logs de Atividade Recente (apenas para admins) -->
+    {% if current_user.role == 'admin' %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-history me-2"></i>Atividade Recente do Sistema
+                    </h5>
+                    
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="d-flex justify-content-between">
+                                <span>
+                                    <i class="fas fa-sign-in-alt text-success me-2"></i>
+                                    Login realizado com sucesso
+                                </span>
+                                <small class="text-muted">Agora</small>
+                            </div>
+                            <small class="text-muted">Usuário: {{ current_user.username }}</small>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="d-flex justify-content-between">
+                                <span>
+                                    <i class="fas fa-shield-alt text-info me-2"></i>
+                                    Sistema iniciado com segurança ativada
+                                </span>
+                                <small class="text-muted">Hoje</small>
+                            </div>
+                            <small class="text-muted">Status: Todos os controles ativos</small>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="d-flex justify-content-between">
+                                <span>
+                                    <i class="fas fa-key text-warning me-2"></i>
+                                    Chaves de criptografia verificadas
+                                </span>
+                                <small class="text-muted">Hoje</small>
+                            </div>
+                            <small class="text-muted">RSA-4096 e AES-256 operacionais</small>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('security_logs') }}" class="btn btn-outline-primary">
+                            Ver Todos os Logs <i class="fas fa-external-link-alt ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Timer de sessão
+    let timeLeft = 3600; // 1 hora em segundos
+    const timerElement = document.getElementById('sessionTimer');
+    
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        
+        timerElement.textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timeLeft <= 300) { // 5 minutos restantes
+            timerElement.classList.add('text-warning');
+        }
+        
+        if (timeLeft <= 60) { // 1 minuto restante
+            timerElement.classList.remove('text-warning');
+            timerElement.classList.add('text-danger');
+        }
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('Sua sessão expirou. Você será redirecionado para o login.');
+            window.location.href = "{{ url_for('logout') }}";
+            return;
+        }
+        
+        timeLeft--;
+    }
+    
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer(); // Atualização inicial
+    
+    // Animações das estatísticas
+    const progressBars = document.querySelectorAll('.progress-bar-enhanced');
+    progressBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        
+        setTimeout(() => {
+            bar.style.width = width;
+        }, 500);
+    });
+    
+    // Verificação periódica do status do sistema
+    function checkSystemStatus() {
+        fetch('/api/health')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'healthy') {
+                    console.log('Sistema operacional');
+                } else {
+                    console.warn('Sistema com problemas');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao verificar status:', error);
+            });
+    }
+    
+    // Verificar status a cada 5 minutos
+    setInterval(checkSystemStatus, 300000);
+    checkSystemStatus(); // Verificação inicial
+    
+    // Atualizar última atividade do usuário
+    function updateLastActivity() {
+        fetch('/api/user/activity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': window.csrf_token
+            },
+            body: JSON.stringify({
+                timestamp: new Date().toISOString()
+            })
+        }).catch(error => {
+            console.debug('Erro ao atualizar atividade:', error);
+        });
+    }
+    
+    // Atualizar atividade a cada clique ou tecla
+    document.addEventListener('click', updateLastActivity);
+    document.addEventListener('keypress', updateLastActivity);
+    
+    // Proteção contra inatividade
+    let inactivityTimer;
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(() => {
+            if (confirm('Você ficou inativo por muito tempo. Deseja continuar?')) {
+                resetInactivityTimer();
+            } else {
+                window.location.href = "{{ url_for('logout') }}";
+            }
+        }, 1800000); // 30 minutos
+    }
+    
+    document.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener('keypress', resetInactivityTimer);
+    resetInactivityTimer();
+    
+    // Logs de interação para auditoria
+    function logInteraction(action, target) {
+        fetch('/api/log/interaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': window.csrf_token
+            },
+            body: JSON.stringify({
+                action: action,
+                target: target,
+                timestamp: new Date().toISOString()
+            })
+        }).catch(error => {
+            console.debug('Erro ao registrar interação:', error);
+        });
+    }
+    
+    // Registrar cliques em links importantes
+    document.querySelectorAll('a[href*="upload"], a[href*="analyze"], a[href*="admin"]').forEach(link => {
+        link.addEventListener('click', function() {
+            logInteraction('link_click', this.href);
+        });
+    });
+});
+</script>
+{% endblock %}

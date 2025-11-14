@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Analisador de Portarias - MJ{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Rawline:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary-default: #1351b4;
+            --color-primary-hover: #0c326f;
+            --color-secondary-01: #fff;
+            --color-secondary-02: #f8f8f8;
+            --color-secondary-03: #ededed;
+            --color-secondary-04: #ccc;
+            --color-secondary-07: #555;
+            --color-secondary-08: #333;
+            --font-family-base: Rawline, Raleway, sans-serif;
+            --gradient-primary: linear-gradient(90deg, #1351b4 0%, #0c326f 100%);
+            --gradient-secondary: linear-gradient(90deg, #00bfae 0%, #1351b4 100%);
+            --gradient-accent: linear-gradient(90deg, #ff9800 0%, #1351b4 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 62.5%; }
+        body { font-family: var(--font-family-base); background: var(--color-secondary-01); color: var(--color-secondary-08); font-size: 1.6rem; line-height: 1.75; }
+        .header {
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-08);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-secondary-03);
+            box-shadow: 0 2px 8px 0 rgba(19,81,180,0.07);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            position: relative;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+            flex-wrap: nowrap;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            order: 1;
+        }
+        .logo img { height: 40px; }
+        .header-divider { height: 32px; border-left: 1px solid var(--color-secondary-04); }
+        .site-name { font-size: 2rem; font-weight: 600; }
+        .menu-toggle-container {
+            position: absolute;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 101;
+        }
+        .sidebar-toggle {
+            background: var(--gradient-primary);
+            color: #fff;
+            border: 1px solid rgba(12,50,111,0.25);
+            padding: 0.8rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            width: 44px;
+            height: 44px;
+            box-shadow: 0 4px 12px rgba(19,81,180,0.18);
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        }
+        .sidebar-toggle:hover {
+            background: var(--color-primary-hover);
+            box-shadow: 0 6px 16px rgba(19,81,180,0.22);
+            transform: translateY(-1px);
+        }
+        .sidebar-toggle:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(19,81,180,0.18);
+        }
+        .sidebar-toggle:focus-visible {
+            outline: 3px solid rgba(19,81,180,0.35);
+            outline-offset: 2px;
+        }
+        .sidebar-toggle span {
+            font-size: 1.8rem;
+            line-height: 1;
+            display: inline-block;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--color-secondary-01);
+            border-right: 1px solid var(--color-secondary-03);
+            box-shadow: 4px 0 16px rgba(19,81,180,0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--color-secondary-03);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sidebar-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-primary-default);
+        }
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--color-secondary-07);
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .sidebar-close:hover {
+            background: var(--color-secondary-03);
+        }
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2rem;
+            color: var(--color-secondary-07);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.6rem;
+            transition: background 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-nav a:hover {
+            background: var(--color-secondary-02);
+            color: var(--color-primary-default);
+        }
+        .sidebar-nav a.active {
+            background: rgba(19,81,180,0.1);
+            color: var(--color-primary-default);
+            border-left-color: var(--color-primary-default);
+        }
+        .sidebar-nav .icon {
+            font-size: 2rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            min-height: calc(100vh - 200px);
+        }
+        .footer {
+            background: var(--color-secondary-01);
+            color: var(--color-secondary-07);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 6rem;
+            border-top: 1px solid var(--color-secondary-03);
+        }
+        .footer p { font-size: 1.4rem; }
+        @media (max-width: 768px) {
+            .header-content { 
+                flex-direction: row;
+                justify-content: flex-start;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                gap: 1rem;
+            }
+            .menu-toggle-container {
+                left: 1rem;
+            }
+            .logo-container .site-name {
+                display: none;
+            }
+            .sidebar {
+                width: 280px;
+                left: -280px;
+            }
+            .main { 
+                padding: 0 1rem;
+                margin: 2rem auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100vw;
+                left: -100vw;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+        }
+        {% block extra_css %}{% endblock %}
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="menu-toggle-container">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <span>☰</span>
+            </button>
+        </div>
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="/" class="logo"><img src="/static/images/logo-mj.png" alt="Logo MJ"></a>
+                <span class="header-divider"></span>
+                <span class="site-name">Automações MJ</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay para fechar sidebar ao clicar fora -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Barra lateral -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">Navegação</h2>
+            <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/" class="{% if request.path == '/' %}active{% endif %}">
+                <span class="icon">🏠</span>
+                <span>Início</span>
+            </a>
+            <a href="/configurar" class="{% if request.path.startswith('/configurar') %}active{% endif %}">
+                <span class="icon">⚙️</span>
+                <span>Configurar</span>
+            </a>
+            <a href="/analisar" class="{% if request.path.startswith('/analisar') %}active{% endif %}">
+                <span class="icon">🔍</span>
+                <span>Analisar</span>
+            </a>
+            <a href="/ocr" class="{% if request.path.startswith('/ocr') %}active{% endif %}">
+                <span class="icon">📄</span>
+                <span>Leitor OCR</span>
+            </a>
+            <a href="/busca_automatica" class="{% if request.path.startswith('/busca_automatica') %}active{% endif %}">
+                <span class="icon">⚡</span>
+                <span>Busca Automática</span>
+            </a>
+            <a href="/analise_automatica" class="{% if request.path.startswith('/analise_automatica') %}active{% endif %}">
+                <span class="icon">🤖</span>
+                <span>Análise Automática</span>
+            </a>
+            <a href="/automacao_processos" class="{% if request.path.startswith('/automacao_processos') %}active{% endif %}">
+                <span class="icon">⚡</span>
+                <span>Automação Despachos</span>
+            </a>
+            <a href="/complementacao" class="{% if request.path.startswith('/complementacao') %}active{% endif %}">
+                <span class="icon">📝</span>
+                <span>Complementação</span>
+            </a>
+            <a href="/aprovacao_lote" class="{% if request.path.startswith('/aprovacao_lote') %}active{% endif %}">
+                <span class="icon">✅</span>
+                <span>Aprovação em Lote</span>
+            </a>
+            <a href="/aprovacao_parecer_analista" class="{% if request.path.startswith('/aprovacao_parecer_analista') %}active{% endif %}">
+                <span class="icon">👨‍⚖️</span>
+                <span>Aprovar Parecer</span>
+            </a>
+            <a href="/aprovacao_conteudo_recurso" class="{% if request.path.startswith('/aprovacao_conteudo_recurso') %}active{% endif %}">
+                <span class="icon">⚖️</span>
+                <span>Aprovação Recurso</span>
+            </a>
+            <a href="/defere_indefere_recurso" class="{% if request.path.startswith('/defere_indefere_recurso') %}active{% endif %}">
+                <span class="icon">🔨</span>
+                <span>Defere/Indefere Recurso</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Ministério da Justiça e Segurança Pública</p>
+    </footer>
+
+    <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
+    }
+
+    function closeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+
+    // Fechar sidebar com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeSidebar();
+        }
+    });
+
+    // Prevenir propagação de cliques dentro da sidebar
+    document.getElementById('sidebar').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

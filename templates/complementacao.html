@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Complementação - Automações MJ{% endblock %}
+
+{% block extra_css %}
+        body { background: #f4f8fb; }
+        .main-config {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .config-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(19,81,180,0.08);
+            padding: 2.5em 2em 2em 2em;
+            max-width: 700px;
+            width: 100%;
+            margin: 2em 0;
+        }
+        .config-title {
+            color: #1351b4;
+            font-size: 2.1em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        .config-desc {
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 1.5em;
+            font-size: 1.1em;
+        }
+        .config-upload-area {
+            background: #e9f1fb;
+            border: 2px dashed #1351b4;
+            border-radius: 8px;
+            padding: 1.5em 1em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            transition: background 0.2s;
+        }
+        .config-upload-area:hover {
+            background: #d4e3fa;
+        }
+        .config-upload-area input[type="file"] {
+            display: none;
+        }
+        .config-upload-label {
+            display: inline-block;
+            background: #1351b4;
+            color: #fff;
+            padding: 0.7em 2em;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 0.5em;
+            transition: background 0.2s;
+        }
+        .config-upload-label:hover {
+            background: #0d3c7b;
+        }
+        .config-btn {
+            width: 100%;
+            background: #1351b4;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 1em;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 1em;
+            transition: background 0.2s;
+        }
+        .config-btn:hover {
+            background: #0d3c7b;
+        }
+        .message {
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 2rem;
+            font-weight: 500;
+            font-size: 1.5rem;
+            border: 1px solid;
+            text-align: center;
+        }
+        .message.success {
+            background: #e8f5e9;
+            color: #218838;
+            border-color: #28a745;
+        }
+        .message.error {
+            background: #ffebee;
+            color: #e60000;
+            border-color: #e60000;
+        }
+        .stagger {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .stagger.stagger-in {
+            opacity: 1;
+            transform: none;
+        }
+        .analise-input {
+            width: 100%;
+            padding: 0.7em;
+            border-radius: 6px;
+            border: 1px solid #1351b4;
+            margin-top: 0.5em;
+            background: #fff;
+            color: #1351b4;
+            font-weight: 500;
+        }
+{% endblock %}
+
+{% block content %}
+    {% set current_path = request.path %}
+    <main class="main-config">
+        <div class="config-card">
+            <div class="config-title stagger">Upload de Planilha para Complementação</div>
+            <div class="config-desc stagger">Faça upload de uma planilha Excel (.xlsx, .xls) para realizar a complementação dos dados.</div>
+            <form method="POST" enctype="multipart/form-data" id="upload-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="config-upload-area stagger">
+                    <label for="planilha" class="config-upload-label">Selecione o arquivo (XLSX ou XLS)</label>
+                    <input type="file" id="planilha" name="planilha" accept=".xlsx,.xls" required>
+                    <div id="file-chosen" style="margin-top:0.5em; color:#1351b4; font-size:0.98em;"></div>
+                </div>
+                <div class="stagger" style="margin-bottom:1.5em;">
+                    <label for="tipo_complementacao" style="font-weight:500; color:#1351b4;">Tipo de Complementação:</label>
+                    <select id="tipo_complementacao" name="tipo_complementacao" class="analise-input">
+                        <option value="preencher">Preencher Dados</option>
+                        <option value="mapeamento">Mapeamento</option>
+                    </select>
+                </div>
+                <button type="submit" class="config-btn stagger">Enviar Planilha</button>
+            </form>
+            {% if resultado %}
+            <div class="message success stagger">
+                {{ resultado }}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+    const fileInput = document.getElementById('planilha');
+    const fileChosen = document.getElementById('file-chosen');
+    fileInput && fileInput.addEventListener('change', function(){
+        fileChosen.textContent = this.files.length ? this.files[0].name : '';
+    });
+    // Efeito stagger
+    window.addEventListener('DOMContentLoaded', function() {
+        const items = document.querySelectorAll('.stagger');
+        items.forEach((el, i) => {
+            setTimeout(() => el.classList.add('stagger-in'), 120 * i);
+        });
+    });
+    </script>
+{% endblock %}

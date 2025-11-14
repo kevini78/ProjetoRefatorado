@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extração de OCR - Navegação Ordinária</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 20px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border: none;
+            border-radius: 25px;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            border: none;
+            border-radius: 25px;
+        }
+        .progress {
+            height: 30px;
+            border-radius: 15px;
+            background-color: #e9ecef;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+        }
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px;
+        }
+        .status-processando {
+            background: #ffeaa7;
+            color: #2d3436;
+        }
+        .status-sucesso {
+            background: #55efc4;
+            color: #00b894;
+        }
+        .status-erro {
+            background: #ff7675;
+            color: #d63031;
+        }
+        .processo-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .spinner-border-sm {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .log-container {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .log-line {
+            margin-bottom: 5px;
+            padding: 3px 0;
+        }
+        .log-info {
+            color: #74b9ff;
+        }
+        .log-success {
+            color: #55efc4;
+        }
+        .log-error {
+            color: #ff7675;
+        }
+        .log-warning {
+            color: #ffeaa7;
+        }
+        .stats-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            margin-bottom: 15px;
+        }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stats-label {
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .documento-tipo {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .tipo-crnm { background: #74b9ff; color: white; }
+        .tipo-cpf { background: #a29bfe; color: white; }
+        .tipo-antecedentes { background: #fd79a8; color: white; }
+        .tipo-portugues { background: #fdcb6e; color: #2d3436; }
+        .tipo-outro { background: #dfe6e9; color: #2d3436; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Extração de OCR - Navegação Ordinária
+                </h2>
+                <p class="mb-0 mt-2">Sistema de extração e registro de OCR com mascaramento LGPD para Doccano</p>
+            </div>
+        </div>
+
+        <!-- Formulário de Entrada -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="bi bi-list-ol"></i>
+                    Processos para Extração
+                </h5>
+                
+                <div class="mb-3">
+                    <label for="processos" class="form-label">
+                        Números de Processos (um por linha):
+                    </label>
+                    <textarea 
+                        class="form-control" 
+                        id="processos" 
+                        rows="8" 
+                        placeholder="08460.001234/2024-00&#10;08460.001235/2024-00&#10;08460.001236/2024-00"
+                    ></textarea>
+                    <small class="text-muted">
+                        Cole os números de processo, um por linha. Formatos aceitos: 08460.001234/2024-00
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="diretorio_saida" class="form-label">
+                        Diretório de Saída:
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="diretorio_saida" 
+                        value="ocr_extraidos_doccano"
+                        placeholder="ocr_extraidos_doccano"
+                    >
+                    <small class="text-muted">
+                        Diretório onde os arquivos OCR serão salvos (separados por tipo de documento)
+                    </small>
+                </div>
+
+                <div class="alert alert-info">
+                    <h6><i class="bi bi-info-circle"></i> Documentos Processados:</h6>
+                    <div class="mt-2">
+                        <span class="documento-tipo tipo-crnm">CRNM</span>
+                        <span class="documento-tipo tipo-cpf">CPF</span>
+                        <span class="documento-tipo tipo-antecedentes">Antecedentes Brasil</span>
+                        <span class="documento-tipo tipo-antecedentes">Antecedentes Origem</span>
+                        <span class="documento-tipo tipo-portugues">Comunicação Português</span>
+                        <span class="documento-tipo tipo-outro">Certidões</span>
+                    </div>
+                    <small class="text-muted d-block mt-3">
+                        <strong><i class="bi bi-x-circle"></i> Excluídos do OCR:</strong>
+                        <ul class="mb-0 mt-1">
+                            <li>Comprovante de Tempo de Residência</li>
+                            <li>Comprovante de Viagens Internacionais</li>
+                        </ul>
+                    </small>
+                    <small class="text-success d-block mt-2">
+                        <strong><i class="bi bi-shield-check"></i> Proteção LGPD:</strong> 
+                        Todos os dados sensíveis (CPF, RG, RNM, nomes, telefones, emails) são mascarados automaticamente.
+                    </small>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button 
+                        class="btn btn-primary btn-lg" 
+                        id="btnIniciar"
+                        onclick="iniciarExtracao()"
+                    >
+                        <i class="bi bi-play-circle"></i>
+                        Iniciar Extração
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progresso -->
+        <div class="card" id="cardProgresso" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="bi bi-clock-history"></i>
+                    Progresso da Extração
+                </h5>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span id="progressoTexto">Aguardando início...</span>
+                        <span id="progressoPorcentagem">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div 
+                            class="progress-bar progress-bar-striped progress-bar-animated" 
+                            id="progressoBar" 
+                            role="progressbar" 
+                            style="width: 0%"
+                        ></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number" id="statTotal">0</div>
+                            <div class="stats-label">Total</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number text-success" id="statProcessados">0</div>
+                            <div class="stats-label">Processados</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number text-danger" id="statErros">0</div>
+                            <div class="stats-label">Erros</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button 
+                        class="btn btn-danger" 
+                        id="btnParar"
+                        onclick="pararExtracao()"
+                        disabled
+                    >
+                        <i class="bi bi-stop-circle"></i>
+                        Parar Processamento
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs -->
+        <div class="card" id="cardLogs" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-terminal"></i>
+                    Logs de Processamento
+                </h5>
+                <div class="log-container" id="logContainer">
+                    <div class="log-line log-info">[INFO] Sistema pronto para processamento</div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-sm btn-secondary" onclick="limparLogs()">
+                        <i class="bi bi-trash"></i> Limpar Logs
+                    </button>
+                    <button class="btn btn-sm btn-secondary" onclick="exportarLogs()">
+                        <i class="bi bi-download"></i> Exportar Logs
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="card" id="cardResultados" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="bi bi-check-circle"></i>
+                    Resultados da Extração
+                </h5>
+                <div id="resultadosContainer"></div>
+                
+                <div class="mt-4">
+                    <button class="btn btn-success" onclick="baixarArquivosDoccano()">
+                        <i class="bi bi-download"></i>
+                        Baixar Arquivos para Doccano
+                    </button>
+                    <button class="btn btn-primary" onclick="visualizarEstatisticas()">
+                        <i class="bi bi-graph-up"></i>
+                        Ver Estatísticas Detalhadas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let processandoId = null;
+        let intervalId = null;
+
+        function iniciarExtracao() {
+            const processos = document.getElementById('processos').value
+                .split('\n')
+                .map(p => p.trim())
+                .filter(p => p.length > 0);
+
+            if (processos.length === 0) {
+                alert('Por favor, insira pelo menos um número de processo.');
+                return;
+            }
+
+            const diretorio = document.getElementById('diretorio_saida').value.trim();
+
+            // Mostrar cards de progresso e logs
+            document.getElementById('cardProgresso').style.display = 'block';
+            document.getElementById('cardLogs').style.display = 'block';
+            document.getElementById('cardResultados').style.display = 'none';
+
+            // Desabilitar botão iniciar
+            document.getElementById('btnIniciar').disabled = true;
+            document.getElementById('btnParar').disabled = false;
+
+            // Atualizar estatísticas
+            document.getElementById('statTotal').textContent = processos.length;
+            document.getElementById('statProcessados').textContent = '0';
+            document.getElementById('statErros').textContent = '0';
+
+            adicionarLog('info', `Iniciando extração de ${processos.length} processo(s)...`);
+
+            // Enviar requisição
+            fetch('/api/extracao_ocr/iniciar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    processos: processos,
+                    diretorio_saida: diretorio
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    processandoId = data.process_id;
+                    adicionarLog('success', `Processamento iniciado! ID: ${processandoId}`);
+                    
+                    // Iniciar polling de status
+                    intervalId = setInterval(verificarStatus, 2000);
+                } else {
+                    adicionarLog('error', `Erro: ${data.error}`);
+                    resetarInterface();
+                }
+            })
+            .catch(error => {
+                adicionarLog('error', `Erro ao iniciar: ${error}`);
+                resetarInterface();
+            });
+        }
+
+        function verificarStatus() {
+            if (!processandoId) return;
+
+            fetch(`/api/extracao_ocr/status/${processandoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    atualizarProgresso(data);
+
+                    if (data.status === 'concluido' || data.status === 'erro') {
+                        clearInterval(intervalId);
+                        finalizarProcessamento(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar status:', error);
+                });
+        }
+
+        function atualizarProgresso(data) {
+            const { total, processados, erros, processo_atual, status } = data;
+
+            // Atualizar barra de progresso
+            const porcentagem = total > 0 ? Math.round((processados / total) * 100) : 0;
+            document.getElementById('progressoBar').style.width = porcentagem + '%';
+            document.getElementById('progressoPorcentagem').textContent = porcentagem + '%';
+
+            // Atualizar texto de progresso
+            if (processo_atual) {
+                document.getElementById('progressoTexto').textContent = 
+                    `Processando: ${processo_atual}`;
+            }
+
+            // Atualizar estatísticas
+            document.getElementById('statProcessados').textContent = processados;
+            document.getElementById('statErros').textContent = erros;
+
+            // Adicionar logs se houver novos
+            if (data.logs && data.logs.length > 0) {
+                data.logs.forEach(log => {
+                    adicionarLog(log.tipo, log.mensagem);
+                });
+            }
+        }
+
+        function finalizarProcessamento(data) {
+            if (data.status === 'concluido') {
+                adicionarLog('success', '✅ Processamento concluído com sucesso!');
+                
+                document.getElementById('progressoTexto').textContent = 'Concluído!';
+                document.getElementById('progressoBar').classList.remove('progress-bar-animated');
+                
+                // Mostrar resultados
+                mostrarResultados(data.resultado);
+            } else {
+                adicionarLog('error', `❌ Erro no processamento: ${data.error || 'Erro desconhecido'}`);
+            }
+
+            resetarInterface();
+        }
+
+        function mostrarResultados(resultado) {
+            document.getElementById('cardResultados').style.display = 'block';
+            
+            let html = '<div class="row">';
+            
+            if (resultado.resumo_por_tipo) {
+                Object.entries(resultado.resumo_por_tipo).forEach(([tipo, info]) => {
+                    html += `
+                        <div class="col-md-6 mb-3">
+                            <div class="processo-item">
+                                <h6 class="text-uppercase">${tipo}</h6>
+                                <p class="mb-1">Total: ${info.total}</p>
+                                <p class="mb-1 text-success">Validados: ${info.validados}</p>
+                                <p class="mb-0 text-danger">Não validados: ${info.nao_validados}</p>
+                                <small class="text-muted">${info.arquivo_doccano}</small>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div>';
+            document.getElementById('resultadosContainer').innerHTML = html;
+        }
+
+        function pararExtracao() {
+            if (!processandoId) return;
+
+            if (confirm('Deseja realmente parar o processamento?')) {
+                fetch(`/api/extracao_ocr/parar/${processandoId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    adicionarLog('warning', 'Processamento interrompido pelo usuário');
+                    clearInterval(intervalId);
+                    resetarInterface();
+                });
+            }
+        }
+
+        function resetarInterface() {
+            document.getElementById('btnIniciar').disabled = false;
+            document.getElementById('btnParar').disabled = true;
+            processandoId = null;
+        }
+
+        function adicionarLog(tipo, mensagem) {
+            const logContainer = document.getElementById('logContainer');
+            const timestamp = new Date().toLocaleTimeString('pt-BR');
+            const logLine = document.createElement('div');
+            logLine.className = `log-line log-${tipo}`;
+            logLine.textContent = `[${timestamp}] ${mensagem}`;
+            logContainer.appendChild(logLine);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function limparLogs() {
+            document.getElementById('logContainer').innerHTML = 
+                '<div class="log-line log-info">[INFO] Logs limpos</div>';
+        }
+
+        function exportarLogs() {
+            const logs = document.getElementById('logContainer').innerText;
+            const blob = new Blob([logs], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `logs_extracao_ocr_${new Date().toISOString().slice(0,10)}.txt`;
+            a.click();
+        }
+
+        function baixarArquivosDoccano() {
+            const diretorio = document.getElementById('diretorio_saida').value.trim();
+            window.location.href = `/api/extracao_ocr/download?diretorio=${encodeURIComponent(diretorio)}`;
+        }
+
+        function visualizarEstatisticas() {
+            const diretorio = document.getElementById('diretorio_saida').value.trim();
+            window.open(`/api/extracao_ocr/estatisticas?diretorio=${encodeURIComponent(diretorio)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
+

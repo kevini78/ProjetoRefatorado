@@ -1,0 +1,676 @@
+{% extends "base.html" %}
+
+{% block title %}Automação de Análise de Processos - MJ{% endblock %}
+
+{% block extra_css %}
+<style>
+    .automacao-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .header-section {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .header-section h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .header-section p {
+        font-size: 1.6rem;
+        opacity: 0.9;
+    }
+    
+    .despacho-input {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .input-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .input-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--color-primary-default);
+        margin-bottom: 0.8rem;
+        font-size: 1.6rem;
+    }
+    
+    .input-group textarea {
+        width: 100%;
+        min-height: 200px;
+        padding: 1.2rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1.4rem;
+        font-family: 'Courier New', monospace;
+        resize: vertical;
+        transition: border-color 0.3s;
+    }
+    
+    .input-group textarea:focus {
+        outline: none;
+        border-color: var(--color-primary-default);
+        box-shadow: 0 0 0 3px rgba(19, 81, 180, 0.1);
+    }
+    
+    .options-group {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .option-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .option-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--color-primary-default);
+    }
+    
+    .option-item label {
+        font-weight: 500;
+        color: var(--color-secondary-07);
+        cursor: pointer;
+    }
+    
+    .btn-analyze {
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        padding: 1.2rem 3rem;
+        border-radius: 8px;
+        font-size: 1.6rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 auto;
+    }
+    
+    .btn-analyze:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(19, 81, 180, 0.3);
+    }
+    
+    .btn-analyze:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .contador-real-time {
+        background: var(--color-primary-light);
+        border: 1px solid var(--color-primary-default);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        display: none;
+    }
+    
+    .contador-real-time.ativo {
+        display: block;
+    }
+    
+    .resultado-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 4px solid #ddd;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideIn 0.5s ease forwards;
+    }
+    
+    .resultado-card.sucesso {
+        border-left-color: #4caf50;
+    }
+    
+    .resultado-card.divergencia {
+        border-left-color: #ff9800;
+    }
+    
+    .resultado-card.erro {
+        border-left-color: #f44336;
+    }
+    
+    @keyframes slideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .resultado-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .processo-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .processo-codigo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-primary-default);
+    }
+    
+    .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .status-badge.sucesso {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+    
+    .status-badge.divergencia {
+        background: #fff3e0;
+        color: #f57c00;
+    }
+    
+    .status-badge.erro {
+        background: #ffebee;
+        color: #c62828;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .btn-action {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-attachment {
+        background: #e3f2fd;
+        color: var(--color-primary-default);
+        border: 1px solid #bbdefb;
+    }
+    
+    .btn-attachment:hover {
+        background: #bbdefb;
+    }
+    
+    .btn-download {
+        background: var(--color-primary-default);
+        color: white;
+    }
+    
+    .btn-download:hover {
+        background: var(--color-primary-hover);
+    }
+    
+    /* Estilos para tabela de comparação */
+    .table-container {
+        margin: 1rem 0;
+        overflow-x: auto;
+    }
+    
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .comparison-table th {
+        background: var(--color-primary-default);
+        color: white;
+        padding: 1.2rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: 1.4rem;
+    }
+    
+    .comparison-table td {
+        padding: 1.2rem;
+        border-bottom: 1px solid #eee;
+        font-size: 1.4rem;
+    }
+    
+    .comparison-table tr:nth-child(even) {
+        background: #f8f9fa;
+    }
+    
+    .status-ok {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+    
+    .status-erro {
+        color: #c62828;
+        font-weight: 600;
+    }
+    
+    .status-neutral {
+        color: #666;
+    }
+    
+    .texto-bruto {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        font-family: 'Courier New', monospace;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .timestamp {
+        color: #666;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        font-style: italic;
+    }
+    
+    @media (max-width: 768px) {
+        .automacao-container {
+            padding: 1rem;
+        }
+        
+        .header-section h1 {
+            font-size: 2.2rem;
+        }
+        
+        .options-group {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .resultado-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .action-buttons {
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .btn-action {
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .comparison-table {
+            font-size: 1.2rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="automacao-container">
+    <div class="header-section">
+        <h1>⚡ Automação de Análise de Processos</h1>
+        <p>Sistema automatizado para análise de despachos com OCR e comparação de dados</p>
+    </div>
+
+    <div class="despacho-input">
+        <div class="input-group">
+            <label for="textoDespachos">📝 Cole os Despachos para Análise</label>
+            <textarea id="textoDespachos" placeholder="Cole aqui o texto dos despachos...&#10;&#10;Exemplo:&#10;742619 MONIQUE DIATTA - F966402-R, natural do Senegal, nascida em 19 de agosto de 1988, filha de Yvonne Ciss e de Mamadou Diatta, residente no estado do Rio Grande do Sul (Processo nº 235881.0627956/2025).&#10;767018 EVENSTON BRIGNOLLE - G343830-U, natural do Haiti, nascido em 14 de agosto de 1989, filho de Mimose Jean Philippe e Charmant Brignolle, residente no estado do Paraná (Processo nº 235881.0648799/2025)."></textarea>
+        </div>
+        
+        <div class="options-group">
+            <div class="option-item">
+                <input type="checkbox" id="mascararDados" checked>
+                <label for="mascararDados">🔒 Mascarar dados sensíveis (CPF, RG)</label>
+            </div>
+            <div class="option-item">
+                <input type="checkbox" id="tempoReal" checked>
+                <label for="tempoReal">⚡ Atualização em tempo real</label>
+            </div>
+        </div>
+        
+        <button class="btn-analyze" onclick="iniciarAnalise()">
+            <span class="material-icons">play_arrow</span>
+            INICIAR ANÁLISE AUTOMÁTICA
+        </button>
+    </div>
+
+    <div id="contadorRealTime" class="contador-real-time">
+        <div>🔄 Processando...</div>
+        <div id="contadorTexto">0 de 0 processos</div>
+    </div>
+
+    <div id="resultadosContainer"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let processando = false;
+let contadorProcessos = 0;
+let totalProcessos = 0;
+
+function iniciarAnalise() {
+    if (processando) {
+        alert('Análise já em andamento!');
+        return;
+    }
+    
+    const textoDespachos = document.getElementById('textoDespachos').value.trim();
+    if (!textoDespachos) {
+        alert('Por favor, cole o texto dos despachos!');
+        return;
+    }
+    
+    processando = true;
+    contadorProcessos = 0;
+    totalProcessos = textoDespachos.split('\n').filter(linha => linha.trim()).length;
+    
+    // Limpar resultados anteriores
+    document.getElementById('resultadosContainer').innerHTML = '';
+    
+    // Mostrar contador
+    document.getElementById('contadorRealTime').classList.add('ativo');
+    atualizarContador();
+    
+    // Desabilitar botão
+    const btn = document.querySelector('.btn-analyze');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-icons">hourglass_empty</span> PROCESSANDO...';
+    
+    // Processar despachos
+    enviarRequisicaoAnalise(textoDespachos);
+}
+
+function enviarRequisicaoAnalise(textoDespachos) {
+    const mascararDados = document.getElementById('mascararDados').checked;
+    const tempoReal = document.getElementById('tempoReal').checked;
+    
+    if (tempoReal) {
+        // Processar despachos em tempo real
+        processarDespachosTempoReal(textoDespachos);
+    } else {
+        // Processar todos de uma vez
+        processarTodosDespachos(textoDespachos);
+    }
+}
+
+async function processarDespachosTempoReal(textoDespachos) {
+    const linhas = textoDespachos.split('\n').filter(linha => linha.trim());
+    
+    for (let i = 0; i < linhas.length; i++) {
+        const linha = linhas[i].trim();
+        if (!linha) continue;
+        
+        try {
+            const response = await fetch('/automacao_processos/processar_individual', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    linha_despacho: linha,
+                    mascarar_dados: document.getElementById('mascararDados').checked
+                })
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                adicionarResultadoTempoReal(resultado.resultado);
+            } else {
+                adicionarResultadoTempoReal({
+                    codigo: 'ERRO',
+                    dados_despacho: {},
+                    dados_ocr: {},
+                    comparacao: { status: 'erro', resultado: 'Erro no processamento' },
+                    texto_bruto_ocr: '',
+                    status: 'erro',
+                    timestamp: new Date().toISOString(),
+                    linha_despacho_original: linha
+                });
+            }
+        } catch (error) {
+            console.error('Erro ao processar:', error);
+            adicionarResultadoTempoReal({
+                codigo: 'ERRO',
+                dados_despacho: {},
+                dados_ocr: {},
+                comparacao: { status: 'erro', resultado: 'Erro de conexão' },
+                texto_bruto_ocr: '',
+                status: 'erro',
+                timestamp: new Date().toISOString(),
+                linha_despacho_original: linha
+            });
+        }
+        
+        contadorProcessos++;
+        atualizarContador();
+        
+        // Pequena pausa entre requisições
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    
+    finalizarProcessamento();
+}
+
+async function processarTodosDespachos(textoDespachos) {
+    try {
+        const response = await fetch('/automacao_processos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                texto_despachos: textoDespachos,
+                mascarar_dados: document.getElementById('mascararDados').checked
+            })
+        });
+        
+        const resultado = await response.json();
+        
+        if (resultado.success) {
+            resultado.resultados.forEach(adicionarResultadoTempoReal);
+        } else {
+            alert('Erro: ' + resultado.message);
+        }
+    } catch (error) {
+        console.error('Erro ao processar:', error);
+        alert('Erro de conexão: ' + error.message);
+    }
+    
+    finalizarProcessamento();
+}
+
+function adicionarResultadoTempoReal(resultado) {
+    const container = document.getElementById('resultadosContainer');
+    const elemento = criarElementoResultado(resultado);
+    container.appendChild(elemento);
+    
+    // Scroll suave para o novo resultado
+    elemento.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function criarElementoResultado(resultado) {
+    const div = document.createElement('div');
+    div.className = `resultado-card ${resultado.status}`;
+    
+    const statusClass = resultado.status === 'sucesso' ? 'sucesso' : 
+                       resultado.status === 'divergencia' ? 'divergencia' : 'erro';
+    
+    div.innerHTML = `
+        <div class="resultado-header">
+            <div class="processo-info">
+                <span class="processo-codigo">Processo ${resultado.codigo}</span>
+                <span class="status-badge ${statusClass}">${resultado.comparacao.resultado || resultado.status.toUpperCase()}</span>
+            </div>
+            <div class="action-buttons">
+                <span class="btn-action btn-attachment">📎 attachment</span>
+                ${resultado.link_documento ? `<a href="${resultado.link_documento}" target="_blank" class="btn-action btn-download">📄 Ver Documento</a>` : ''}
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Dados do Despacho</th>
+                        <th>Dados do OCR</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${criarLinhasTabela(resultado)}
+                </tbody>
+            </table>
+        </div>
+        
+        ${resultado.texto_bruto_ocr ? `
+            <div class="texto-bruto">
+                <strong>Texto Bruto do OCR:</strong><br>
+                ${resultado.texto_bruto_ocr}
+            </div>
+        ` : ''}
+        
+        <div class="timestamp">
+            Timestamp: ${new Date(resultado.timestamp).toLocaleString('pt-BR')}
+        </div>
+    `;
+    
+    return div;
+}
+
+function criarLinhasTabela(resultado) {
+    const campos = [
+        { key: 'nome_completo', nome: 'Nome Completo', aliasOcr: 'nome' },
+        { key: 'rnm', nome: 'RNM' },
+        { key: 'data_nascimento', nome: 'Data Nascimento', aliasDespacho: 'data_nasc', aliasOcr: 'data_nasc' },
+        { key: 'nacionalidade', nome: 'Nacionalidade' },
+        { key: 'pai', nome: 'Pai' },
+        { key: 'mae', nome: 'Mãe' }
+    ];
+    
+    return campos.map(campo => {
+        const valorDespacho = obterValorCampo(resultado.dados_despacho, campo.key, campo.aliasDespacho);
+        const valorOcr = obterValorCampo(resultado.dados_ocr, campo.key, campo.aliasOcr);
+        const status = compararValores(valorDespacho, valorOcr, campo.key);
+        
+        const statusClass = status ? 'status-ok' : 'status-erro';
+        const statusIcon = status ? '✓' : '✗';
+        
+        return `
+            <tr>
+                <td><strong>${campo.nome}</strong></td>
+                <td>${valorDespacho || 'N/A'}</td>
+                <td>${valorOcr || 'N/A'}</td>
+                <td class="${statusClass}">${statusIcon}</td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function obterValorCampo(dados, campo, alias) {
+    if (!dados) return '';
+    
+    // Tentar campo principal
+    if (dados[campo]) return dados[campo];
+    
+    // Tentar alias
+    if (alias && dados[alias]) return dados[alias];
+    
+    return '';
+}
+
+function compararValores(valor1, valor2, campo) {
+    if (!valor1 || !valor2) return valor1 === valor2;
+    
+    // Normalizar para comparação
+    const v1 = valor1.toString().trim().toUpperCase();
+    const v2 = valor2.toString().trim().toUpperCase();
+    
+    // Para nomes, comparar de forma mais flexível
+    if (campo === 'nome_completo' || campo === 'pai' || campo === 'mae') {
+        return v1 === v2 || 
+               v1.split(' ').every(palavra => v2.includes(palavra)) ||
+               v2.split(' ').every(palavra => v1.includes(palavra));
+    }
+    
+    return v1 === v2;
+}
+
+function atualizarContador() {
+    document.getElementById('contadorTexto').textContent = 
+        `${contadorProcessos} de ${totalProcessos} processos`;
+}
+
+function finalizarProcessamento() {
+    processando = false;
+    contadorProcessos = totalProcessos;
+    atualizarContador();
+    
+    // Reabilitar botão
+    const btn = document.querySelector('.btn-analyze');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-icons">play_arrow</span> INICIAR ANÁLISE AUTOMÁTICA';
+    
+    // Ocultar contador após 3 segundos
+    setTimeout(() => {
+        document.getElementById('contadorRealTime').classList.remove('ativo');
+    }, 3000);
+}
+</script>
+{% endblock %}
