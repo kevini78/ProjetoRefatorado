@@ -27,7 +27,15 @@ def health():
 def bp_download_planilha_modificada(nome_arquivo: str):
     """Download de planilha gerada/modificada. Usa UPLOAD_FOLDER da config."""
     try:
-        caminho_arquivo = os.path.join(current_app.config["UPLOAD_FOLDER"], nome_arquivo)
+        base_dir = os.path.abspath(current_app.config["UPLOAD_FOLDER"])
+        caminho_arquivo = os.path.abspath(os.path.join(base_dir, nome_arquivo))
+        # Garante que o caminho permaneça dentro de UPLOAD_FOLDER (evita path traversal)
+        if os.path.commonpath([base_dir, caminho_arquivo]) != base_dir:
+            try:
+                flash("Caminho de arquivo inválido", "error")
+            except Exception:
+                pass
+            return redirect(url_for("web.index"))
         if not os.path.exists(caminho_arquivo):
             # Mantém comportamento legacy de feedback com flash + redirect quando usado via UI
             try:
@@ -35,7 +43,7 @@ def bp_download_planilha_modificada(nome_arquivo: str):
             except Exception:
                 pass
             return redirect(url_for("web.index"))
-        return send_file(caminho_arquivo, as_attachment=True, download_name=nome_arquivo)
+        return send_file(caminho_arquivo, as_attachment=True, download_name=os.path.basename(caminho_arquivo))
     except Exception as e:
         try:
             flash(f"Erro ao fazer download: {str(e)}", "error")
@@ -50,7 +58,8 @@ def bp_download_upload(filename: str):
     try:
         base_dir = os.path.abspath(current_app.config.get("UPLOAD_FOLDER", os.path.join(os.getcwd(), "uploads")))
         requested_path = os.path.abspath(os.path.join(base_dir, filename))
-        if not (requested_path.startswith(base_dir + os.sep) or requested_path == base_dir):
+        # Garante que o caminho permaneça dentro de UPLOAD_FOLDER (evita path traversal)
+        if os.path.commonpath([base_dir, requested_path]) != base_dir:
             return jsonify({"success": False, "message": "Caminho inválido"}), 400
         if os.path.exists(requested_path):
             return send_file(requested_path, as_attachment=True)
@@ -63,21 +72,29 @@ def bp_download_upload(filename: str):
 def bp_download_automacao(filename: str):
     """Download de documentos produzidos pela automação (se existirem em downloads_automacao)."""
     try:
-        download_folder = os.path.join(os.getcwd(), "downloads_automacao")
-        caminho_arquivo = os.path.join(download_folder, filename)
+        download_folder = os.path.abspath(os.path.join(os.getcwd(), "downloads_automacao"))
+        caminho_arquivo = os.path.abspath(os.path.join(download_folder, filename))
+        # Garante que o caminho permaneça dentro de downloads_automacao (evita path traversal)
+        if os.path.commonpath([download_folder, caminho_arquivo]) != download_folder:
+            try:
+                flash("Caminho de arquivo inválido", "error")
+            except Exception:
+                pass
+            return redirect(url_for("web.index"))
         if not os.path.exists(caminho_arquivo):
             try:
                 flash("Arquivo não encontrado", "error")
             except Exception:
                 pass
             return redirect(url_for("web.index"))
-        if not filename.lower().endswith(".pdf"):
+        safe_name = os.path.basename(caminho_arquivo)
+        if not safe_name.lower().endswith(".pdf"):
             try:
                 flash("Tipo de arquivo não permitido", "error")
             except Exception:
                 pass
             return redirect(url_for("web.index"))
-        return send_from_directory(download_folder, filename, as_attachment=True)
+        return send_from_directory(download_folder, safe_name, as_attachment=True)
     except Exception as e:
         try:
             flash(f"Erro ao baixar arquivo: {str(e)}", "error")

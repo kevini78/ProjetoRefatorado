@@ -694,6 +694,29 @@
         const urlCampos = document.getElementById('analise-url-campos');
         const textoCampos = document.getElementById('analise-texto-campos');
         const lecomCampos = document.getElementById('analise-lecom-campos');
+
+        function escapeHtml(value) {
+            if (value === null || value === undefined) {
+                return '';
+            }
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function setSafeError(message) {
+            const container = document.getElementById('resultado');
+            if (!container) return;
+            const div = document.createElement('div');
+            div.className = 'resultado-card error';
+            div.textContent = message;
+            container.innerHTML = '';
+            container.appendChild(div);
+        }
+
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
                 urlCampos.style.display = this.value === 'url' ? 'block' : 'none';
@@ -704,42 +727,53 @@
         
         // Função única para exibir o resultado formatado (usada por ambos os formulários)
         function exibirResultadoFormatado(data) {
+            const container = document.getElementById('resultado');
+            if (!container) return;
+
             let html = '';
-            if(data.success && data.resultado) {
-                html += `<div class=\"resultado-card success\">
-                    <h3>✅ Análise Concluída</h3>
-                    <p><strong>Total de portarias:</strong> ${data.resultado.total_portarias || 0}</p>
-                    <p><strong>Total de erros:</strong> ${data.resultado.total_erros || 0}</p>
+            if(data && data.success && data.resultado) {
+                html += `<div class=\"resultado-card success\">\r
+                    <h3>✅ Análise Concluída</h3>\r
+                    <p><strong>Total de portarias:</strong> ${escapeHtml(data.resultado.total_portarias || 0)}</p>\r
+                    <p><strong>Total de erros:</strong> ${escapeHtml(data.resultado.total_erros || 0)}</p>\r
                 </div>`;
                 
-                if(data.resultado.portarias && data.resultado.portarias.length > 0) {
+                if(Array.isArray(data.resultado.portarias) && data.resultado.portarias.length > 0) {
                     data.resultado.portarias.forEach(function(p, idx) {
-                        html += `<div class=\"portaria-item\">
-                            <div class=\"portaria-header\">
-                                <span class=\"portaria-numero\">PORTARIA ${p.numero || ''} ${p.tipo ? '('+p.tipo+')' : ''}</span>
-                                <span class=\"portaria-data\">${p.data || ''}${p.pessoas ? ' • ' + p.pessoas.length + ' pessoas' : ''}</span>
+                        const numero = escapeHtml(p.numero || '');
+                        const tipo = p.tipo ? `(${escapeHtml(p.tipo)})` : '';
+                        const pessoasCount = p.pessoas ? ` • ${escapeHtml(p.pessoas.length)} pessoas` : '';
+                        const dataPortaria = escapeHtml(p.data || '');
+
+                        html += `<div class=\"portaria-item\">\r
+                            <div class=\"portaria-header\">\r
+                                <span class=\"portaria-numero\">PORTARIA ${numero} ${tipo}</span>\r
+                                <span class=\"portaria-data\">${dataPortaria}${pessoasCount}</span>\r
                             </div>`;
-                        if(p.erros && p.erros.length > 0) {
-                            html += `<div class=\"resultado-card error\"><strong>Erros Encontrados (${p.erros.length})</strong>`;
+                        if(Array.isArray(p.erros) && p.erros.length > 0) {
+                            html += `<div class=\"resultado-card error\"><strong>Erros Encontrados (${escapeHtml(p.erros.length)})</strong>`;
                             p.erros.forEach(function(erro) {
-                                html += `<div class=\"erro-item\"><strong>${erro.tipo || erro.codigo || ''}:</strong> ${erro.descricao || erro['descrição'] || erro.mensagem || ''}<br>Pessoa: ${erro.pessoa || ''}</div>`;
+                                const tipoErro = escapeHtml(erro.tipo || erro.codigo || '');
+                                const descErro = escapeHtml(erro.descricao || erro['descrição'] || erro.mensagem || '');
+                                const pessoaErro = escapeHtml(erro.pessoa || '');
+                                html += `<div class=\"erro-item\"><strong>${tipoErro}:</strong> ${descErro}<br>Pessoa: ${pessoaErro}</div>`;
                             });
                             html += `</div>`;
                         } else {
                             html += `<div class=\"resultado-card success\">Nenhum erro encontrado nesta portaria.</div>`;
                         }
-                        if(p.pessoas && p.pessoas.length > 0) {
-                            html += `<div><h4 class=\"section-title\">Pessoas Processadas (${p.pessoas.length})</h4><div class=\"pessoas-grid\">`;
+                        if(Array.isArray(p.pessoas) && p.pessoas.length > 0) {
+                            html += `<div><h4 class=\"section-title\">Pessoas Processadas (${escapeHtml(p.pessoas.length)})</h4><div class=\"pessoas-grid\">`;
                             p.pessoas.forEach(function(pessoa) {
-                                html += `<div class=\"pessoa-item\"><strong>👤 ${pessoa.nome}</strong>`;
-                                if(pessoa.documento) html += `<small>🆔 Documento: ${pessoa.documento} (${pessoa.tipo_documento || ''})</small>`;
-                                if(pessoa.processo) html += `<br>📁 Processo: ${pessoa.processo}`;
-                                if(pessoa.pais) html += `<br>🌎 País: ${pessoa.pais}`;
-                                if(pessoa.estado) html += `<br>🏙️ Estado: ${pessoa.estado}`;
-                                if(pessoa.idade) html += `<br>🎂 Idade: ${pessoa.idade} anos`;
-                                if(pessoa.data_nascimento) html += `<br>🗓️ Nascimento: ${pessoa.data_nascimento}`;
-                                if(pessoa.nome_pai) html += `<br>👨‍👧 Pai: ${pessoa.nome_pai}`;
-                                if(pessoa.nome_mae) html += `<br>👩‍👧 Mãe: ${pessoa.nome_mae}`;
+                                html += `<div class=\"pessoa-item\"><strong>👤 ${escapeHtml(pessoa.nome)}</strong>`;
+                                if(pessoa.documento) html += `<small>🆔 Documento: ${escapeHtml(pessoa.documento)} (${escapeHtml(pessoa.tipo_documento || '')})</small>`;
+                                if(pessoa.processo) html += `<br>📁 Processo: ${escapeHtml(pessoa.processo)}`;
+                                if(pessoa.pais) html += `<br>🌎 País: ${escapeHtml(pessoa.pais)}`;
+                                if(pessoa.estado) html += `<br>🏙️ Estado: ${escapeHtml(pessoa.estado)}`;
+                                if(pessoa.idade) html += `<br>🎂 Idade: ${escapeHtml(pessoa.idade)} anos`;
+                                if(pessoa.data_nascimento) html += `<br>🗓️ Nascimento: ${escapeHtml(pessoa.data_nascimento)}`;
+                                if(pessoa.nome_pai) html += `<br>👨‍👧 Pai: ${escapeHtml(pessoa.nome_pai)}`;
+                                if(pessoa.nome_mae) html += `<br>👩‍👧 Mãe: ${escapeHtml(pessoa.nome_mae)}`;
                                 html += `</div>`;
                             });
                             html += `</div></div>`;
@@ -748,21 +782,22 @@
                     });
                 }
                 
-                if(data.resultado.arquivos_excel && data.resultado.arquivos_excel.length > 0) {
-                    html += `<div class="resultado-card">
-                        <h3>Relatórios Excel Gerados</h3>
+                if(Array.isArray(data.resultado.arquivos_excel) && data.resultado.arquivos_excel.length > 0) {
+                    html += `<div class="resultado-card">\r
+                        <h3>Relatórios Excel Gerados</h3>\r
                         <ul class="erro-list">`;
                     data.resultado.arquivos_excel.forEach(function(f) {
-                        html += `<li><a href="/download/${encodeURIComponent(f)}" style="color: var(--color-primary-default);">${f.split('/').pop()}</a></li>`;
+                        const fileName = f.split('/').pop();
+                        html += `<li><a href="/download/${encodeURIComponent(f)}" style="color: var(--color-primary-default);">${escapeHtml(fileName)}</a></li>`;
                     });
                     html += `</ul></div>`;
                 }
-            } else if(data.message) {
-                html = `<div class=\"resultado-card error\">${data.message}</div>`;
+            } else if(data && data.message) {
+                html = `<div class=\"resultado-card error\">${escapeHtml(data.message)}</div>`;
             } else {
                 html = `<div class=\"resultado-card error\">Erro inesperado ao analisar.</div>`;
             }
-            document.getElementById('resultado').innerHTML = html;
+            container.innerHTML = html;
         }
         // Função para obter o CSRF token
         function getCsrfToken() {
@@ -803,7 +838,7 @@
                 })
                 .catch(err => {
                     console.error('Erro completo:', err);
-                    document.getElementById('resultado').innerHTML = '<div class="resultado-card error">Erro ao analisar: ' + err.message + '</div>';
+                    setSafeError('Erro ao analisar: ' + (err && err.message ? err.message : err));
                 });
             });
         }
@@ -840,7 +875,7 @@
                 })
                 .catch(err => {
                     console.error('Erro completo:', err);
-                    document.getElementById('resultado').innerHTML = '<div class="resultado-card error">Erro ao analisar: ' + err.message + '</div>';
+                    setSafeError('Erro ao analisar: ' + (err && err.message ? err.message : err));
                 });
             });
         }

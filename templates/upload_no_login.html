@@ -199,6 +199,16 @@
             displayFiles(e.target.files);
         });
 
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return '';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         // Exibir arquivos selecionados
         function displayFiles(files) {
             fileList.innerHTML = '';
@@ -214,8 +224,8 @@
                     const fileInfo = document.createElement('div');
                     fileInfo.innerHTML = `
                         <i class="fas fa-file me-2"></i>
-                        <strong>${file.name}</strong>
-                        <small class="text-muted ms-2">(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+                        <strong>${escapeHtml(file.name)}</strong>
+                        <small class="text-muted ms-2">(${escapeHtml((file.size / 1024 / 1024).toFixed(2))} MB)</small>
                     `;
                     
                     const removeBtn = document.createElement('button');
@@ -299,11 +309,20 @@
                         // Mostrar sucesso
                         const alert = document.createElement('div');
                         alert.className = 'alert alert-success alert-dismissible fade show';
-                        alert.innerHTML = `
-                            <i class="fas fa-check-circle me-2"></i>
-                            ${result.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        `;
+                        const icon = document.createElement('i');
+                        icon.className = 'fas fa-check-circle me-2';
+                        const closeBtn = document.createElement('button');
+                        closeBtn.type = 'button';
+                        closeBtn.className = 'btn-close';
+                        closeBtn.setAttribute('data-bs-dismiss', 'alert');
+
+                        const messageSpan = document.createElement('span');
+                        messageSpan.textContent = result.message || 'Upload concluído com sucesso.';
+
+                        alert.appendChild(icon);
+                        alert.appendChild(messageSpan);
+                        alert.appendChild(closeBtn);
+
                         document.querySelector('.container').insertBefore(alert, document.querySelector('.row'));
                         
                         // Reset form
@@ -324,11 +343,20 @@
                 
                 const alert = document.createElement('div');
                 alert.className = 'alert alert-danger alert-dismissible fade show';
-                alert.innerHTML = `
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    Erro no upload: ${error.message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-exclamation-triangle me-2';
+                const closeBtn = document.createElement('button');
+                closeBtn.type = 'button';
+                closeBtn.className = 'btn-close';
+                closeBtn.setAttribute('data-bs-dismiss', 'alert');
+
+                const messageSpan = document.createElement('span');
+                messageSpan.textContent = 'Erro no upload: ' + (error && error.message ? error.message : 'erro desconhecido');
+
+                alert.appendChild(icon);
+                alert.appendChild(messageSpan);
+                alert.appendChild(closeBtn);
+
                 document.querySelector('.container').insertBefore(alert, document.querySelector('.row'));
                 
                 progressContainer.style.display = 'none';

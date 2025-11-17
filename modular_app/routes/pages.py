@@ -46,7 +46,8 @@ def pagina_configurar():
                 f.save(dest)
                 message = f"Sucesso: arquivo salvo em {os.path.basename(dest)}"
             except Exception as e:
-                message = f"Erro ao salvar arquivo: {e}"
+                current_app.logger.exception("Erro ao salvar arquivo de configuração")
+                message = "Erro ao salvar arquivo. Verifique os logs do servidor para mais detalhes."
         else:
             message = "Nenhum arquivo selecionado"
     return render_template('configurar.html', message=message)
@@ -114,5 +115,6 @@ def pagina_analise_automatica():
             msg = f"[OK] Upload recebido e processamento {tipo.upper()} iniciado. ID: {job_id}. O arquivo foi salvo como {filename}."
             return render_template('analise_automatica.html', resultado=msg)
         except Exception as e:
-            return render_template('analise_automatica.html', resultado=f"[ERRO] Falha ao iniciar processamento: {e}"), 500
+            current_app.logger.exception("Falha ao iniciar processamento automático")
+            return render_template('analise_automatica.html', resultado="[ERRO] Falha ao iniciar processamento. Verifique os logs do servidor."), 500
     return render_template('analise_automatica.html')

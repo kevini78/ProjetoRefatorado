@@ -85,9 +85,10 @@ def api_extracao_ocr_download():
     diretorio = (request.args.get('diretorio') or '').strip()
     if not diretorio:
         return jsonify({'success': False, 'error': 'diretorio não informado'}), 400
-    base_dir = current_app.config.get('UPLOAD_FOLDER')
+    base_dir = os.path.abspath(current_app.config.get('UPLOAD_FOLDER'))
     target_dir = os.path.abspath(os.path.join(base_dir, diretorio))
-    if not target_dir.startswith(os.path.abspath(base_dir)):
+    # Garante que o diretório alvo permanece dentro de UPLOAD_FOLDER (evita path traversal)
+    if os.path.commonpath([base_dir, target_dir]) != base_dir:
         return jsonify({'success': False, 'error': 'diretório inválido'}), 400
     if not os.path.exists(target_dir):
         return jsonify({'success': False, 'error': 'diretório não encontrado'}), 404
@@ -108,8 +109,13 @@ def api_extracao_ocr_download():
 @require_authentication
 def api_extracao_ocr_estatisticas():
     diretorio = (request.args.get('diretorio') or '').strip()
-    base_dir = current_app.config.get('UPLOAD_FOLDER')
+    if not diretorio:
+        return jsonify({'success': False, 'error': 'diretório não informado'}), 400
+    base_dir = os.path.abspath(current_app.config.get('UPLOAD_FOLDER'))
     target_dir = os.path.abspath(os.path.join(base_dir, diretorio))
+    # Garante que o diretório alvo permanece dentro de UPLOAD_FOLDER (evita path traversal)
+    if os.path.commonpath([base_dir, target_dir]) != base_dir:
+        return jsonify({'success': False, 'error': 'diretório inválido'}), 400
     resumo_path = os.path.join(target_dir, 'resumo_extracao.json')
     if not os.path.exists(resumo_path):
         return jsonify({'success': False, 'error': 'Resumo não encontrado'}), 404

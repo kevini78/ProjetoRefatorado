@@ -250,6 +250,12 @@
             }
         });
 
+        function stripHtmlTags(html) {
+            if (!html) return '';
+            // Remove todas as tags HTML de forma simples, sem inserir no DOM
+            return String(html).replace(/<[^>]*>/g, '');
+        }
+
         // Manipular envio do formulário
         document.getElementById('preprocessingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -339,10 +345,8 @@
                         // Se houver texto mascarado diferente, adicionar seção separada
                         if (data.texto_mascarado && data.texto_mascarado !== data.texto_original) {
                             console.log('ℹ️ Adicionando também texto_mascarado');
-                            // Remover tags HTML do texto mascarado para exibição
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = data.texto_mascarado;
-                            const textoMascaradoLimpo = tempDiv.textContent || tempDiv.innerText || '';
+                            // Remover tags HTML do texto mascarado para exibição, sem usar innerHTML
+                            const textoMascaradoLimpo = stripHtmlTags(data.texto_mascarado);
                             
                             textoOCR = "========== TEXTO ORIGINAL ==========\n\n" + 
                                        data.texto_original + 
@@ -353,9 +357,8 @@
                     // Fallback para texto mascarado se não houver original
                     else if (data.texto_mascarado && data.texto_mascarado.trim().length > 0) {
                         console.log('⚠️ Usando texto_mascarado (texto_original não disponível)');
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = data.texto_mascarado;
-                        textoOCR = tempDiv.textContent || tempDiv.innerText || '';
+                        // Remover tags HTML sem usar innerHTML
+                        textoOCR = stripHtmlTags(data.texto_mascarado);
                     }
                     
                     // Exibir no textarea
