@@ -7,7 +7,9 @@ from .security.middleware import register_security
 from .tasks.job_service import JobService
 
 
-def create_app(config_object: str | type = DevConfig) -> Flask:
+def create_app(config_object: str | type = None) -> Flask:
+    if config_object is None:
+        config_object = DevConfig()
     # Resolve caminhos absolutos normalizados para evitar problemas com UNC paths no Windows
     # Remove o prefixo \\?\ do Windows se presente
     def normalize_path(p: str) -> str:
@@ -29,7 +31,11 @@ def create_app(config_object: str | type = DevConfig) -> Flask:
     # Configuração
     if isinstance(config_object, str):
         app.config.from_object(config_object)
+    elif isinstance(config_object, type):
+        # Se for uma classe, instanciar
+        app.config.from_object(config_object())
     else:
+        # Já é uma instância
         app.config.from_object(config_object)
 
     # Helpers globais mínimos para templates que usam CSRF e datas
@@ -44,12 +50,31 @@ def create_app(config_object: str | type = DevConfig) -> Flask:
     # Segurança (headers/middlewares)
     register_security(app)
 
+    # Integração opcional com pacote de segurança legado (10 camadas)
+    try:
+        # Middleware avançado (rate limiting, detecção de ataques, headers reforçados)
+        from security.security_middleware_enhanced import security_middleware_enhanced
+        security_middleware_enhanced.init_app(app)
+    except Exception:
+        # Em ambientes sem dependências de segurança completas, seguir apenas com segurança básica
+        pass
+
     # Extensões simples
     app.extensions['job_service'] = JobService()
 
     # Blueprints
     app.register_blueprint(web_bp)
     app.register_blueprint(api_bp, url_prefix="/api/v1")
+    
+    # API v2 com OpenAPI/Swagger
+    try:
+        from .routes.api_v2 import api as api_v2
+        from flask import Blueprint
+        api_v2_bp = Blueprint('api_v2', __name__)
+        api_v2.init_app(api_v2_bp)
+        app.register_blueprint(api_v2_bp)
+    except Exception as e:
+        print(f"[AVISO] API v2 não pode ser carregada: {e}")
 
     # Blueprints adicionais (uploads e automação)
     try:

@@ -78,16 +78,17 @@ def worker_defere_indefere(job_service, job_id: str, filepath: str, column_name:
         job_service.set_result(job_id, summary)
         job_service.log(job_id, f'[DADOS] Resumo: {sucessos} sucessos, {erros} erros, {decisoes_enviadas} decisões enviadas', 'success')
 
-        # Salvar planilha de resultados na mesma pasta do arquivo de entrada
+        # Salvar planilha de resultados no diretório planilhas/
         try:
             import pandas as pd
             df = pd.DataFrame(resultados)
-            base_dir = os.path.dirname(os.path.abspath(filepath)) or os.getcwd()
+            planilhas_dir = os.path.join(os.getcwd(), 'planilhas')
+            os.makedirs(planilhas_dir, exist_ok=True)
             ts = datetime.now().strftime('%Y%m%d_%H%M%S')
             out_name = f'resultados_defere_indefere_{ts}.xlsx'
-            out_path = os.path.join(base_dir, out_name)
+            out_path = os.path.join(planilhas_dir, out_name)
             df.to_excel(out_path, index=False)
-            job_service.log(job_id, f'[SALVO] Resultados salvos: {out_name}', 'success')
+            job_service.log(job_id, f'[SALVO] Resultados salvos em planilhas/: {out_name}', 'success')
         except Exception as e:
             job_service.log(job_id, f'[AVISO] Erro ao salvar planilha: {e}', 'warning')
 
@@ -174,18 +175,19 @@ def worker_aprovacao_recurso(job_service, job_id: str, filepath: str, column_nam
 
             time.sleep(1)
 
-        # Salvar resultados
+        # Salvar resultados usando serviço unificado
         job_service.log(job_id, f'[SALVO] Salvando resultados de {len(resultados)} processos...', 'info')
         job_service.update(job_id, status='running', message='Salvando resultados...', detail='Gerando planilha', progress=90)
         try:
-            import pandas as pd
-            df = pd.DataFrame(resultados)
-            base_dir = os.path.dirname(os.path.abspath(filepath)) or os.getcwd()
+            from modular_app.services.unified_results_service import UnifiedResultsService
             ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            out_name = f'resultados_aprovacao_recurso_{ts}.xlsx'
-            out_path = os.path.join(base_dir, out_name)
-            df.to_excel(out_path, index=False)
-            job_service.log(job_id, f'[SALVO] Resultados salvos: {out_name}', 'success')
+            
+            unified_service = UnifiedResultsService()
+            out_path = unified_service.salvar_resultado_parecer_analista(resultados, timestamp=ts)
+            out_name = os.path.basename(out_path)
+            
+            job_service.log(job_id, f'[SALVO] Resultados salvos em planilhas/: {out_name}', 'success')
+            job_service.log(job_id, f'[CONSOLIDADO] Resultados também adicionados ao arquivo consolidado', 'success')
         except Exception as e:
             job_service.log(job_id, f'[AVISO] Erro ao salvar planilha: {e}', 'warning')
 
@@ -390,15 +392,17 @@ def worker_analise_ordinaria(job_service, job_id: str, filepath: str, column_nam
             else:
                 job_service.log(job_id, f"[ERRO] {codigo}: {out.get('erro','Erro desconhecido')}", 'error')
 
-        # Salvar planilha
+        # Salvar planilha usando serviço unificado
         try:
-            base_dir = os.path.dirname(os.path.abspath(filepath)) or os.getcwd()
+            from modular_app.services.unified_results_service import UnifiedResultsService
             ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-            out_name = f'resultados_analise_ordinaria_{ts}.xlsx'
-            out_path = os.path.join(base_dir, out_name)
-
-            pd.DataFrame(resultados).to_excel(out_path, index=False)
-            job_service.log(job_id, f'[SALVO] Resultados salvos: {out_name}', 'success')
+            
+            unified_service = UnifiedResultsService()
+            out_path = unified_service.salvar_lote_ordinaria(resultados, timestamp=ts)
+            out_name = os.path.basename(out_path)
+            
+            job_service.log(job_id, f'[SALVO] Resultados salvos em planilhas/: {out_name}', 'success')
+            job_service.log(job_id, f'[CONSOLIDADO] Resultados também adicionados ao arquivo consolidado', 'success')
         except Exception as e:
             job_service.log(job_id, f'[AVISO] Erro ao salvar planilha: {e}', 'warning')
 
@@ -526,12 +530,13 @@ def worker_analise_provisoria(job_service, job_id: str, filepath: str, column_na
             else:
                 job_service.log(job_id, f"[ERRO] {codigo}: {out.get('erro','Erro desconhecido')}", 'error')
 
-        # Salvar planilha
+        # Salvar planilha no diretório planilhas/
         try:
-            base_dir = os.path.dirname(os.path.abspath(filepath)) or os.getcwd()
+            planilhas_dir = os.path.join(os.getcwd(), 'planilhas')
+            os.makedirs(planilhas_dir, exist_ok=True)
             ts = datetime.now().strftime('%Y%m%d_%H%M%S')
             out_name = f'resultados_analise_provisoria_{ts}.xlsx'
-            out_path = os.path.join(base_dir, out_name)
+            out_path = os.path.join(planilhas_dir, out_name)
 
             rows = []
             for r in resultados:
@@ -545,7 +550,7 @@ def worker_analise_provisoria(job_service, job_id: str, filepath: str, column_na
                     'erro': r.get('erro')
                 })
             pd.DataFrame(rows).to_excel(out_path, index=False)
-            job_service.log(job_id, f'[SALVO] Resultados salvos: {out_name}', 'success')
+            job_service.log(job_id, f'[SALVO] Resultados salvos em planilhas/: {out_name}', 'success')
         except Exception as e:
             job_service.log(job_id, f'[AVISO] Erro ao salvar planilha: {e}', 'warning')
 
@@ -750,12 +755,13 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
             else:
                 job_service.log(job_id, f"[ERRO] {codigo}: {out.get('erro','Erro desconhecido')}", 'error')
 
-        # Salvar planilha de resultados
+        # Salvar planilha de resultados no diretório planilhas/
         try:
-            base_dir = os.path.dirname(os.path.abspath(filepath)) or os.getcwd()
+            planilhas_dir = os.path.join(os.getcwd(), 'planilhas')
+            os.makedirs(planilhas_dir, exist_ok=True)
             ts = datetime.now().strftime('%Y%m%d_%H%M%S')
             out_name = f'resultados_analise_definitiva_{ts}.xlsx'
-            out_path = os.path.join(base_dir, out_name)
+            out_path = os.path.join(planilhas_dir, out_name)
 
             rows = []
             for r in resultados:
@@ -782,7 +788,7 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
                 })
 
             pd.DataFrame(rows).to_excel(out_path, index=False)
-            job_service.log(job_id, f'[SALVO] Resultados salvos: {out_name}', 'success')
+            job_service.log(job_id, f'[SALVO] Resultados salvos em planilhas/: {out_name}', 'success')
         except Exception as e:
             job_service.log(job_id, f'[AVISO] Erro ao salvar planilha: {e}', 'warning')
 

@@ -1,0 +1,1 @@
+"""Extensões da aplicação."""

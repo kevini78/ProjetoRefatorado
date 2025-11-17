@@ -85,8 +85,15 @@ def api_extracao_ocr_download():
     diretorio = (request.args.get('diretorio') or '').strip()
     if not diretorio:
         return jsonify({'success': False, 'error': 'diretorio não informado'}), 400
+    # Não permitir separadores de caminho ou tentativa de subir diretórios
+    if any(sep in diretorio for sep in ('/', '\\')) or '..' in diretorio:
+        return jsonify({'success': False, 'error': 'diretório inválido'}), 400
+    # Sanitiza o nome do diretório para evitar caracteres perigosos
+    diretorio_safe = secure_filename(diretorio)
+    if not diretorio_safe:
+        return jsonify({'success': False, 'error': 'diretório inválido'}), 400
     base_dir = os.path.abspath(current_app.config.get('UPLOAD_FOLDER'))
-    target_dir = os.path.abspath(os.path.join(base_dir, diretorio))
+    target_dir = os.path.abspath(os.path.join(base_dir, diretorio_safe))
     # Garante que o diretório alvo permanece dentro de UPLOAD_FOLDER (evita path traversal)
     if os.path.commonpath([base_dir, target_dir]) != base_dir:
         return jsonify({'success': False, 'error': 'diretório inválido'}), 400
@@ -111,8 +118,15 @@ def api_extracao_ocr_estatisticas():
     diretorio = (request.args.get('diretorio') or '').strip()
     if not diretorio:
         return jsonify({'success': False, 'error': 'diretório não informado'}), 400
+    # Não permitir separadores de caminho ou tentativa de subir diretórios
+    if any(sep in diretorio for sep in ('/', '\\')) or '..' in diretorio:
+        return jsonify({'success': False, 'error': 'diretório inválido'}), 400
+    # Sanitiza o nome do diretório para evitar caracteres perigosos
+    diretorio_safe = secure_filename(diretorio)
+    if not diretorio_safe:
+        return jsonify({'success': False, 'error': 'diretório inválido'}), 400
     base_dir = os.path.abspath(current_app.config.get('UPLOAD_FOLDER'))
-    target_dir = os.path.abspath(os.path.join(base_dir, diretorio))
+    target_dir = os.path.abspath(os.path.join(base_dir, diretorio_safe))
     # Garante que o diretório alvo permanece dentro de UPLOAD_FOLDER (evita path traversal)
     if os.path.commonpath([base_dir, target_dir]) != base_dir:
         return jsonify({'success': False, 'error': 'diretório inválido'}), 400

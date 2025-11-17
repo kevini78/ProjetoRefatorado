@@ -51,10 +51,12 @@ venv.bak/
 *.log
 logs/
 
+# Arquivos de agendamento do Celery
+celerybeat-schedule*
+
 # Downloads temporários
 Downloads/
 downloads/
-
 # Uploads e dados temporários
 uploads/*.xlsx
 uploads/*.csv
@@ -104,6 +106,11 @@ coverage.xml
 # pyenv
 .python-version
 
-# Planilhas com dados sensíveis (manter templates)
-Planilhas/analise_ordinaria_consolidada.xlsx
-Planilhas/analise_provisoria_consolidada.xlsx
+# Planilhas com dados sensíveis (todos os resultados gerados)
+planilhas/*.xlsx
+planilhas/*.csv
+!planilhas/.gitkeep
+
+# Manter compatibilidade com nomes antigos (uppercase)
+Planilhas/*.xlsx
+Planilhas/*.csv

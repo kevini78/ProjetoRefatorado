@@ -11,7 +11,7 @@ from typing import Dict, List, Any, Optional
 from flask import request, Response, g, current_app, jsonify, abort
 from functools import wraps
 import ipaddress
-from security_config_enhanced import enhanced_security
+from .security_config_enhanced import enhanced_security
 
 class SecurityMiddlewareEnhanced:
     """

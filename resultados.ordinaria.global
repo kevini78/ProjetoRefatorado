@@ -2287,5 +2287,44 @@
       "problema_portugues": false,
       "alertas": []
     }
+  },
+  {
+    "numero_processo": "705567",
+    "codigo_processo": "705567",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "17/11/2025 13:35:18",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "11 de Mar de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 0.0,
+      "documentos_faltantes": [
+        "Não anexou item 8",
+        "Não anexou item 4",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 3 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Transformação de Naturalização Provisória em Definitiva apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a transformação de naturalização provisória em definitiva, verificou-se que apresentou documento oficial de identidade.\n\n5. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n6. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
   }
 ]

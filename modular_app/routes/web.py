@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template_string, current_app, send_file, send_from_directory, redirect, url_for, flash, jsonify
+from werkzeug.utils import secure_filename
 import os
 
 web_bp = Blueprint("web", __name__)
@@ -28,8 +29,16 @@ def bp_download_planilha_modificada(nome_arquivo: str):
     """Download de planilha gerada/modificada. Usa UPLOAD_FOLDER da config."""
     try:
         base_dir = os.path.abspath(current_app.config["UPLOAD_FOLDER"])
-        caminho_arquivo = os.path.abspath(os.path.join(base_dir, nome_arquivo))
-        # Garante que o caminho permaneça dentro de UPLOAD_FOLDER (evita path traversal)
+        # Sanitiza o nome do arquivo para evitar path traversal e caracteres perigosos
+        safe_name = secure_filename(nome_arquivo)
+        if not safe_name:
+            try:
+                flash("Nome de arquivo inválido", "error")
+            except Exception:
+                pass
+            return redirect(url_for("web.index"))
+        caminho_arquivo = os.path.abspath(os.path.join(base_dir, safe_name))
+        # Garante que o caminho permaneça dentro de UPLOAD_FOLDER (defesa extra)
         if os.path.commonpath([base_dir, caminho_arquivo]) != base_dir:
             try:
                 flash("Caminho de arquivo inválido", "error")
@@ -57,7 +66,11 @@ def bp_download_upload(filename: str):
     """Download de arquivos na pasta de uploads (compatível com rota legacy)."""
     try:
         base_dir = os.path.abspath(current_app.config.get("UPLOAD_FOLDER", os.path.join(os.getcwd(), "uploads")))
-        requested_path = os.path.abspath(os.path.join(base_dir, filename))
+        # Sanitiza o nome do arquivo para evitar path traversal e caracteres perigosos
+        safe_name = secure_filename(filename)
+        if not safe_name:
+            return jsonify({"success": False, "message": "Nome de arquivo inválido"}), 400
+        requested_path = os.path.abspath(os.path.join(base_dir, safe_name))
         # Garante que o caminho permaneça dentro de UPLOAD_FOLDER (evita path traversal)
         if os.path.commonpath([base_dir, requested_path]) != base_dir:
             return jsonify({"success": False, "message": "Caminho inválido"}), 400
