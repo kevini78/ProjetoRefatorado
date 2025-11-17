@@ -5,17 +5,13 @@ Responsável por orquestrar a análise de elegibilidade e geração de decisões
 
 from datetime import datetime
 from typing import Dict, Any, Optional, List
-from ..actions.lecom_action import LecomAction
-from ..actions.document_action import DocumentAction
+from ..actions.lecom_ordinaria_action import LecomAction
+from ..actions.document_ordinaria_action import DocumentAction
 from ..repositories.ordinaria_repository import OrdinariaRepository
 
-# Importar classes de análise existentes (preserva funcionalidade)
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-
-from Ordinaria.analise_elegibilidade_ordinaria import AnaliseElegibilidadeOrdinaria
-from Ordinaria.analise_decisoes_ordinaria import AnaliseDecisoesOrdinaria
+# Analisadores modulares (cópias adaptadas dos módulos Ordinaria/*)
+from automation.services.analise_elegibilidade_ordinaria import AnaliseElegibilidadeOrdinaria
+from automation.services.analise_decisoes_ordinaria import AnaliseDecisoesOrdinaria
 
 
 class OrdinariaService:
@@ -85,6 +81,12 @@ class OrdinariaService:
                 'III': False,
                 'IV': False
             }
+            # Resultados detalhados por requisito (para planilha/compatibilidade)
+            resultado_capacidade = {'atendido': False, 'motivo': 'Capacidade civil não avaliada', 'avaliado': False}
+            resultado_residencia = {'atendido': False, 'motivo': 'Residência mínima não avaliada', 'avaliado': False}
+            resultado_comunicacao = {'atendido': False, 'motivo': 'Comunicação em português não avaliada', 'avaliado': False}
+            resultado_antecedentes = {'atendido': False, 'motivo': 'Antecedentes criminais não avaliados', 'avaliado': False}
+            resultado_documentos_comp = {'atendido': False, 'documentos_validos': 0, 'total_documentos': 0, 'percentual_completude': 0.0, 'documentos_faltantes': [], 'avaliado': False}
 
             try:
                 parecer_pf_dados = self.repository.extrair_parecer_pf()
@@ -161,18 +163,35 @@ class OrdinariaService:
                         print("📋 Continuando análise para identificar TODOS os motivos de indeferimento")
                         motivos_indeferimento.append('Art. 65, inciso I da Lei nº 13.445/2017')
                         status_requisitos['I'] = False
+                        resultado_capacidade = {
+                            'atendido': False,
+                            'motivo': f'Possui {idade_anos} anos (< 18 anos)',
+                            'idade': idade_anos,
+                            'avaliado': True
+                        }
                     else:
                         print("✅ CAPACIDADE CIVIL: ATENDIDA")
                         print(f"✅ Possui {idade_anos} anos (≥ 18 anos)")
                         print("✅ Pode continuar com o processamento")
                         print(f"[OK] Maior de 18 anos → check")
                         status_requisitos['I'] = True
+                        resultado_capacidade = {
+                            'atendido': True,
+                            'motivo': f'Possui {idade_anos} anos (≥ 18 anos)',
+                            'idade': idade_anos,
+                            'avaliado': True
+                        }
                         
             except Exception as e:
                 print(f"[ERRO] Erro ao verificar capacidade civil: {e}")
                 print("❌ CAPACIDADE CIVIL: ERRO NA VERIFICAÇÃO")
                 motivos_indeferimento.append('Art. 65, inciso I da Lei nº 13.445/2017')
                 status_requisitos['I'] = False
+                resultado_capacidade = {
+                    'atendido': False,
+                    'motivo': f'Erro na verificação: {e}',
+                    'avaliado': True
+                }
             
             print("[DEBUG] REQUISITO I CONCLUÍDO - Indo para REQUISITO II...")
             
@@ -180,6 +199,16 @@ class OrdinariaService:
             print('\n[INFO] REQUISITO II – Residência mínima')
             resultado_residencia = self._verificar_residencia_minima_com_validacao_ocr()
             status_requisitos['II'] = resultado_residencia.get('pode_continuar', False)
+            
+            # Normalizar para formato compatível
+            resultado_residencia = {
+                'atendido': bool(resultado_residencia.get('pode_continuar', False)),
+                'motivo': resultado_residencia.get('motivo', 'Verificação de residência concluída'),
+                'tem_reducao': resultado_residencia.get('tem_reducao', False),
+                'prazo_requerido': resultado_residencia.get('prazo_requerido'),
+                'tempo_comprovado': resultado_residencia.get('tempo_comprovado', 0),
+                'avaliado': True
+            }
             
             if not status_requisitos['II']:
                 motivos_indeferimento.append('Art. 65, inciso II da Lei nº 13.445/2017')
@@ -201,17 +230,20 @@ class OrdinariaService:
                     print("✅ Comprovante de comunicação em português: VÁLIDO")
                     print("[OK] Comunicação em português → check")
                     status_requisitos['III'] = True
+                    resultado_comunicacao = {'atendido': True, 'motivo': 'Anexou comprovante de comunicação em português', 'avaliado': True}
                 else:
                     print("[ERRO] Comprovante de comunicação em português: NÃO ANEXADO")
                     print("[ERRO] Não anexou item 13")
                     print("📖 Fundamento: Art. 65, inciso III da Lei nº 13.445/2017")
                     motivos_indeferimento.append('Art. 65, inciso III da Lei nº 13.445/2017')
                     status_requisitos['III'] = False
+                    resultado_comunicacao = {'atendido': False, 'motivo': 'Não anexou item 13 - Comprovante de comunicação em português', 'avaliado': True}
                         
             except Exception as e:
                 print(f"[ERRO] Erro ao verificar comunicação: {e}")
                 motivos_indeferimento.append('Art. 65, inciso III da Lei nº 13.445/2017')
                 status_requisitos['III'] = False
+                resultado_comunicacao = {'atendido': False, 'motivo': f'Erro na verificação: {e}', 'avaliado': True}
             
             # REQUISITO IV – Antecedentes criminais
             print("\n[INFO] REQUISITO IV – Antecedentes criminais")
@@ -254,17 +286,20 @@ class OrdinariaService:
                     print("✅ REQUISITO IV: ATENDIDO - AMBOS os documentos de antecedentes válidos")
                     print("[OK] Antecedentes criminais → check")
                     status_requisitos['IV'] = True
+                    resultado_antecedentes = {'atendido': True, 'motivo': 'Antecedentes criminais em ordem (Brasil e país de origem)', 'avaliado': True}
                 else:
                     print("❌ REQUISITO IV: NÃO ATENDIDO - É necessário AMBOS os documentos de antecedentes válidos")
                     print("[ERRO] Não comprovou ausência de condenação criminal em AMBOS os documentos")
                     print("📖 Fundamento: Art. 65, inciso IV da Lei nº 13.445/2017")
                     motivos_indeferimento.append('Art. 65, inciso IV da Lei nº 13.445/2017')
                     status_requisitos['IV'] = False
+                    resultado_antecedentes = {'atendido': False, 'motivo': 'Antecedentes criminais inválidos ou não anexados', 'avaliado': True}
                     
             except Exception as e:
                 print(f"[ERRO] Erro ao verificar antecedentes: {e}")
                 motivos_indeferimento.append('Art. 65, inciso IV da Lei nº 13.445/2017')
                 status_requisitos['IV'] = False
+                resultado_antecedentes = {'atendido': False, 'motivo': f'Erro na verificação: {e}', 'avaliado': True}
             
             print("\n=== ETAPA 5: VERIFICAÇÕES PRELIMINARES CONCLUÍDAS ===")
             print("[OK] Documentos já validados individualmente:")
@@ -287,6 +322,7 @@ class OrdinariaService:
             ]
             
             documentos_complementares_validos = 0
+            documentos_complementares_faltantes = []
             
             for documento in documentos_complementares:
                 print(f"\n[DOC] Processando: {documento}")
@@ -298,10 +334,28 @@ class OrdinariaService:
                     documentos_complementares_validos += 1
                 else:
                     print(f"[ERRO] {documento}: NÃO ANEXADO")
+                    # Mapear para item do anexo
+                    if 'registro nacional' in documento.lower() or 'migratório' in documento.lower() or 'crnm' in documento.lower():
+                        documentos_complementares_faltantes.append('Não anexou item 3')
+                    elif 'cpf' in documento.lower():
+                        documentos_complementares_faltantes.append('Não anexou item 4')
+                    elif 'viagem internacional' in documento.lower():
+                        documentos_complementares_faltantes.append('Não anexou item 2')
+                    elif 'tempo de residência' in documento.lower():
+                        documentos_complementares_faltantes.append('Não anexou item 8')
             
             print(f"\n============================================================")
             print(f"📊 RESUMO DOCUMENTOS COMPLEMENTARES: {documentos_complementares_validos}/{len(documentos_complementares)} documentos válidos ({(documentos_complementares_validos/len(documentos_complementares)*100):.0f}%)")
             print(f"============================================================")
+            
+            resultado_documentos_comp = {
+                'atendido': documentos_complementares_validos == len(documentos_complementares),
+                'documentos_validos': documentos_complementares_validos,
+                'total_documentos': len(documentos_complementares),
+                'percentual_completude': (documentos_complementares_validos/len(documentos_complementares))*100 if documentos_complementares else 0.0,
+                'documentos_faltantes': documentos_complementares_faltantes,
+                'avaliado': True
+            }
             
             if documentos_complementares_validos == len(documentos_complementares):
                 print("[OK] DOCUMENTOS COMPLEMENTARES: COMPLETOS (100%)")
@@ -327,11 +381,19 @@ class OrdinariaService:
                     print(f"❌ Foram identificados {len(motivos_indeferimento)} motivo(s) de indeferimento")
                     requisitos_atendidos = sum(1 for atendido in status_requisitos.values() if atendido)
                     resultado = {
-                        'elegibilidade_final': 'indeferimento_automatico',
+                        'elegibilidade_final': 'indeferimento',
                         'motivos_indeferimento': motivos_indeferimento,
+                        'requisitos_nao_atendidos': motivos_indeferimento,
                         'requisitos_atendidos': requisitos_atendidos,
                         'total_requisitos': len(status_requisitos),
-                        'status_requisitos': status_requisitos
+                        'status_requisitos': status_requisitos,
+                        'requisito_i_capacidade_civil': resultado_capacidade,
+                        'requisito_ii_residencia_minima': resultado_residencia,
+                        'requisito_iii_comunicacao_portugues': resultado_comunicacao,
+                        'requisito_iv_antecedentes_criminais': resultado_antecedentes,
+                        'documentos_complementares': resultado_documentos_comp,
+                        'documentos_faltantes': resultado_documentos_comp.get('documentos_faltantes', []),
+                        'parecer_pf': parecer_pf_dados
                     }
                 else:
                     print(f"\n✅ DECISÃO PRELIMINAR: DEFERIMENTO")
@@ -341,7 +403,14 @@ class OrdinariaService:
                         'motivos_indeferimento': [],
                         'requisitos_atendidos': len(status_requisitos),
                         'total_requisitos': len(status_requisitos),
-                        'status_requisitos': status_requisitos
+                        'status_requisitos': status_requisitos,
+                        'requisito_i_capacidade_civil': resultado_capacidade,
+                        'requisito_ii_residencia_minima': resultado_residencia,
+                        'requisito_iii_comunicacao_portugues': resultado_comunicacao,
+                        'requisito_iv_antecedentes_criminais': resultado_antecedentes,
+                        'documentos_complementares': resultado_documentos_comp,
+                        'documentos_faltantes': resultado_documentos_comp.get('documentos_faltantes', []),
+                        'parecer_pf': parecer_pf_dados
                     }
                     
             except Exception as e:

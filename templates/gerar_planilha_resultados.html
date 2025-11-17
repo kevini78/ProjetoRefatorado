@@ -117,7 +117,7 @@
                                 <p>Processos analisados: <strong>{{ resultados_encontrados }}</strong> de {{ codigos_carregados|length }} códigos</p>
                                 
                                 <div style="margin-top: 1rem;">
-                                    <a href="{{ url_for('download_planilha_modificada', nome_arquivo=arquivo_gerado) }}" 
+<a href="/download_planilha_modificada/{{ arquivo_gerado }}" 
                                        class="btn-large green darken-2 waves-effect waves-light">
                                         <i class="material-icons left">file_download</i>
                                         Download da Planilha Completa
@@ -138,7 +138,7 @@
                                 <p>Resultados encontrados: <strong>{{ resultados_encontrados }}</strong> de {{ codigos_carregados|length }} códigos</p>
                                 
                                 <div style="margin-top: 1rem;">
-                                    <a href="{{ url_for('download_planilha_modificada', nome_arquivo=arquivo_gerado) }}" 
+<a href="/download_planilha_modificada/{{ arquivo_gerado }}" 
                                        class="btn-large blue darken-2 waves-effect waves-light">
                                         <i class="material-icons left">file_download</i>
                                         Download da Planilha

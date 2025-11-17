@@ -1,0 +1,33 @@
+{
+  "data_execucao": "2025-11-16 13:16:02",
+  "total_processos": 2,
+  "processos": [
+    {
+      "numero_processo": "743961",
+      "total_documentos": 4,
+      "documentos_sucesso": 0,
+      "documentos_falha": 0,
+      "documentos_erro": 0,
+      "percentual_sucesso": 0.0,
+      "tempo_total_segundos": 0,
+      "documentos": []
+    },
+    {
+      "numero_processo": "784408",
+      "total_documentos": 4,
+      "documentos_sucesso": 0,
+      "documentos_falha": 0,
+      "documentos_erro": 0,
+      "percentual_sucesso": 0.0,
+      "tempo_total_segundos": 0,
+      "documentos": []
+    }
+  ],
+  "estatisticas_globais": {
+    "total_documentos_testados": 8,
+    "total_sucessos": 0,
+    "total_falhas": 0,
+    "total_erros": 0,
+    "percentual_sucesso_geral": 0.0
+  }
+}

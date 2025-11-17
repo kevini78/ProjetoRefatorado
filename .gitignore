@@ -1,0 +1,109 @@
+# Arquivos de ambiente e configuração
+.env
+.env.local
+.env.*.local
+
+# Banco de dados
+*.db
+*.sqlite
+*.sqlite3
+naturalizacao.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Downloads temporários
+Downloads/
+downloads/
+
+# Uploads e dados temporários
+uploads/*.xlsx
+uploads/*.csv
+uploads/*.pdf
+!uploads/.gitkeep
+
+# Dados de exportação com informações sensíveis
+dados_exportacao_ordinaria/*.json
+dados_exportacao_provisoria/*.json
+!dados_exportacao_ordinaria/.gitkeep
+!dados_exportacao_provisoria/.gitkeep
+
+# Cache do Selenium
+*.crdownload
+
+# Arquivos temporários do Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Arquivos de backup
+*.bak
+*.backup
+*.old
+
+# Certificados e chaves
+*.pem
+*.key
+*.crt
+
+# Node modules (se houver)
+node_modules/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Pytest
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Planilhas com dados sensíveis (manter templates)
+Planilhas/analise_ordinaria_consolidada.xlsx
+Planilhas/analise_provisoria_consolidada.xlsx

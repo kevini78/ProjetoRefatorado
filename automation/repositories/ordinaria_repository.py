@@ -13,12 +13,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Importar utilitários de OCR
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-
-from Ordinaria.ocr_utils import (
+# Importar utilitários de OCR da camada modular
+from automation.ocr.ocr_utils import (
     extrair_nome_completo,
     extrair_filiação_limpa,
     extrair_pai_mae_da_filiacao_lista,
@@ -29,7 +25,7 @@ from Ordinaria.ocr_utils import (
     extrair_prazo_residencia,
     extrair_nacionalidade_validade_linha,
     comparar_campos,
-    extrair_data_nasc_texto
+    extrair_data_nasc_texto,
 )
 
 
@@ -137,12 +133,35 @@ class OrdinariaRepository:
             # Processar e mapear dados
             for id_campo, valor in dados_js.items():
                 if valor and len(str(valor).strip()) > 0:
+                    valor_str = str(valor).strip()
                     nome_campo = self._mapear_id_para_nome(id_campo)
-                    dados[nome_campo] = str(valor).strip()
+
+                    # Evitar sobrescrever pai/mãe com textos de rótulo (ex.: "Filho de (nome do pai)")
+                    if nome_campo in ["pai", "mae"]:
+                        valor_lower = valor_str.lower()
+                        if any(
+                            padrao in valor_lower
+                            for padrao in [
+                                "filho de (nome do pai)",
+                                "filho de (nome da mãe)",
+                                "filha de (nome do pai)",
+                                "filha de (nome da mãe)",
+                                "nome do pai",
+                                "nome da mãe",
+                            ]
+                        ):
+                            # Ignora rótulos; mantém eventual valor já capturado com o nome real
+                            continue
+                        # Se já havia um valor mais longo (provavelmente o nome completo), não substituir por algo menor
+                        valor_existente = dados.get(nome_campo)
+                        if valor_existente and len(valor_existente) > len(valor_str):
+                            continue
+
+                    dados[nome_campo] = valor_str
                     
                     # Log apenas campos importantes para debug (removido CPF)
                     if nome_campo in ['data_nascimento', 'nome', 'rnm', 'pai', 'mae']:
-                        print(f"[OK] {nome_campo}: {valor}")
+                        print(f"[OK] {nome_campo}: {valor_str}")
             
             # Tentar seletores específicos se não encontrou dados suficientes
             if len(dados) < 3:
@@ -318,29 +337,28 @@ class OrdinariaRepository:
         return None
     
     def _mapear_id_para_nome(self, id_campo: str) -> str:
-        """Mapeia IDs de campos para nomes mais legíveis"""
-        mapeamento = {
-            # Mapeamento original
-            'ORD_NOME': 'nome',
-            'ORD_SOBRENOME': 'sobrenome', 
-            'ORD_NAS': 'data_nascimento',
-            'ORD_NAC': 'nacionalidade',
-            'ORD_CPF': 'cpf',
-            'ORD_RNM': 'rnm',
-            'ORD_PAI': 'pai',
-            'ORD_MAE': 'mae',
-            'ORD_SEXO': 'sexo',
-            'ORD_ESTADO_CIVIL': 'estado_civil',
-            
-            # Novos mapeamentos baseados nos dados extraídos
-            'ord_nom': 'nome',
-            'ord_sob': 'sobrenome',
-            'data_nascimento': 'data_nascimento',  # Já está correto
+        """Mapeia IDs de campos para nomes mais legíveis usando heurísticas.
+
+        - Normaliza IDs variados para chaves canônicas (nome, nome_completo, pai, mae, data_nascimento, etc.)
+        - Evita confundir "pais" (country) com "pai" (filiation)
+        """
+        id_lower = (id_campo or "").strip().lower()
+
+        # Mapeamento direto conhecido
+        mapeamento_direto = {
+            'ord_nome': 'nome',
+            'ord_sobrenome': 'sobrenome',
             'ord_nas': 'data_nascimento',
+            'ord_nac': 'nacionalidade',
+            'ord_cpf': 'cpf',
+            'ord_rnm': 'rnm',
+            'ord_pai': 'pai',
+            'ord_mae': 'mae',
+            'ord_sexo': 'sexo',
+            'ord_estado_civil': 'estado_civil',
             'ord_fi1': 'pai',
             'ord_fi2': 'mae',
             'num_rnm': 'rnm',
-            'ord_nac': 'nacionalidade',
             'ord_natu': 'pais_nascimento',
             'ord_nom_completo': 'nome_completo',
             'ord_ema': 'email',
@@ -349,10 +367,50 @@ class OrdinariaRepository:
             'ord_bairro': 'bairro',
             'ord_cidade': 'cidade',
             'ord_uf': 'uf',
-            'ord_cep': 'cep'
+            'ord_cep': 'cep',
+            'data_nascimento': 'data_nascimento',
         }
-        
-        return mapeamento.get(id_campo, id_campo.lower())
+        if id_lower in mapeamento_direto:
+            return mapeamento_direto[id_lower]
+
+        # Nome completo
+        if any(p in id_lower for p in ['nome_completo', 'nomecompleto', 'fullname', 'nome_naturalizado']):
+            return 'nome_completo'
+
+        # Nome e sobrenome (evita confundir "usuario")
+        if 'sobrenome' in id_lower:
+            return 'sobrenome'
+        if 'nome' in id_lower and 'usuario' not in id_lower:
+            return 'nome'
+
+        # Filiação (garantir que 'pais' país não dispare)
+        if ('pai' in id_lower or 'filiacao1' in id_lower or 'fi1' in id_lower or 'father' in id_lower) and 'pais' not in id_lower:
+            return 'pai'
+        if ('mae' in id_lower or 'filiacao2' in id_lower or 'fi2' in id_lower or 'mother' in id_lower):
+            return 'mae'
+
+        # Datas de nascimento
+        if any(p in id_lower for p in ['nascimento', 'nasc', 'birth', 'data_nas']):
+            return 'data_nascimento'
+
+        # RNM/RNE
+        if 'rnm' in id_lower or 'rne' in id_lower:
+            return 'rnm'
+
+        # CPF
+        if 'cpf' in id_lower:
+            return 'cpf'
+
+        # Nacionalidade/pais
+        if 'nacionalidade' in id_lower or 'nationality' in id_lower:
+            return 'nacionalidade'
+        if 'pais' in id_lower and 'nascimento' in id_lower:
+            return 'pais_nascimento'
+        if 'pais' in id_lower:
+            return 'nacionalidade'
+
+        # Fallback: id original em lowercase
+        return id_lower
     
     def obter_documentos_processo(self) -> Dict[str, str]:
         """
@@ -515,29 +573,29 @@ class OrdinariaRepository:
         documentos_complementares = resultado_elegibilidade.get('documentos_complementares', {}) or {}
 
         return {
-            'numero_processo': numero_processo,
-            'codigo_processo': getattr(self.lecom_action, 'numero_processo_limpo', numero_processo),
-            'tipo_analise': 'Naturalização Ordinária',
-            'data_analise': datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
-            'nome': dados_pessoais.get('nome') or dados_pessoais.get('nome_completo', 'N/A'),
-            'protocolo': dados_pessoais.get('protocolo', 'N/A'),
-            'data_inicial': resultado_elegibilidade.get('data_inicial_processo') or self.lecom_action.data_inicial_processo,
-            'resultado_final': 'DEFERIMENTO' if resultado_elegibilidade.get('elegibilidade_final') == 'deferimento' else 'INDEFERIMENTO',
-            'motivos_indeferimento': resultado_elegibilidade.get('requisitos_nao_atendidos', []),
-            'requisitos': {
-                'capacidade_civil': resultado_elegibilidade.get('requisito_i_capacidade_civil', {}).get('atendido', False),
-                'residencia_minima': resultado_elegibilidade.get('requisito_ii_residencia_minima', {}).get('atendido', False),
-                'comunicacao_portugues': resultado_elegibilidade.get('requisito_iii_comunicacao_portugues', {}).get('atendido', False),
-                'antecedentes_criminais': resultado_elegibilidade.get('requisito_iv_antecedentes_criminais', {}).get('atendido', False)
-            },
-            'documentos_complementares': {
-                'percentual_completude': documentos_complementares.get('percentual_completude', 0),
-                'documentos_faltantes': documentos_complementares.get('documentos_faltantes', [])
-            },
-            'despacho': (resultado_decisao or {}).get('despacho', 'N/A'),
-            'resumo': (resultado_decisao or {}).get('resumo', 'N/A'),
-            'parecer_pf': parecer_pf,
-        }
+                'numero_processo': numero_processo,
+                'codigo_processo': getattr(self.lecom_action, 'numero_processo_limpo', numero_processo),
+                'tipo_analise': 'Naturalização Ordinária',
+                'data_analise': datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                'nome': dados_pessoais.get('nome') or dados_pessoais.get('nome_completo', 'N/A'),
+                'protocolo': dados_pessoais.get('protocolo', 'N/A'),
+                'data_inicial': resultado_elegibilidade.get('data_inicial_processo') or self.lecom_action.data_inicial_processo,
+                'resultado_final': 'DEFERIMENTO' if resultado_elegibilidade.get('elegibilidade_final') == 'deferimento' else 'INDEFERIMENTO',
+                'motivos_indeferimento': resultado_elegibilidade.get('requisitos_nao_atendidos', []),
+                'requisitos': {
+                    'capacidade_civil': resultado_elegibilidade.get('requisito_i_capacidade_civil', {}).get('atendido', False),
+                    'residencia_minima': resultado_elegibilidade.get('requisito_ii_residencia_minima', {}).get('atendido', False),
+                    'comunicacao_portugues': resultado_elegibilidade.get('requisito_iii_comunicacao_portugues', {}).get('atendido', False),
+                    'antecedentes_criminais': resultado_elegibilidade.get('requisito_iv_antecedentes_criminais', {}).get('atendido', False)
+                },
+                'documentos_complementares': {
+                    'percentual_completude': documentos_complementares.get('percentual_completude', 0),
+                    'documentos_faltantes': documentos_complementares.get('documentos_faltantes', [])
+                },
+                'despacho': ((resultado_decisao or {}).get('despacho') or (resultado_decisao or {}).get('despacho_completo') or 'N/A'),
+                'resumo': ((resultado_decisao or {}).get('resumo') or (resultado_decisao or {}).get('resumo_analise') or 'N/A'),
+                'parecer_pf': parecer_pf,
+            }
 
     def _salvar_snapshot_individual(self, snapshot: Dict[str, Any]) -> None:
         """Persiste snapshot em arquivo próprio para depuração."""
@@ -560,33 +618,42 @@ class OrdinariaRepository:
             print(f"[ERRO] Erro ao salvar snapshot individual: {e}")
 
     def _atualizar_json_global(self, snapshot: Dict[str, Any]) -> None:
-        """Atualiza resultados_ordinaria_global.json mantendo o layout legado."""
+        """Atualiza o arquivo global mantendo o layout legado (compatível com nome antigo e novo)."""
 
         try:
-            arquivo_global = os.path.join(os.getcwd(), 'resultados_ordinaria_global.json')
-
-            if os.path.exists(arquivo_global):
-                try:
-                    with open(arquivo_global, 'r', encoding='utf-8') as f:
-                        dados_existentes = json.load(f)
-                    if not isinstance(dados_existentes, list):
-                        print('[AVISO] Estrutura inesperada no JSON global, recriando lista.')
+            def _atualizar_arquivo(arquivo_global: str):
+                if os.path.exists(arquivo_global):
+                    try:
+                        with open(arquivo_global, 'r', encoding='utf-8') as f:
+                            dados_existentes = json.load(f)
+                        if not isinstance(dados_existentes, list):
+                            print('[AVISO] Estrutura inesperada no JSON global, recriando lista.')
+                            dados_existentes = []
+                    except Exception as leitura_erro:
+                        print(f"[AVISO] Falha ao carregar JSON global, recriando arquivo: {leitura_erro}")
                         dados_existentes = []
-                except Exception as leitura_erro:
-                    print(f"[AVISO] Falha ao carregar JSON global, recriando arquivo: {leitura_erro}")
+                else:
                     dados_existentes = []
-            else:
-                dados_existentes = []
 
-            dados_existentes.append(snapshot)
+                dados_existentes.append(snapshot)
 
-            with open(arquivo_global, 'w', encoding='utf-8') as f:
-                json.dump(dados_existentes, f, ensure_ascii=False, indent=2)
+                with open(arquivo_global, 'w', encoding='utf-8') as f:
+                    json.dump(dados_existentes, f, ensure_ascii=False, indent=2)
 
-            print(f"[DADOS] Resultado adicionado ao arquivo global: {arquivo_global}")
+                print(f"[DADOS] Resultado adicionado ao arquivo global: {arquivo_global}")
+
+            base_dir = os.getcwd()
+            # Compatível com formato antigo (underscores) e o nome citado (com pontos)
+            arquivos_globais = [
+                os.path.join(base_dir, 'resultados_ordinaria_global.json'),
+                os.path.join(base_dir, 'resultados.ordinaria.global'),
+            ]
+
+            for caminho in arquivos_globais:
+                _atualizar_arquivo(caminho)
 
         except Exception as e:
-            print(f"[ERRO] Erro ao atualizar resultados_ordinaria_global.json: {e}")
+            print(f"[ERRO] Erro ao atualizar arquivo global de resultados: {e}")
 
     def salvar_dados_para_exportacao(self, numero_processo: str, resultado_elegibilidade: Dict, resultado_decisao: Optional[Dict]):
         """Gera snapshot legado, salva em arquivo individual e atualiza JSON global."""
@@ -611,8 +678,13 @@ class OrdinariaRepository:
             # Resultado final e motivos
             resultado_status = resultado_decisao.get('status', '').title() or 'Indefinido'
             motivos_requisitos = resultado_elegibilidade.get('requisitos_nao_atendidos', [])
+            if not motivos_requisitos:
+                motivos_requisitos = resultado_elegibilidade.get('motivos_indeferimento', [])
             motivos_documentos = resultado_elegibilidade.get('documentos_faltantes', [])
-            motivos_totais = motivos_requisitos + motivos_documentos
+            # Fallback: se vazio, tentar extrair do bloco de documentos_complementares
+            if not motivos_documentos and isinstance(documentos_complementares, dict):
+                motivos_documentos = documentos_complementares.get('documentos_faltantes', []) or []
+            motivos_totais = (motivos_requisitos or []) + (motivos_documentos or [])
             motivo_indeferimento = '; '.join(motivos_totais) if motivos_totais else 'N/A'
 
             # Requisitos principais
@@ -629,13 +701,18 @@ class OrdinariaRepository:
 
             requisito_iv_formatado = '✅ ATENDIDO'
             if not requisito_iv.get('atendido'):
-                motivo_iv = requisito_iv.get('motivo', '❌ NÃO ATENDIDO')
-                if 'brasil' in motivo_iv.lower():
+                motivo_iv = (requisito_iv.get('motivo') or '').strip()
+                motivo_iv_lower = motivo_iv.lower()
+                if 'brasil' in motivo_iv_lower:
                     requisito_iv_formatado = '❌ NÃO ATENDIDO (BRASIL)'
-                elif any(p in motivo_iv.lower() for p in ['país', 'origem']):
+                elif any(p in motivo_iv_lower for p in ['país', 'origem']):
                     requisito_iv_formatado = '❌ NÃO ATENDIDO (PAÍS DE ORIGEM)'
                 else:
-                    requisito_iv_formatado = f'❌ NÃO ATENDIDO - {motivo_iv}'
+                    # Evitar duplicar "❌ NÃO ATENDIDO" quando já está no motivo
+                    if 'não atendido' in motivo_iv_lower or '❌' in motivo_iv:
+                        requisito_iv_formatado = '❌ NÃO ATENDIDO'
+                    else:
+                        requisito_iv_formatado = f'❌ NÃO ATENDIDO - {motivo_iv or "Sem detalhe"}'
 
             # Documentos complementares
             docs_validos = int(documentos_complementares.get('documentos_validos', 0))
@@ -662,7 +739,7 @@ class OrdinariaRepository:
             # PF
             decisao_pf = parecer_pf.get('proposta_pf', 'Não encontrado')
             alertas_pf = ' | '.join(parecer_pf.get('alertas', [])) if parecer_pf.get('alertas') else 'Nenhum'
-            parecer_texto = parecer_pf.get('parecer_texto', 'N/A')
+            parecer_texto = (parecer_pf.get('parecer_texto') or 'N/A')
             if len(parecer_texto) > 500:
                 parecer_texto = parecer_texto[:500] + '...'
 

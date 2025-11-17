@@ -327,7 +327,6 @@ TERMOS_ANTECEDENTES_ORIGEM = {
         'república',           # 5.017x
         'tribunal',            # 4.395x
         'certificado',         # 3.300x
-        'brasil',              # 2.928x
         'registro',            # 2.879x
         'antecedentes',        # 2.773x
     ],
@@ -360,8 +359,6 @@ TERMOS_ANTECEDENTES_ORIGEM = {
         'junta comercial',
         'intérprete',
         'intérprete comercial',
-        'selo',
-        'carimbo',
         'tradutora',
         'jucesp',
         'jucepar',
@@ -590,6 +587,17 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
         termos_negacao = termos.get('negacao_condenacao', [])
         tem_negacao = any(termo in texto_lower for termo in termos_negacao)
     
+    # Para Antecedentes_Origem, verificar indícios de TRADUÇÃO JURAMENTADA (ou similar)
+    tem_traducao = False
+    if tipo_documento == 'Antecedentes_Origem':
+        termos_trad = termos.get('traducao_legalizacao', [])
+        if termos_trad:
+            tem_traducao = any(t in texto_lower for t in termos_trad)
+        # Heurística extra: palavras-chave básicas de tradução
+        if not tem_traducao:
+            heuristicas_trad = ['tradução', 'traducao', 'juramentad', 'apostila', 'haia', 'legalização', 'legalizacao']
+            tem_traducao = any(h in texto_lower for h in heuristicas_trad)
+    
     # Calcular pontuação
     pontos = 0
     pontos_maximos = 0
@@ -629,6 +637,19 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
     else:
         valido = confianca >= minimo_confianca and total_encontrados >= minimo_termos
     
+    # BLOQUEIO ESPECÍFICO PARA ANTECEDENTES_ORIGEM SEM TRADUÇÃO
+    bloqueio_character_certificate = False
+    if tipo_documento == 'Antecedentes_Origem':
+        # Se não há evidência de tradução/juramentação e também não há negação EM PORTUGUÊS → INVALIDAR
+        if not (tem_traducao or tem_negacao):
+            valido = False
+        # Bloquear "Police Character Certificate" sem tradução
+        import re as _re
+        if _re.search(r'police\s+character\s+certificate', texto_lower):
+            if not tem_traducao:
+                bloqueio_character_certificate = True
+                valido = False
+    
     todos_encontrados = encontrados_alta + encontrados_media + encontrados_espec
     todos_termos = termos_alta + termos_media + termos_espec
     faltando = [t for t in todos_termos if t not in todos_encontrados]
@@ -637,6 +658,10 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
     motivo_extra = ""
     if tem_negacao:
         motivo_extra += " [SEM CONDENAÇÃO ✓]"
+    if tipo_documento == 'Antecedentes_Origem' and not (tem_traducao or tem_negacao):
+        motivo_extra += " [FALTA TRADUÇÃO JURAMENTADA/PORTUGUÊS ✗]"
+    if bloqueio_character_certificate:
+        motivo_extra += " [CHARACTER CERTIFICATE SEM TRADUÇÃO ✗]"
     
     return {
         'valido': valido,
@@ -646,5 +671,7 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
         'total_termos_encontrados': total_encontrados,
         'minimo_requerido': minimo_termos,
         'tem_negacao': tem_negacao,
+        'tem_traducao': tem_traducao,
         'motivo': f'Documento {"VÁLIDO" if valido else "INVÁLIDO"} - Confiança: {confianca}% ({total_encontrados}/{minimo_termos} termos obrigatórios){motivo_extra}'
     }
+         

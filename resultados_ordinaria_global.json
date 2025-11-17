@@ -1,0 +1,2315 @@
+[
+  {
+    "numero_processo": "580.183",
+    "codigo_processo": "580183",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "14/11/2025 20:49:23",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "15 de Abr de 2024",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": false,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {}
+  },
+  {
+    "numero_processo": "580.183",
+    "codigo_processo": "580183",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "14/11/2025 21:04:01",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "15 de Abr de 2024",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o Relatório Opinativo. \n\n2. De acordo com a documentação apresentada o naturalizando possui capacidade civil. \n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 03 anos e 08 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização. \n\n4. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento apresentado e confirmada durante o seu atendimento presencial. \n\n5. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo. \n\n6. O requerente não excedeu o prazo máximo de ausência do país para o caso concreto. \n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do NÃO preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "580.183",
+    "codigo_processo": "580183",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "14/11/2025 21:27:05",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "15 de Abr de 2024",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o Relatório Opinativo. \n\n2. De acordo com a documentação apresentada o naturalizando possui capacidade civil. \n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 03 anos e 08 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização. \n\n4. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento apresentado e confirmada durante o seu atendimento presencial. \n\n5. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo. \n\n6. O requerente não excedeu o prazo máximo de ausência do país para o caso concreto. \n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do NÃO preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "580.183",
+    "codigo_processo": "580183",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "14/11/2025 21:31:16",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "15 de Abr de 2024",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o Relatório Opinativo. \n\n2. De acordo com a documentação apresentada o naturalizando possui capacidade civil. \n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 03 anos e 08 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização. \n\n4. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento apresentado e confirmada durante o seu atendimento presencial. \n\n5. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo. \n\n6. O requerente não excedeu o prazo máximo de ausência do país para o caso concreto. \n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do NÃO preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "580.183",
+    "codigo_processo": "580183",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "14/11/2025 21:35:22",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "15 de Abr de 2024",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o Relatório Opinativo. \n\n2. De acordo com a documentação apresentada o naturalizando possui capacidade civil. \n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 03 anos e 08 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização. \n\n4. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento apresentado e confirmada durante o seu atendimento presencial. \n\n5. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo. \n\n6. O requerente não excedeu o prazo máximo de ausência do país para o caso concreto. \n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do NÃO preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "784408",
+    "codigo_processo": "784408",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "15/11/2025 22:51:34",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "13 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 25.0,
+      "documentos_faltantes": [
+        "Não anexou item 4",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 3 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nFoi constatado que o imigrante não faz jus à forma de naturalização pretendida.\nDestarte, NÃO cumpre os requisitos necessários para a obtenção da naturalização DEFINITIVA. Conforme previsão legal:\n\n“Art. 246. A naturalização provisória será convertida em definitiva se o naturalizando expressamente assim o requerer ao Ministério da Justiça e Segurança Pública no prazo de dois anos após atingir a maioridade civil.”\n\nDiante do exposto, com fulcro no ART. 246º, CAPUT, DO DECRETO N°9.199, DE 20 DE NOVEMBRO DE 2017, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "792137",
+    "codigo_processo": "792137",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:15:41",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "27 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 8"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 792137\nInteressado (Naturalizando): NAMOUNE ILORSAINT TERMITUS\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tDe acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n3.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que a requerente possui autorização de residência registrada sob o amparo legal 279 - PORTARIA MJSP/MRE N. 51/2024 (acolhida humanitária para nacionais do Haiti), classificação TEMPORÁRIO.\n\n4.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que a requerente não possui autorização de residência por prazo indeterminado e, portanto, não atende aos requisitos previstos nos arts. 221, “caput”, e 233, II, do Decreto 9.199/2017.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "790357",
+    "codigo_processo": "790357",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:18:22",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando MARCELDO ESTRAME, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde sua chegada em 2021 mas não foi registrado no STIWEB.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 21/03/2024.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 21/03/2024, totalizando 01 ano e 07 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "790167",
+    "codigo_processo": "790167",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:20:21",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando CARINE JEAN JACQUES, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. A requerente NÃO ausentou-se do território nacional desde sua chegada em 2016.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 20/09/2016.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 20/09/2016, totalizando 09 anos e 01 mês.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que a imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "790067",
+    "codigo_processo": "790067",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:21:33",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando MD KAYSOR AHMED, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde sua última entrada em 2016. \n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 01/05/2015.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 01/05/2015, totalizando 10 anos e 05 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "789673",
+    "codigo_processo": "789673",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:23:05",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "22 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 14 anos e 06 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, foi juntado escritura de união estável com brasileira.\n\n6. Sua capacidade de comunicar-se em língua portuguesa não foi exigida por ser nacional de país cuja língua oficial é o português.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente não se ausentou do território nacional em viagens internacionais nos quatro anos anteriores ao pedido de naturalização, não excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "789568",
+    "codigo_processo": "789568",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:25:48",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "22 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando BETCHINA JEAN, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. A requerente NÃO ausentou-se do território nacional desde sua chegada em 2021 tendo entrado por Manaus mas sem registro no STIWEB.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 28/06/2024.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 28/06/2024, totalizando 01 ano e 03 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que a imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "789389",
+    "codigo_processo": "789389",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:29:19",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "22 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando HENRY FRANCOIS, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde sua chegada em 2021.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 05/07/2023.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 05/07/2023, totalizando 02 anos e 03 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "788531",
+    "codigo_processo": "788531",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:30:46",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "20 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 50.0,
+      "documentos_faltantes": [
+        "Não anexou item 4",
+        "Não anexou item 3"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A naturalizanda não possui quatro anos de residência por prazo indeterminado.  Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s).",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "788034",
+    "codigo_processo": "788034",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:32:58",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "20 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 8"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 29/10/2025\n\n\nNaturalizando\nMOUSTAPHA GUEYE - G404668P: \n \n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. O naturalizando não apresenta RNM válido para solicitar naturalização.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui RNM CANCELADO, não possuindo assim condição primeira a solicitação de naturalização.\n\n4. Em relação às condições especiais para diminuição do prazo de residência, não se aplica.\n\n5. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO INDEFERIMENTO em razão do NÃO preenchimento das condições, S.M.J.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "787269",
+    "codigo_processo": "787269",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:35:11",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "19 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nFoi constatado que o imigrante não possui redutor de prazo e nem tempo de residência por prazo indeterminado para a forma de naturalização pretendida.\nResidente no Brasil por prazo indeterminado desde 22/08/2022, totalizando 3 (três) anos e 1 (um) meses.\nDestarte, NÃO cumpre os requisitos necessários para a obtenção da naturalização ORDINÁRIA.\n\n“Art. 233. No procedimento para a concessão de naturalização ordinária, deverão ser comprovados:\n\nI - capacidade civil, segundo a lei brasileira;\n\nII - residência no território nacional, pelo prazo mínimo de quatro anos;\n\nIII - capacidade de se comunicar em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - inexistência de condenação penal ou comprovação de reabilitação, nos termos da legislação vigente.”\n\n\nDiante do exposto, com fulcro no ART. 233º, inc. II, DO DECRETO N°9.199, DE 20 DE NOVEMBRO DE 2017, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.\nEfetuar Atendimento Preliminar por Vitória Louise Grochewski Lisboa em 22/10/2025\n\nNos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nFoi constatado que o imigrante não possui redutor de prazo e nem tempo de residência por prazo indeterminado para a forma de naturalização pretendida.\nResidente no Brasil por prazo indeterminado desde 22/08/2022, totalizando 3 (três) anos e 1 (um) meses.\nDestarte, NÃO cumpre os requisitos necessários para a obtenção da naturalização ORDINÁRIA.\n\n“Art. 233. No procedimento para a concessão de naturalização ordinária, deverão ser comprovados:\n\nI - capacidade civil, segundo a lei brasileira;\n\nII - residência no território nacional, pelo prazo mínimo de quatro anos;\n\nIII - capacidade de se comunicar em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - inexistência de condenação penal ou comprovação de reabilitação, nos termos da legislação vigente.”\n\n\nDiante do exposto, com fulcro no ART. 233º, inc. II, DO DECRETO N°9.199, DE 20 DE NOVEMBRO DE 2017, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.\n\nPS: Não fora feita a coleta biométrica. O sistema, por ERRO, só permite avançar para a próxima fase quando o campo SIM está selecionado na COLETA DE DADOS. Porém, como se trata de indeferimento, tal coleta não fora efetuada.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "786993",
+    "codigo_processo": "786993",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:36:58",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "18 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária de THOMAS FLERILUS, apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 4 anos e 5 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram que o imigrante não é casado com brasileira e nem tem filhos brasileiros.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento Certificado de Curso de Extensão em \"Português para Estrangeiros: Módulo Acolhimento\", realizado pela UEMS - Unidade Universitária de Dourados/MS e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. O requerente não ausentou do território nacional em viagens internacionais.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "786623",
+    "codigo_processo": "786623",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:38:16",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "17 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando TCHATCHIBARA AGORO, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde 2019.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 16/11/2017.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 16/11/2017, totalizando 07 anos e 11 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "785932",
+    "codigo_processo": "785932",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:39:56",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "16 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nFoi constatado que o imigrante não possui redutor de prazo e nem tempo de residência por prazo indeterminado para a forma de naturalização pretendida.\nResidente no Brasil por prazo indeterminado desde 04/04/2023, totalizando 2 (dois) anos e 6 (seis) meses.\nDestarte, NÃO cumpre os requisitos necessários para a obtenção da naturalização ORDINÁRIA.\n\n“Art. 233. No procedimento para a concessão de naturalização ordinária, deverão ser comprovados:\n\nI - capacidade civil, segundo a lei brasileira;\n\nII - residência no território nacional, pelo prazo mínimo de quatro anos;\n\nIII - capacidade de se comunicar em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - inexistência de condenação penal ou comprovação de reabilitação, nos termos da legislação vigente.”\n\n\nDiante do exposto, com fulcro no ART. 233º, inc. II, DO DECRETO N°9.199, DE 20 DE NOVEMBRO DE 2017, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "785896",
+    "codigo_processo": "785896",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:41:27",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "16 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nA relação de documentos exigidos pela legislação NÃO foi apresentada integralmente. Ficaram faltantes:\n\n- Tradução dos antecedentes criminais emitido pelo país de origem;\n- Comprovante de situação cadastral;\n- Antecedentes criminais emitido pela Justiça Estadual: 1º, 2º e 3º ofícios;\n- Antecedentes criminais emitido pelo Cartório Criminal de Quatro Barras;\n- Comprovante de residência dos anos de: 2021,2022,2023 e 2024.\n\nNOTIFICADO, o imigrante NÃO APRESENTOU A DOCUMENTAÇÃO EXIGIDA no prazo de trinta dias, contados da notificação, e também não pediu a prorrogação de prazo para complementação da documentação, conforme previsão legal:\n\n“ Art. 7º A Polícia Federal, ao processar o pedido de naturalização, deverá:\n\nI - notificar o requerente, caso necessário, para retificar ou complementar a documentação apresentada, no prazo de trinta dias, prorrogáveis mediante pedido justificado;\n\nII - coletar os dados biométricos do requerente;\n\nIII - prestar informações sobre os antecedentes criminais e movimentação migratória do requerente;\n\nIV - realizar diligências e entrevista gravada, caso necessário à instrução do processo; e\n\nV - emitir relatório opinativo recomendando a procedência ou não do pedido.\n\n§ 1º O processo de naturalização, acompanhado do relatório opinativo de que trata o inciso V do caput, será encaminhado para análise do Departamento de Migrações.\n\n§ 2º NA AUSÊNCIA DE RESPOSTA DO IMIGRANTE NO PRAZO DE TRINTA DIAS, CONTADO DA NOTIFICAÇÃO DE QUE TRATA O INCISO I, SERÃO DISPENSADAS AS PROVIDÊNCIAS PREVISTAS NOS INCISOS II, III E IV, PROCEDENDO-SE AO ARQUIVAMENTO DO PEDIDO.”\n\nDiante do exposto, com fulcro no ART. 7º, §2º, DA PORTARIA Nº 623, DE 13 DE NOVEMBRO DE 2020, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.\n\nPS: Não fora feita a coleta biométrica. O sistema, por ERRO, só permite avançar para a próxima fase quando o campo SIM está selecionado na COLETA DE DADOS. Porém, como se trata de indeferimento, tal coleta não fora efetuada.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "785440",
+    "codigo_processo": "785440",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:42:54",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "14 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária de EDICSON JOSE COLMENAREZ OVALLES, apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 4 anos e 6 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram que o requerente não tem filho brasileiro e nem é casado com brasileira, porém, tem prazo suficiente. \n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento, Certificado de Curso de Português para Estrangeiros - INTERMEDIÁRIO 1, realizado pela Reitoria de Extensão e Cultura da Universidade Federal da Grande Dourados/MS - UFGD e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. O requerente não ausentou do território nacional em viagens internacionais.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "784683",
+    "codigo_processo": "784683",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:44:34",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "13 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária nº 784.683, apresento o presente Relatório Opinativo.\n\n1. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n2. De acordo com a documentação apresentada, o(a) naturalizando(a) possui capacidade civil.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 09 anos e 11 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n4. O(a) requerente não teve ausências do território nacional superiores aos limites estabelecidos pelo Art. 233, § 2º do Decreto 9.199/2017, o qual regulamenta a Lei nº 13.445, de 24 de maio de 2017, que institui a Lei de Migração.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de conclusão de curso de língua portuguesa, nos termos do Artigo 5º da Portaria 623/2020 e confirmada na entrevista pessoal por ocasião da coleta biométrica.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "784416",
+    "codigo_processo": "784416",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:46:17",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "13 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Pedido de Naturalização Ordinária com Redução de Prazo \n\nRequerente: SAMIRA MOHAMMAD SHARIF\n\nFundamento Legal: Artigo 12, inciso II, alínea ‘b’ da Constituição Federal; Artigo 65 da Lei nº 13.445/2017.\nApós a devida instrução processual do pedido de naturalização ordinária com redução de prazo formulado por SAMIRA MOHAMMAD SHARIF, nacional do Afeganistão, cumpre apresentar as seguintes constatações:\n\nAnálise Documental e Residencial:\n•\tDocumentação: A análise dos documentos apresentados não revelou indícios de falsidade ou inconsistências.\n•\tResidência por Prazo Indeterminado: A condição de residente por prazo indeterminado do requerente foi confirmada mediante a Certidão de Movimentos Migratórios, Carteira de Registro Nacional Migratório (CRNM) e pesquisas no sistema SISMIGRA. O registro nesta condição data de 14/12/2018, em consonância com o artigo 37 da Lei de Migração.\n•\tTempo de Residência: SAMIRA MOHAMMAD SHARIF comprova residência no Brasil na condição de residente pelo período de 01 ano.\n•\tAusências: No período de 01 ano anterior à presente solicitação, o requerente não registrou ausências do território nacional, atendendo ao requisito legal para a redução do prazo de residência. \n•\tOBSERVAÇÃO: A REQUERENTE SAIU DO BRASIL EM 25/12/2018 E RETORNOU APENAS NO DIA 10/03/2021 (805 dias fora do Brasil), de acordo com Certidão de Movimentos em anexo. \n•\tNão foi localizado Processo de Instauração de Perda de AR. \n\nRequisitos Legais para Redução de Prazo:\n•\tO requerente satisfaz a condição para a redução do prazo de residência para 01 ano, conforme o artigo 12, inciso II, alínea ‘b’ da Constituição Federal, por possuir filho brasileiro, conforme a respectiva certidão de nascimento anexada aos autos.\n\nOutras Averiguações:\n•\tAntecedentes Criminais: As consultas realizadas em bancos de dados criminais não apontaram registros ou informações desabonadoras em nome de SAMIRA MOHAMMAD SHARIF.\n•\tProficiência em Língua Portuguesa: A capacidade de comunicação em língua portuguesa foi devidamente comprovada pela apresentação do Certificado de Conclusão do Curso de Extensão e, Proficiência em Língua Portuguesa.  \n•\tIdentificação Datiloscópica: O laudo pericial de identificação datiloscópica não apresentou quaisquer observações relevantes.\n\nConclusão:\nEm face do exposto, e considerando o cumprimento dos requisitos legais estabelecidos no artigo 12, inciso II, alínea ‘b’ da Constituição Federal e no artigo 65 da Lei nº 13.445/2017 (Lei de Migração), manifestamos favoravelmente ao deferimento do pedido de naturalização ordinária de SAMIRA MOHAMMAD SHARIF.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "784276",
+    "codigo_processo": "784276",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:48:11",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "13 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "INFORMAÇÃO CONSOLIDADA\n\nASSUNTO: PEDIDO DE NATURALIZAÇÃO “ORDINÁRIA” \nCÓDIGO: 784.276\nPROTOCOLO: 235881.0664850/2025\nINTERESSADO: SECO MANÉ\nPAÍS DE NACIONALIDADE: GUINÉ-BISSAU\nRNM: F220704-3\n\nVisando a instrução do processo de NATURALIZAÇÃO “ORDINÁRIA” requerido pelo interessado acima identificado, foram realizadas as diligências descritas a seguir:\n\n1.\tPreliminarmente, foram realizadas pesquisas nos sistemas SISMIGRA; SINAPSE; STI WEB; SEI e SONAR, ficando prejudicado e desnecessário se ater a análise na documentação apresentada virtualmente em razão da improcedência no pedido, uma vez já incidido em pedido da mesma natureza (LECOM: 520.139), com resultado indeferido por não atender as exigências pertinentes. Motivo pelo qual foi aberto Processo da Perda de Autorização de Residência com fundamento no Art. 33, da Lei nº 13.445/2017 c/c Art. 135, I, do Decreto nº 9.199/2017 c/c Art. 13, da IN nº 154-DG/PF e a Portaria Interministerial nº 06/2018 – MJ/MESP/MT. Desse modo, culminando na decretação de perda de autorização de residência do Sr. Seco Mané, através do referido Processo Administrativo, com base no Inciso I do Art. 135 do Decreto nº 9.199/2017, publicado em 26/08/2025, inclusive com sua condição migratória anterior inativada na Unidade de Registro de Estrangeiro - URE.    \n\n2.\tDiante do exposto, verifica-se que o requerente em tela não preenche os requisitos exigidos para a obtenção do pedido desejado.\n\n3. Encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião pelo ARQUIVAMENTO do processo, com base no art. 7º, § 2º da Portaria 623/2020.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "784091",
+    "codigo_processo": "784091",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:50:37",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "12 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando RUMI BEGUM, foram realizadas as diligências a seguir descritas:\n\n1.Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. A requerente NÃO ausentou-se do território nacional desde sua chegada em 2022.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 19/07/2022.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 19/07/2022, totalizando 03 anos e 01 mês.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que  imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "784088",
+    "codigo_processo": "784088",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:52:33",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "12 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando MOHAMMED ANWAR HUSSAIN, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente não ausentou-se do território nacional desde 2020, não excedendo o prazo máximo de ausência do país para o caso concreto.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 26/03/2014.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 26/03/2014, totalizando 11 anos e 06 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783725",
+    "codigo_processo": "783725",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:54:34",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "11 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso I da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": false,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 20/10/2025\n\n\nNaturalizando\nNDIAGA SALL - G480093M: \n \n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 07 anos de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, não se aplica.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. O requerente não se ausentou do território nacional em viagens internacionais por período que não excede o prazo máximo de ausência do país para o caso concreto.\n\n9. Laudo Datiloscópico. \n\n10. Certidão de Registro.\n\n11. Certidão de Movimentos Migratórios.\n\n12. Pesquisa no SISMIGRA.\n\n13. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições, S.M.J.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783535",
+    "codigo_processo": "783535",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:55:49",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "10 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária nº 783.535, apresento o presente Relatório Opinativo.\n\n1. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n2. De acordo com a documentação apresentada, o(a) naturalizando(a) possui capacidade civil.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 09 anos e 06 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n4. O(a) requerente não teve ausências do território nacional superiores aos limites estabelecidos pelo Art. 233, § 2º do Decreto 9.199/2017, o qual regulamenta a Lei nº 13.445, de 24 de maio de 2017, que institui a Lei de Migração.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de conclusão de curso de língua portuguesa, nos termos do Artigo 5º da Portaria 623/2020 e confirmada na entrevista pessoal por ocasião da coleta biométrica.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783511",
+    "codigo_processo": "783511",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 00:57:42",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "10 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada a naturalizanda possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 5 anos de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Sua capacidade de comunicar-se em língua portuguesa não foi exigida a comprovação por ser nacional de país cuja lingua oficial é o português.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. A requerente não se ausentou do território nacional em viagens internacionais no ano anterior ao pedido de naturalização.\n\n8. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783468",
+    "codigo_processo": "783468",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:00:33",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "10 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 06 anos e 07 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram o convívio familiar.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento juntado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente não ausentou do território nacional em viagens internacionais por período superior a 03 meses, não excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\nObservações: X",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783271",
+    "codigo_processo": "783271",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:01:47",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "10 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando Emilio Heernandez, foram realizadas as diligências a seguir descritas:\n\nNos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer:\n\nOs documentos exigidos pela legislação NÃO FORAM APRESENTADOS INTEGRALMENTE. Restaram faltantes:\n\nCertidões de Antecedentes Criminais:\n\n-Do país de origem - devidamente consularizada (na embaixada do Brasil, no país que emitiu o documento) ou apostilada e traduzida no Brasil por tradutor juramentado – DISPENSADOS NOS CASOS DE REFÚGIO.\n\n-Justiça Estadual (obrigatória) - se residente, nos últimos 5 anos, somente no Estado do Paraná.\n\n- Para naturalização ORDINÁRIA: comprovante de compreensão de língua portuguesa (verificar as opções que o art. 5º da Portaria 623 de 13 de novembro de 2020 permite: https://www.in.gov.br/en/web/dou/-/portaria-n-623-de-13-de-novembro-de-2020-288547519);\n\nNOTIFICADO, o imigrante NÃO APRESENTOU a documentação exigida no prazo de trinta dias, contados da notificação, e não pediu prorrogação de prazo para complementação dos documentos.\n\nDiante do exposto, com fulcro no ART. 7º, §2º, DA PORTARIA Nº 623, DE 13 DE NOVEMBRO DE 2020, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.\n\n“ Art. 7º A Polícia Federal, ao processar o pedido de naturalização, deverá:\n\nI - notificar o requerente, caso necessário, para retificar ou complementar a documentação apresentada, no prazo de trinta dias, prorrogáveis mediante pedido justificado;\n\nII - coletar os dados biométricos do requerente;\n\nIII - prestar informações sobre os antecedentes criminais e movimentação migratória do requerente;\n\nIV - realizar diligências e entrevista gravada, caso necessário à instrução do processo; e\n\nV - emitir relatório opinativo recomendando a procedência ou não do pedido.\n\n§ 1º O processo de naturalização, acompanhado do relatório opinativo de que trata o inciso V do caput, será encaminhado para análise do Departamento de Migrações.\n\n§ 2º NA AUSÊNCIA DE RESPOSTA DO IMIGRANTE NO PRAZO DE TRINTA DIAS, CONTADO DA NOTIFICAÇÃO DE QUE TRATA O INCISO I, SERÃO DISPENSADAS AS PROVIDÊNCIAS PREVISTAS NOS INCISOS II, III E IV, PROCEDENDO-SE AO ARQUIVAMENTO DO PEDIDO.”\n\nOBS:- MARQUEI QUE A COLETA DAS DIGITAIS FORAM FEITA APENAS PARA QUE O PARECER PUDESSE SER FINALIZADO.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783115",
+    "codigo_processo": "783115",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:04:42",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "9 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "\nNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo. \n\nO artigo 65 da Lei 13.445/17 estabelece os seguintes requisitos para o deferimento da naturalização ordinária:\n\nI - ter capacidade civil, segundo a lei brasileira;\n\nII - ter residência em território nacional, pelo prazo mínimo de 4 (quatro) anos;\n\nIII - comunicar-se em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - não possuir condenação penal ou estiver reabilitado, nos termos da lei.\n\nA Portaria nº 623 de 13 de novembro de novembro de 2020, por sua vez, regulamenta o procedimento e estabelece a documentação necessária a ser apresentada.\n\nAssim, após apresentada a documentação exigida, deve ser verificada a presença dos requisitos legais.\n\n\nA relação de documentos exigidos pela legislação, foi apresentada integralmente conforme lista de documentos juntada ao processo. \n\nDe acordo com a documentação apresentada, o naturalizando possui capacidade civil. \n\nEm relação às condições exigidas para a naturalização ordinária, verificou-se que possui mais de 04 anos de residência no país .\n\nSua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado. \n\nNão foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis. \nDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO, em razão do preenchimento dos requisitos legais previstos.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "783111",
+    "codigo_processo": "783111",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:07:19",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "9 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que NÃO  residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s) Requerente com visto TEMPORÁRIO.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "782969",
+    "codigo_processo": "782969",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:09:20",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "9 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 20/10/2025\n\n\nNaturalizando\nMAGDARLIE DJOUANA DUVERT - F0202788:\n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. A relação de documentos exigidos pela legislação não foi apresentada integralmente conforme documentos juntados ao processo. Não foi APRESENTADO original de Antecedentes Criminais do país de origem.\n\n3. De acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 04 anos e 10 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, NÃO SE APLICA.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, embora tenha sido confirmada durante o seu atendimento presencial, não foi comprovada pelo documento anexado.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. O requerente não se ausentou do território nacional em viagens internacionais por período que não excede o prazo máximo de ausência do país para o caso concreto.\n\n9. Laudo Datiloscópico. \n\n10. Certidão de Movimentos Migratórios.\n\n11. Pesquisa no SISMIGRA.\n\n12. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO INDEFERIMENTO em razão do NÃO preenchimento das condições, S.M.J.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "782644",
+    "codigo_processo": "782644",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:11:48",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "9 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária nº 782.644, apresento o presente Relatório Opinativo.\n\n1. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n2. De acordo com a documentação apresentada, o(a) naturalizando(a) possui capacidade civil.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 09 anos e 02 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n4. O(a) requerente não teve ausências do território nacional superiores aos limites estabelecidos pelo Art. 233, § 2º do Decreto 9.199/2017, o qual regulamenta a Lei nº 13.445, de 24 de maio de 2017, que institui a Lei de Migração.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de conclusão de curso de língua portuguesa, nos termos do Artigo 5º da Portaria 623/2020 e confirmada na entrevista pessoal por ocasião da coleta biométrica.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "781978",
+    "codigo_processo": "781978",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:13:31",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "7 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária nº 781.978, apresento o presente Relatório Opinativo.\n\n1. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n2. De acordo com a documentação apresentada, o(a) naturalizando(a) possui capacidade civil.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 04 anos e 05 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n4. O(a) requerente não teve ausências do território nacional superiores aos limites estabelecidos pelo Art. 233, § 2º do Decreto 9.199/2017, o qual regulamenta a Lei nº 13.445, de 24 de maio de 2017, que institui a Lei de Migração.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de conclusão do ensino médio, nos termos do Artigo 5º da Portaria 623/2020 e confirmada na entrevista pessoal por ocasião da coleta biométrica.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "781688",
+    "codigo_processo": "781688",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:15:45",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "6 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 781688\nInteressado (Naturalizando): MANEL NOEL\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tA relação de documentos exigidos pela legislação NÃO foi apresentada integralmente, conforme lista de documentos juntados ao processo.\n\n3.\tDe acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que possui 8 ano(s) de residência por prazo indeterminado, imediatamente anterior(es) ao pedido de naturalização.\n\n5.\tFoi realizada notificação para complementação dos documentos:\na.\tcertidão de antecedentes criminais emitida pela Justiça Federal e Estadual dos locais onde residiu nos últimos quatro anos;\nb.\tdeclaração, sob as penas da lei, de ausência de antecedentes internacionais penais ou policiais, nos cinco anos anteriores à data da solicitação;\nc.\tcomprovantes de residência, nos termos do art. 56 da Portaria MJSP 623/2020, referentes aos anos 2025, 2024, 2023, 2022 e 2021, um documento por ano (o requerente apresentou apenas uma declaração de residência, firmada por terceiro, isoladamente);\nd.\tdocumento comprobatório (ex.: declaração da instituição de ensino) de que o aluno, previamente identificado, foi submetido a pelo menos uma avaliação presencial referente ao certificado de curso de português apresentado, nos termos do Art. 5º, § 4º, da Portaria MJSP 623/2020. O requerente apresentou apenas o certificado de conclusão do curso (expedido pela Faculdade Ensin.E).\n\n6.\tEm relação à certidão do TJSP, o requerente apresentou documento do tipo incorreto (execuções criminais, em vez de ações criminais). Não apresentou a certidão do TRF 3ª Região. Quanto à declaração de ausência de antecedentes criminais, apresentou uma declaração referente ao último ano (em vez dos últimos 5 anos). Não apresentou os comprovantes de residência solicitados. Não apresentou o documento expedido pela instituição de ensino com detalhes sobre realização de avaliação presencial.\n\n7.\tNo dia do atendimento presencial, o requerente demonstrou capacidade suficiente de comunicação na língua portuguesa.\n\n8.\tNo dia do atendimento presencial, os seguintes documentos NÃO foram validados:\na.\tdeclaração de residência (arquivo \"01 (2).pdf\") – o requerente não apresentou o documento;\nb.\tatestado de antecedentes criminais emitido pelo país de origem (arquivo \"CamScanner 05-25-2025 16.05.pdf\") – o requerente apresentou apenas uma cópia simples do documento.\n\n9.\tNo tocante aos antecedentes criminais, os bancos de dados disponíveis foram consultados, não havendo fato digno de registro.\n\n10.\tConforme Certidão de Movimentos Migratórios, o requerente não ultrapassou o limite de ausências do País nos 4 anos imediatamente anteriores ao pedido de naturalização.\n\n11.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que não foram apresentados os documentos solicitados, conforme parágrafos 5 e 6 acima, bem como em razão da não apresentação das vias originais dos documentos (para validação no dia do atendimento presencial) mencionados no parágrafo 8 acima.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "781581",
+    "codigo_processo": "781581",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:17:46",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "6 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 07 anos e 07 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de \"CURSO SUPERIOR DE TECNOLOGIA EM CINEMA E AUDIOVISUAL\" expedido pela Universidade VEIGA DE ALMEIDA e confirmada durante o seu atendimento presencial.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Certidão de Movimentos Migratórios demonstra que as ausências do país por parte do requerente não prejudicam o pedido .\n\n8. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "781447",
+    "codigo_processo": "781447",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:21:02",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "6 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que possui 28 anos e 01 mês de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram o convívio familiar (convivência do casal).\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo Certificado de conclusão do curso de pós-graduação lato sensu – MBA Executivo em Gestão de Negócios de 07.08.2014 e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período de 132 dias nos últimos 12 meses, excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condição: ausentou-se do território nacional em viagens internacionais pelo período de 132 dias nos últimos 12 meses, excedendo o prazo máximo de ausência do país para o caso concreto",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "781056",
+    "codigo_processo": "781056",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:23:05",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "4 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 1 ano de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, apresentou documentação de filho brasileiro.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período irrelevante para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780840",
+    "codigo_processo": "780840",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:24:43",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "3 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo.\n\nO Residente não possui documento que comprove residência por prazo indeterminado, o RNM B113409-Z é temporário.\n\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento do tempo de residência por prazo indeterminado.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780703",
+    "codigo_processo": "780703",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:26:56",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "3 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 1 ano de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, apresentou documentação de filho brasileiro.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período irrelevante para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780604",
+    "codigo_processo": "780604",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:28:32",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "2 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\nNão foi identificado início de falsidade documental ou contradição na documentação apresentada.\n\nPara confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n\nCertidão de Movimentos Migratórios, na qual não se verifica ausência do país por prazo supeior a 12 meses nos útlimos 4 anos ou 90 dias nos últimos 12 meses;\n\nRegistrou-se como residente PERMANENTE por prazo indeterminado em 17/11/2017 (Cód 60 - RESOLUCAO NR 27 DE 25/11/1998 DO CNI/MTB), totalizando 07 anos e 10 meses até a data do requerimento.\n\nNo tocante aos antecedentes criminais, os bancos de dados disponíveis foram consultados, não havendo fato digno de registro.\n\nConfrontados os dados biométricos do naturalizando, em pesquisas realizadas pelo setor competente, conforme Informação Técnica nº 171/2025, não foram encontrados dados que desabonem ou não recomendem o deferimento do pedido.\n\nEm relação a capacidade de comunicação em língua portuguesa, durante o momento da coleta de biometria, verificou-se que o imigrante não apresentava dificuldade de comunicação em língua portuguesa.\n\nDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780449",
+    "codigo_processo": "780449",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:30:09",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "2 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 780449\nInteressado (Naturalizando): ANDRES ENRIQUE LAI REYES\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tA relação de documentos exigidos pela legislação NÃO foi apresentada integralmente, conforme lista de documentos juntados ao processo.\n\n3.\tDe acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que possui 27 ano(s) e 10 mes(es) de residência por prazo indeterminado, imediatamente anterior(es) ao pedido de naturalização.\n\n5.\tSua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo diploma de engenheiro agrônomo (Universidade de São Paulo – Escola Superior de Agricultura “Luiz de Queiroz”), sendo confirmada durante o seu atendimento presencial.\n\n6.\tFoi realizada notificação para complementação dos documentos:\na.\tcomprovante de situação cadastral do Cadastro de Pessoas Físicas – CPF;\nb.\tcertidão de antecedentes criminais emitida pela Justiça Estadual dos locais onde residiu nos últimos quatro anos.\n\n7.\tO processo foi devolvido sem que os documentos solicitados tenham sido apresentados.\n\n8.\tNo tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n\n9.\tConforme Certidão de Movimentos Migratórios, não consta registro de saída do País nos 4 anos imediatamente anteriores ao pedido de naturalização.\n\n10.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que não foram apresentados os documentos referidos no parágrafo 6 acima.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780140",
+    "codigo_processo": "780140",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:31:22",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "ASSUNTO: Solicitação de Naturalização Ordinária\nCÓDIGO: 780.140\nPROTOCOLO: 235881.0660866/2025\nINTERESSADO(A): Carlos Alberto Caceres Gonzalez\nPAÍS DE NACIONALIDADE: Cuba \nRNM: G377000-X\n\n\nVisando a instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo naturalizando acima identificado, foram realizadas as diligências descritas a seguir:\n\n1.\tPreliminarmente, não foi identificado indício de falsidade documental ou contradição na documentação apresentada virtualmente.\n\n2.\tPara confirmação do tempo de residência por prazo indeterminado foram realizadas pesquisas no STI WEB, SINAPSE, SISMIGRA e no antigo SINCRE. Sendo assim, a naturalizando ingressou no país em 12/08/2017, na condição de temporário – I, como integrante do programa mais médico, com visto consular expedido pelo consulado do Brasil em Cuba e registrado junto à Polícia Federal em 17/08/2017, amparado pelo código 302, com prazo de validade da RNM até 16/08/2019. Efetivando em 01/06/2021 a devida alteração de prazo de residência temporária para definitiva amparada pelo código 304 - Portaria Interministerial nº 04/2019, cuja expedição da CRNM em 05/06/2021 com validade até 01/06/2030. Inclusive, realizando último procedimento de solicitação da 2ª via da CRNM em 20/08/2025, com validade até 20/08/2034.\n\n3.\tEm relação a condição para redução do prazo de residência, foram realizadas consultas no SISMIGRA e SINAPSE, onde ficou constatado que o naturalizando se encontra no Brasil a mais de quatro (04) anos, ou seja, desde 01/06/2021 registrado como residente por prazo indeterminado com base na PORTARIA INTERMINISTERIAL Nº 04/2019 -código 304 (autorização de residência ao nacional de Cuba que foi ex-participante do programa mais médico), porém apto a requerer o pedido de naturalização logo após o decurso de 04 anos de efetivo registro de residência por prazo indeterminado, conforme previsão legal.\n\n4.\tNo tocante aos antecedentes criminais, os Bancos de Dados disponíveis foram consultados, não havendo nada digno de registro.\n\n5.\tNo que concerne a capacidade de comunicação em língua portuguesa, o requerente demonstrou capacidade de comunicação no vernáculo brasileiro, conforme comprovante anexo ao processo – Celpe Bras.\n\n6.\tSobre a(s) ausência(s) do território nacional admitidas: pedido de naturalização ordinária sem redução de prazo, e de conformidade com a INFORMAÇÃO Nº 9/2024/CGPMIG/DEMIG/SENAJUS). Nesse sentido, segundo pesquisa no histórico detalhado do STI WEB, que nos últimos 4 anos imediatamente anteriores ao pedido constam um total de 86 dias de ausência do país, ou seja, em situação regular. \n\n7.\tDiante de todo o exposto, verifica-se que o requerente em tela preenche os requisitos exigidos para a obtenção da naturalização pretendida. \n\n8. Encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "780066",
+    "codigo_processo": "780066",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:33:01",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Out de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 22/10/2025\n\n\nNaturalizando\nFALLOU LEYE - G408211D:\n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. A relação de documentos exigidos pela legislação não foi apresentada integralmente conforme documentos juntados ao processo. Apresentou Certidão de Antecedentes Criminais do país de origem com data anterior a última entrada no Brasil.\n\n3. De acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 07 anos e 09 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, não se aplica.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. O requerente não se ausentou do território nacional em viagens internacionais por período que não excede o prazo máximo de ausência do país para o caso concreto.\n\n9. Laudo Datiloscópico. \n\n10. Certidão de Movimentos Migratórios.\n\n11. Pesquisa no SISMIGRA.\n\n12. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO INDEFERIMENTO em razão do NÃO preenchimento das condições, S.M.J.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "779855",
+    "codigo_processo": "779855",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:35:23",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 779855\nInteressado (Naturalizando): DENEL ALMONORD\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tA relação de documentos exigidos pela legislação foi apresentada integralmente, conforme lista de documentos juntados ao processo.\n\n3.\tDe acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que possui 9 ano(s) e 7 mes(es) de residência por prazo indeterminado, imediatamente anterior(es) ao pedido de naturalização.\n\n5.\tSua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado e histórico escolar de conclusão do ensino fundamental (CEEJA PROF.ª ALDA MARANGONI FRANÇA), sendo confirmada durante o seu atendimento presencial.\n\n6.\tNo tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n\n7.\tConforme Certidão de Movimentos Migratórios, não consta registro de saída do País nos 4 anos imediatamente anteriores ao pedido de naturalização.\n\n8.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "779821",
+    "codigo_processo": "779821",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:37:45",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "ASSUNTO: SOLICITAÇÃO DE NATURALIZAÇÃO ORDINÁRIA \nCÓDIGO: 779.821\nPROTOCOLO: 235881.0660573/2025\nINTERESSADO: IVO ANTONIO DJO\nPAÍS DE NACIONALIDADE: GUINÉ-BISSAU\nRNM: G234256-7\n\nVisando a instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo naturalizando acima identificado, foram realizadas as diligências descritas a seguir:\n\n1.\tPreliminarmente, não foi identificado indício de falsidade documental ou contradição na documentação apresentada virtualmente. Porém, após realizar análises na documentação apresentada, restou pendência de apresentação de documento incompleto (certidão de antecedentes criminais emitida pelo país de origem). Ainda, pôde-se observar que o naturalizando em apreço não atingiu o tempo mínimo de 01 (um) ano de registro como residente por prazo indeterminado para concorrer a naturalização desejada. Haja vista, ter realizado a devida alteração de temporário para residente por prazo indeterminado em 26/09/2025, amparado na PORTARIA INTERMINISTERIAL Nº 40/2023 – MJSP/MRE, código 327, conforme extrato demonstrativo do SISMIGRA anexo. \n\n2.\tPara confirmação do tempo de residência por prazo indeterminado foram realizadas pesquisas no STI WEB, SINAPSE e SISMIGRA. O naturalizando ingressou no país em 29/02/2016, na condição de temporário - IV. Que durante sua estada em território nacional optou pela obtenção da residência com base na Portaria Interministerial nº 40/2023, inclusive, tendo efetivado a manutenção do registro de residência junto à PF em 26/09/2025, com expedição da CRNM válida até 26/09/2034. \n\n3.\tEm relação a condição para redução do prazo de residência, foram realizadas consultas STI MAR, STI WEB e SISMIGRA, onde ficou constatado que o naturalizando se encontra no Brasil a menos de 01 (um) mês, na condição de residente por prazo indeterminado, em razão de Acordo/Tratado. Embora nacional de país de língua portuguesa, lhe carece de tempo mínimo de 01 ano para incidir na redução de prazo, consoante previsão legal.\n\n4.\tNo tocante aos antecedentes criminais, os Bancos de Dados disponíveis foram consultados, não havendo nada digno de registro.\n\n5.\tNo que concerne a capacidade de comunicação em língua portuguesa, o requerente é nacional de país pertencente à Comunidade de países de Língua Portuguesa – CPLP, portanto, isento de tal exigência, segundo Art. 5º da Portaria nº 623/2020 – MJSP.\n\n6.\tSobre a(s) ausência(s) do território nacional admitidas, pôde-se observar segundo pesquisa no histórico detalhado do STI WEB, que desde sua última entrada no Brasil em 11/02/2022, não se ausentando até a presente data. Em situação regular.\n\n7.\tDiante de todo o exposto, verifica-se que o requerente em tela não se encontra no momento apto ao pleito requerido, assim, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s).",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "779599",
+    "codigo_processo": "779599",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:39:51",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "30 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 779599\nInteressado (Naturalizando): FANNY ROXANA MAMANI MATAMET\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tA relação de documentos exigidos pela legislação foi apresentada integralmente, conforme lista de documentos juntados ao processo.\n\n3.\tDe acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n4.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que possui 10 ano(s) e 3 mes(es) de residência por prazo indeterminado, imediatamente anterior(es) ao pedido de naturalização.\n\n5.\tSua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelos diplomas de mestrado (UNICAMP) e de doutorado (UNESP), sendo confirmada durante o seu atendimento presencial.\n\n6.\tNo tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n\n7.\tConforme Certidão de Movimentos Migratórios, a requerente totalizou 213 dias de ausências do País nos 4 anos imediatamente anteriores ao pedido de naturalização.\n\n8.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "779002",
+    "codigo_processo": "779002",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:42:01",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "29 de Set de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 0 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação,  foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 04 anos de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram o convívio familiar - convivência do casal. \n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento certificado de conclusão de MESTRADO pela UFOP e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente não se ausentou do território nacional em viagens internacionais. \n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778977",
+    "codigo_processo": "778977",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:43:41",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "29 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que o interessado foi registrado em 28/11/2017, porém em 08/03/2020 se ausentou do território brasileiro, retornando apenas em 05/01/2022, totalizando uma ausência superior a 12 meses o que interrompe a contagem do período de residência legal. Assim, desde a última entrada em 05/01/2022, já se passaram 3 anos e 9 meses de residência contínua, faltando 3 meses para a configuração dos quatro anos de residência contínua, previsto no art. 233, II, da Lei 9.199/2017\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s) previstas no art. 233, II, da Lei 9.199/2017\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778922",
+    "codigo_processo": "778922",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:45:13",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "29 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que possui 2,3 anosde residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, não existe qualquer redutor previsto.\n\n6. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s): NÃO POSSUI TEMPO MÍNIMO DE RESIDÊNCIA POR PRAZO INDETERMINADO.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778869",
+    "codigo_processo": "778869",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:47:02",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "29 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que possui 2,3 anos como residente por prazo indeterminado, não sendo possível, portanto, a solicitação de Naturalização Ordinária Brasileira, uma vez que não possui qualquer redutor de prazo.\n\n5. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778376",
+    "codigo_processo": "778376",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:51:04",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "26 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 1 anos, 2 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram o convívio familiar (convivência do casal ou assistência a prole).\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento Certificado UNIOESTE  e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente NÃO ausentou-se do território nacional em viagens internacionais pelo período, não excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\nObservações: XXXXXXXXXXXXXXXXXXXX.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778253",
+    "codigo_processo": "778253",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:52:35",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "26 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso III da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária nº 778.253 , apresento o presente Relatório Opinativo.\n\n1. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n2. De acordo com a documentação apresentada, o(a) naturalizando(a) possui capacidade civil.\n\n3. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 05 anos e 01 mês de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n4. O(a) requerente não teve ausências do território nacional superiores aos limites estabelecidos pelo Art. 233, § 2º do Decreto 9.199/2017, o qual regulamenta a Lei nº 13.445, de 24 de maio de 2017, que institui a Lei de Migração.\n\n5. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo certificado de conclusão do ensino fundamental, nos termos do Artigo 5º da Portaria 623/2020 e confirmada na entrevista pessoal por ocasião da coleta biométrica.\n\n6. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "778150",
+    "codigo_processo": "778150",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:55:13",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "26 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do pedido de naturalização, apresento o presente Parecer.\nA relação de documentos exigidos pela legislação NÃO foi apresentada integralmente. Ficaram faltantes:\n- Antecedentes criminais emitido pelo país de origem. (anexado documento cujo a Policia Civil atesta que a naturalizanda não possuí condenação).\n- Antecedentes criminais emitido pela Justiça Estadual (3º ofício).\n- Antecedentes criminais emitido pelo Cartório Criminal em Florianópolis.\n- Comprovante de residência dos últimos doze meses retrógrados as de início da solicitação (10/2024 á 10/2025).\nNOTIFICADO, o imigrante NÃO APRESENTOU A DOCUMENTAÇÃO EXIGIDA no prazo de trinta dias, contados da notificação, e também não pediu a prorrogação de prazo para complementação da documentação, conforme previsão legal:\n\n“ Art. 7º A Polícia Federal, ao processar o pedido de naturalização, deverá:\n\nI - notificar o requerente, caso necessário, para retificar ou complementar a documentação apresentada, no prazo de trinta dias, prorrogáveis mediante pedido justificado;\n\nII - coletar os dados biométricos do requerente;\n\nIII - prestar informações sobre os antecedentes criminais e movimentação migratória do requerente;\n\nIV - realizar diligências e entrevista gravada, caso necessário à instrução do processo; e\n\nV - emitir relatório opinativo recomendando a procedência ou não do pedido.\n\n§ 1º O processo de naturalização, acompanhado do relatório opinativo de que trata o inciso V do caput, será encaminhado para análise do Departamento de Migrações.\n\n§ 2º NA AUSÊNCIA DE RESPOSTA DO IMIGRANTE NO PRAZO DE TRINTA DIAS, CONTADO DA NOTIFICAÇÃO DE QUE TRATA O INCISO I, SERÃO DISPENSADAS AS PROVIDÊNCIAS PREVISTAS NOS INCISOS II, III E IV, PROCEDENDO-SE AO ARQUIVAMENTO DO PEDIDO.”\n\nDiante do exposto, com fulcro no ART. 7º, §2º, DA PORTARIA Nº 623, DE 13 DE NOVEMBRO DE 2020, encaminho ao Ministério da Justiça e Segurança Pública com sugestão de INDEFERIMENTO/ARQUIVAMENTO.\n\nPS: Não fora feita a coleta biométrica. O sistema, por ERRO, só permite avançar para a próxima fase quando o campo SIM está selecionado na COLETA DE DADOS. Porém, como se trata de indeferimento, tal coleta não fora efetuada.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "777915",
+    "codigo_processo": "777915",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:56:25",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "25 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 1 anos, 1 mes de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas comprovaram o convívio familiar (convivência do casal ou assistência a prole).\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento Certificado UNIOESTE e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período de 2 meses e 20 dias, não excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n\nObservações: XXXXXXXXXXXXXXXXXXXX.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "777380",
+    "codigo_processo": "777380",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 01:59:10",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "24 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 1 ano e meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, apresentou documentação de filho brasileiro.\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, foi comprovada pelo documento anexado e confirmada durante o seu atendimento presencial.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período irrelevante para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO DEFERIMENTO em razão do preenchimento das condições.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "777355",
+    "codigo_processo": "777355",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:00:20",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "24 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso / Protocolo: 777.355\nInteressado (Naturalizando): ASIEL AGUILA ALVAREZ\n\nINFORMAÇÃO CONSOLIDADA\nVisando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerida pelo\nNaturalizando acima identificado, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado indício de falsidade documental ou contradição na documentação apresentada. O requerente se tornou residente permanente com emissão de CRNM no dia 15/06/2021, demonstrando residir no Brasil por pelo menos 4 anos. O requerente está registrado no SISTEMA NACIONAL DE ESTRANGEIROS – SISMIGRA da Polícia Federal, RNM nº G3595403, em situação regular ativa, na condição de residente permanente, com tempo necessário para o pedido de naturalização ordinária.\n\n2.1. Certidão de movimentos migratórios em que consta saída no período de 26/05/2022 a 10/06/2022, o que não ultrapassa o limite da naturalização ordinária.\n\n2.2. Foi constatado que reside no brasil por prazo indeterminado desde 15/06/2021, totalizando 4 anos.\n\n3. Em relação à condição para redução do prazo de residência, foram realizadas as seguintes diligências: NÃO SE APLICA. \n\n4. No   tocante   aos   antecedentes   criminais, OS   BANCOS   DE   DADOS   DISPONÍVEIS   FORAM   CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO NA INTERPOL E NID.\n\n5. Em relação a capacidade de comunicação em língua portuguesa, o naturalizando fez a comprovação mediante apresentação de certificado de conclusão de curso de idioma português para imigrantes.\n\n6. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.\n\nÉ a informação.\nAtt,\nMarcos Antônio da Silva Cruz\nAPF – Matrícula 22.729\nUMIG/DPF/GOY/RJ\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "776714",
+    "codigo_processo": "776714",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:01:45",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, (não) foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. De acordo com a documentação apresentada, o naturalizando (possui/não possui) capacidade civil.\n\n4. Em relação às condições exigidas para a naturalização ordinária verificou-se que possui XXXXX anos e XXXX meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n5. Em relação às condições especiais para diminuição do prazo de residência, as diligências realizadas (não) comprovaram o convívio familiar (convivência do casal ou assistência a prole).\n\n6. Sua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, (não) foi comprovada pelo documento XXXXXX e confirmada durante o seu atendimento presencial.\n\n7. (Não) foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis, conforme Relatório de Informação consolidada que consta no presente processo.\n\n8. O requerente ausentou-se do território nacional em viagens internacionais pelo período de XXXXX dias/meses/anos, não excedendo/excedendo o prazo máximo de ausência do país para o caso concreto.\n\n9. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s) XXXXXXXXXXXXXXXXXXXX.\n\nObservações: XXXXXXXXXXXXXXXXXXXX.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "776615",
+    "codigo_processo": "776615",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:03:22",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "22 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 4"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "\n\n\nNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo. \n\nO artigo 65 da Lei 13.445/17 estabelece os seguintes requisitos para o deferimento da naturalização ordinária:\n\nI - ter capacidade civil, segundo a lei brasileira;\n\nII - ter residência em território nacional, pelo prazo mínimo de 4 (quatro) anos;\n\nIII - comunicar-se em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - não possuir condenação penal ou estiver reabilitado, nos termos da lei.\n\nA Portaria nº 623 de 13 de novembro de novembro de 2020, por sua vez, regulamenta o procedimento e estabelece a documentação necessária a ser apresentada.\n\nAssim, após apresentada a documentação exigida, deve ser verificada a presença dos requisitos legais.\n\nEntretanto, no presente caso não foram apresentados os seguintes documentos:\n\n- Comprovante da situação cadastral do CPF\n- Certidão de antecedentes criminais (Brasil)\n- Atestado antecedentes criminais (país de origem)\n- Comprovante de tempo de residência\n\n\n\nAssim, resta prejudicada a análise do pedido.\n\n\nDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, em razão do não preenchimento dos requisitos legais previstos.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "776103",
+    "codigo_processo": "776103",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:05:14",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "21 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo.\n\n3. Conforme informações contidas no site do Ministério das Relações Exteriores; para surtir efeitos no Brasil, documentos emitidos por países estrangeiros que não estão na lista da Convenção da Apostila da Haia devem ser legalizados, unicamente, junto às Repartições Consulares do Brasil no exterior. O Ministério das Relações Exteriores em Brasília, bem como seus Escritórios Regionais, não têm competência legal para efetuar legalização em documentos emitidos em países estrangeiros.\n\n4. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão da não apresentação do atestado de antecedentes criminais expedido pelo país de origem, devidamente legalizado. ",
+      "proposta_pf": "Deferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "775967",
+    "codigo_processo": "775967",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:09:05",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "21 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando ELENA TURINETS, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada.\n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios.\n2.1.1. A requerente NÃO se ausentou do território nacional em viagens internacionais desde a sua entrada em 05/07/2024 efetuada por via aérea em Guarulhos/SP.\n2.2. Foram consultados os bancos de dados.\n2.3. Registrou-se como residente por prazo indeterminado em 26/08/2024.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 26/08/2024, totalizando 1 ano e 0 mês e 26 dias até a data de 21/09/2025, quando requereu a naturalização.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. A interessada juntou a Certidão de Nascimento do filho SEVASTIAN KHARSEEV, brasileiro, nascido em 07/08/2024 na cidade de Vila Velha/ES, certidão de selo digital 024620.XJD2404.02186. \n3.2. A autenticidade do selo digital 024620.XJD2404.02186 da Certidão de Nascimento do filho brasileiro foi confirmada no sítio eletrônico do TJES, https://selo.tjes.jus.br/consulta/default.aspx.\n4. OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO quanto a antecedente criminal.\n5. Em relação à capacidade de comunicação em Língua Portuguesa, foi juntado pela interessada o Certificado do Curso de Extensão em Proficiência em Língua Portuguesa emitido pela EnsinE Faculdade – Instituição de Ensino Superior credenciada pelo MEC, cujo Registro do Certificado tem o número 00121534, matrícula 40021656, com avaliação presencial em 25/08/2025, juntamente com o Conteúdo Programático das disciplinas.\n6. O laudo de identificação datiloscópica não trouxe observações adicionais.\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "775417",
+    "codigo_processo": "775417",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:10:37",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "19 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo senhor RUI MIGUEL CANINHAS BELCHIOR DA SILVA, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO se ausentou do território nacional em viagens internacionais desde a obtenção da autorização de residência por prazo INDETERMINADO em 16/09/2019.\n2.1.2. NÃO excedeu o prazo máximo de ausência do país para o caso concreto.\n2.2. Teve a entrada no Brasil em 02/09/2019 com visto temporário por motivo de Reunião Familiar e registrou-se em 16/09/2019 por prazo INDETERMINADO, com supedâneo no artigo 37 da lei 13.445/2017 (reunião familiar).\n2.3. Permaneceu por 06 anos, 0 mês e 03 dias desde a data em que se registrou como residente por tempo indeterminado, a saber, 16/09/2019, até a data em que apresentou o pedido de naturalização, qual seja, 19/09/2025. \n3. Em relação a condição para redução do prazo de residência, constata-se que o requerente é natural de Portugal, sendo exigida a permanência por um ano no Brasil na condição de residente por prazo indeterminado, requisito que foi cumprido, além disso foram realizadas as seguintes diligências:\n3.1. O interessado juntou a Certidão de Nascimento do filho SAMUEL RODRIGUES BELCHIOR DA SILVA, brasileiro, nascido em 08/12/2012 na cidade de Vila Franca de Xira, Portugal, com Registro no Consulado-Geral do Brasil em Lisboa e no Cartório Colatina Registro Civil e Tabelionado da Sede, constando as observações “1) Brasileiro nato, conforme os termos da alínea c do inciso I do art. 12, in limine, da Constituição Federal; 2) Ato registrado neste Cartório no livro n E-023, fls. 054, sob o n 8502.” Certidão de selo digital 023986.MNI1902.10184. \n3.2. A autenticidade do selo digital 023986.MNI1902.10184 da Certidão de Nascimento do filho foi confirmada no sítio eletrônico do TJES, https://selo.tjes.jus.br/consulta/default.aspx.\n4. Quanto aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, trata-se de requerente natural de Portugal, assim, dispensado da necessidade de tal comprovação.\n6. O laudo de identificação datiloscópica não trouxe observações adicionais.\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": true,
+      "problema_portugues": false,
+      "alertas": [
+        "Excedeu limite de ausência do país"
+      ]
+    }
+  },
+  {
+    "numero_processo": "775332",
+    "codigo_processo": "775332",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:12:14",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "19 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 775332\nInteressado (Naturalizando): MAKENLOVE DORIVAL\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tA relação de documentos exigidos pela legislação NÃO foi apresentada integralmente, conforme lista de documentos juntados ao processo.\n\n3.\tDe acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n4.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que possui 9 ano(s) e 5 mes(es) de residência por prazo indeterminado, imediatamente anterior(es) ao pedido de naturalização.\n\n5.\tForam verificadas as seguintes irregularidades documentais no processo:\na.\tnão apresentou certidões de antecedentes criminais emitidas pela Justiça Federal e Estadual dos locais onde residiu nos últimos quatro anos;\nb.\tanexou um atestado de antecedentes criminais emitido pelo país de origem sem a legalização;\nc.\tanexou um a tradução juramentada que não está assinada pelo tradutor;\nd.\tnão anexou comprovantes de residência no território nacional, nos termos do Art. 56 da Portaria MJSP 623/2020;\ne.\tapresentou um certificado de curso de português (Faculdade Fasul Educacional) realizado na modalidade EAD, porém sem documentação comprobatória de realização de avaliação presencial.\n\n6.\tNo dia do atendimento presencial, o requerente demonstrou capacidade suficiente de comunicação na língua portuguesa.\n\n7.\tNo tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n\n8.\tConforme Certidão de Movimentos Migratórios, não consta registro de saída do País nos 4 anos imediatamente anteriores ao pedido de naturalização.\n\n9.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que não foram apresentados os documentos referidos no parágrafo 5 acima.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "775194",
+    "codigo_processo": "775194",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 02:13:32",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "18 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 25.0,
+      "documentos_faltantes": [
+        "Não anexou item 4",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 3 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. Os documentos exigidos pela legislação não foram apresentados, diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião pelo ARQUIVAMENTO do processo, com base no art. 7º, § 2º da Portaria 623/2020.\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "792137",
+    "codigo_processo": "792137",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 09:48:37",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "27 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 0.0,
+      "documentos_faltantes": [
+        "Não anexou item 8",
+        "Não anexou item 4",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 792137\nInteressado (Naturalizando): NAMOUNE ILORSAINT TERMITUS\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tDe acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n3.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que a requerente possui autorização de residência registrada sob o amparo legal 279 - PORTARIA MJSP/MRE N. 51/2024 (acolhida humanitária para nacionais do Haiti), classificação TEMPORÁRIO.\n\n4.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que a requerente não possui autorização de residência por prazo indeterminado e, portanto, não atende aos requisitos previstos nos arts. 221, “caput”, e 233, II, do Decreto 9.199/2017.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "792137",
+    "codigo_processo": "792137",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 11:25:12",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "27 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso III da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": false,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 0.0,
+      "documentos_faltantes": [
+        "Não anexou item 8",
+        "Não anexou item 4",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 3 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 792137\nInteressado (Naturalizando): NAMOUNE ILORSAINT TERMITUS\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tDe acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n3.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que a requerente possui autorização de residência registrada sob o amparo legal 279 - PORTARIA MJSP/MRE N. 51/2024 (acolhida humanitária para nacionais do Haiti), classificação TEMPORÁRIO.\n\n4.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que a requerente não possui autorização de residência por prazo indeterminado e, portanto, não atende aos requisitos previstos nos arts. 221, “caput”, e 233, II, do Decreto 9.199/2017.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "790357",
+    "codigo_processo": "790357",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 11:26:29",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "Art. 65, inciso IV da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 25.0,
+      "documentos_faltantes": [
+        "Não anexou item 8",
+        "Não anexou item 3",
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando MARCELDO ESTRAME, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde sua chegada em 2021 mas não foi registrado no STIWEB.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 21/03/2024.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 21/03/2024, totalizando 01 ano e 07 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "792137",
+    "codigo_processo": "792137",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 11:35:09",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "27 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Assunto: Pedido de Naturalização ORDINÁRIA\nProcesso: 792137\nInteressado (Naturalizando): NAMOUNE ILORSAINT TERMITUS\n\nRELATÓRIO OPINATIVO\n\n1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo.\n\n2.\tDe acordo com a documentação apresentada, a naturalizanda possui capacidade civil.\n\n3.\tEm relação às condições exigidas para a naturalização ORDINÁRIA, verificou-se que a requerente possui autorização de residência registrada sob o amparo legal 279 - PORTARIA MJSP/MRE N. 51/2024 (acolhida humanitária para nacionais do Haiti), classificação TEMPORÁRIO.\n\n4.\tDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, tendo em vista que a requerente não possui autorização de residência por prazo indeterminado e, portanto, não atende aos requisitos previstos nos arts. 221, “caput”, e 233, II, do Decreto 9.199/2017.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "790357",
+    "codigo_processo": "790357",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "16/11/2025 11:37:38",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "23 de Out de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "Visando à instrução do processo de NATURALIZAÇÃO ORDINÁRIA requerido pelo Naturalizando MARCELDO ESTRAME, foram realizadas as diligências a seguir descritas:\n\n1. Não foi identificado início de falsidade documental ou contradição na documentação apresentada. \n2. Para confirmação do tempo de residência por prazo indeterminado foram juntados ao processo:\n2.1. Certidão de Movimentos Migratórios\n2.1.1. O requerente NÃO ausentou-se do território nacional desde sua chegada em 2021 mas não foi registrado no STIWEB.\n2.2. ......\n2.3. Registrou-se como residente por prazo indeterminado em 21/03/2024.\n2.4. Foi constatado que reside no Brasil por prazo indeterminado desde 21/03/2024, totalizando 01 ano e 07 meses.\n3. Em relação a condição para redução do prazo de residência, foram realizadas as seguintes diligências:\n3.1. ......Comprovou-se a existência e seu convívio com prole brasileira.\n3.2. ......\n4. No tocante aos antecedentes criminais, OS BANCOS DE DADOS DISPONÍVEIS FORAM CONSULTADOS, NÃO HAVENDO FATO DIGNO DE REGISTRO.\n5. Em relação a capacidade de comunicação em língua portuguesa, durante o atendimento presencial, verificou-se que o imigrante NÃO apresentava dificuldade de comunicação, sendo comprovado que efetivamente sabe se comunicar em língua portuguesa.\n6. Outros dados relevantes: .......\n7. Diante do preenchimento dos requisitos para a NATURALIZAÇÃO ORDINÁRIA, encaminho à Chefia da Unidade, com sugestão de Relatório Opinativo pela PROCEDÊNCIA do pedido.",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "problema_portugues": false,
+      "alertas": []
+    }
+  }
+]

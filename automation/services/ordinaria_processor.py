@@ -4,8 +4,8 @@ Orquestra todas as camadas (Action, Repository, Service)
 """
 
 from typing import Dict, Any, Optional
-from ..actions.lecom_action import LecomAction
-from ..actions.document_action import DocumentAction
+from ..actions.lecom_ordinaria_action import LecomAction
+from ..actions.document_ordinaria_action import DocumentAction
 from ..repositories.ordinaria_repository import OrdinariaRepository
 from .ordinaria_service import OrdinariaService
 
@@ -121,7 +121,7 @@ class OrdinariaProcessor:
             
             # ETAPA 7: Salvar dados e gerar planilha
             print("\n[ETAPA 7] Salvando dados e gerando planilha...")
-            resultado_final = self.service.salvar_dados_e_gerar_planilha(
+            resultado_planilha = self.service.salvar_dados_e_gerar_planilha(
                 numero_processo, dados_pessoais, resultado_elegibilidade, 
                 resultado_decisao, resumo_executivo
             )
@@ -152,8 +152,8 @@ class OrdinariaProcessor:
                 'elegibilidade_final': resultado_elegibilidade.get('elegibilidade_final'),
                 'motivos_indeferimento': resultado_elegibilidade.get('requisitos_nao_atendidos', []),
                 'documentos_faltantes': resultado_elegibilidade.get('documentos_faltantes', []),
-                'exportado_para_planilha': resultado_final.get('sucesso', False),
-                'dados_planilha': resultado_final.get('dados'),
+                'exportado_para_planilha': resultado_planilha.get('sucesso', False),
+                'dados_planilha': resultado_planilha.get('dados'),
                 'sucesso': True
             }
             

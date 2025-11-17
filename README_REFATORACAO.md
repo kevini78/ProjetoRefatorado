@@ -156,6 +156,27 @@ python exemplo_uso_nova_arquitetura.py
 
 ## 📝 Notas Importantes
 
+### App modular (Flask)
+- Entry point: `run.py` (usa `modular_app.create_app`)
+- Blueprints registrados:
+  - `web` (saúde, downloads)
+  - `api` (saúde, `/api/v1/ordinaria/processar`)
+  - `api_uploads` (uploads: aprovação de recurso e defere/indefere recurso)
+  - `automacao` (rotas `/automacao_processos`)
+  - `aprovacoes` (APIs de aprovação em lote e parecer)
+  - `pages` (páginas HTML: `/aprovacao_lote`, `/aprovacao_parecer_analista`, `/aprovacao_conteudo_recurso`, `/defere_indefere_recurso`)
+
+### JobService (fila em memória)
+- Enfileira jobs com `enqueue` e expõe `status`, `stop`, `log` e `set_result`.
+- Usado pelos uploads e pelas aprovações (lote/parecer) para padronizar status.
+- Endpoints de status/parada:
+  - Lote: `GET /api/aprovacao_lote/status/<id>`, `POST /api/aprovacao_lote/parar/<id>`
+  - Parecer: `GET /api/aprovacao_parecer_analista/status/<id>`, `POST /api/aprovacao_parecer_analista/parar/<id>`
+
+### Segurança
+- Decoradores centralizados em `modular_app/security/decorators.py`.
+- Aplicados nas APIs novas e padronizados nas rotas de OCR legadas.
+
 1. **Todos os padrões existentes foram preservados**
 2. **Validação com termos melhorados continua funcionando**
 3. **Fallbacks de busca de documentos mantidos**
@@ -164,3 +185,22 @@ python exemplo_uso_nova_arquitetura.py
 6. **Performance mantida ou melhorada**
 
 A refatoração foi feita de forma **não-destrutiva**, garantindo que toda funcionalidade existente continue operando normalmente.
+
+## Como rodar a aplicação (Flask)
+- Requisitos: Python 3.10+, dependências do projeto (pip install -r requirements.txt)
+- Variáveis de ambiente relevantes:
+  - MISTRAL_API_KEY: chave para OCR Mistral (obrigatória para OCR)
+  - APP_ENV=production para executar com ProdConfig (opcional)
+  - UPLOAD_FOLDER para customizar diretório de uploads (opcional)
+
+Iniciar o servidor:
+```bash
+python run.py
+```
+
+A aplicação usa blueprints registrados em modular_app/__init__.py.
+
+## Observações sobre OCR
+- A função de OCR extrair_campos_ocr_mistral foi movida para modular_app/utils/ocr_extractor.py.
+- Os módulos que antes importavam de app.py agora importam de modular_app.utils.ocr_extractor.
+- Os caminhos de upload foram centralizados: quando possível, usamos BaseConfig.UPLOAD_FOLDER.
