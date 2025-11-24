@@ -2326,5 +2326,231 @@
       "problema_portugues": false,
       "alertas": []
     }
+  },
+  {
+    "numero_processo": "768046",
+    "codigo_processo": "768046",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:36:14",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017",
+      "🚨 REQUERENTE NÃO ESTÁ NO PAÍS - INDEFERIMENTO AUTOMÁTICO"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 2"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n\n2. Conforme registro no Sistema de Tráfego Internacional - STI e no passaporte, o requerente não se encontra em território nacional na data da entrada do processo, impedindo a continuidade do processo.\n\n3. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO em razão do não preenchimento da(s) condições(s).\n\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": true,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": [
+        "🚨 REQUERENTE NÃO ESTÁ NO PAÍS - INDEFERIMENTO AUTOMÁTICO"
+      ]
+    }
+  },
+  {
+    "numero_processo": "767995",
+    "codigo_processo": "767995",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:38:42",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "1 de Set de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 1 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n2.\tDe acordo com a documentação apresentada, o interessado possui capacidade civil. \n3.\tA relação de documentos exigidos pela legislação, NÃO foi apresentada integralmente conforme documentos juntados ao processo. NÃO apresentou:\na.\tLegalização ou apostilamento do atestado de antecedentes criminais emitido pelo país de origem (o documento que foi emitido pela Embaixada do México não supre a falta de legalização);\nb. Certidão de antecedentes criminais emitida pela Justiça Federal dos locais onde residiu nos últimos quatro anos;\n4. Restituído o processo ao requerente em 09/09/2025 para que anexasse os documentos faltantes a fim de comprovar que preenche os requisitos previstos na legislação, o requerente devolveu no dia 10/09/2025 sem complementar as exigências.\n5.\tEm relação às condições exigidas para a naturalização ordinária verificou-se que o imigrante teve registro em 07/12/2017 como residente com base em reunião familiar, possuindo, portanto, 6 (seis) anos de residência por prazo indeterminado. Solicitação de naturalização feita em 01//09/2025.\n6.\tAntecedentes criminais não identificados por meio de consulta aos bancos de dados disponíveis.\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião pelo ARQUIVAMENTO/INDEFERIMENTO do processo, em razão de não preencher as exigências do artigo 65 da Lei nº 13.445/2017 e parágrafo 2º do artigo 7º da Portaria nº 623/2020.\n\nGILVANÊS BAKAI\nAGENTE DE POLÍCIA FEDERAL\nCLASSE ESPECIAL – MAT. 2997\nEm, 01/10/2025\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": false,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": [
+        "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF"
+      ]
+    }
+  },
+  {
+    "numero_processo": "767111",
+    "codigo_processo": "767111",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:40:59",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "29 de Ago de 2025",
+    "resultado_final": "ANALISE_MANUAL",
+    "motivos_indeferimento": [
+      "Art. 65, inciso II da Lei nº 13.445/2017"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": false,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo encaminhado para ANÁLISE MANUAL devido a alerta(s) crítico(s) no parecer da PF ou dados insuficientes para decisão automática.",
+    "resumo": "Caso marcado para análise manual (sem decisão automática de deferimento/indeferimento).",
+    "parecer_pf": {
+      "parecer_texto": "Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de naturalização, apresento o presente Relatório Opinativo. \n\nO artigo 65 da Lei 13.445/17 estabelece os seguintes requisitos para o deferimento da naturalização ordinária:\n\nI - ter capacidade civil, segundo a lei brasileira;\n\nII - ter residência em território nacional, pelo prazo mínimo de 4 (quatro) anos;\n\nIII - comunicar-se em língua portuguesa, consideradas as condições do naturalizando; e\n\nIV - não possuir condenação penal ou estiver reabilitado, nos termos da lei.\n\nA Portaria nº 623 de 13 de novembro de novembro de 2020, por sua vez, regulamenta o procedimento e estabelece a documentação necessária a ser apresentada.\n\nAssim, após apresentada a documentação exigida, deve ser verificada a presença dos requisitos legais.\n\n\nA relação de documentos exigidos pela legislação, foi apresentada integralmente conforme lista de documentos juntada ao processo. \n\nDe acordo com a documentação apresentada, o naturalizando possui capacidade civil. \n\nEm relação às condições exigidas para a naturalização ordinária, verificou-se que possui mais de01 ano de residência permanente no país (possui filho brasileiro).\n\nSua capacidade de comunicar-se em língua portuguesa, consideradas suas condições, NÃO foi comprovada, tendo em vista a ausência de apresentação do documento respectivo.\n\nNão foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis. \n\nDiante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião DESFAVORÁVEL AO DEFERIMENTO, em razão do preenchimento dos requisitos legais previstos.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": false,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": [
+        "⚠️ PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO"
+      ]
+    }
+  },
+  {
+    "numero_processo": "765992",
+    "codigo_processo": "765992",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:44:28",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "27 de Ago de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo deferido automaticamente com base na análise de elegibilidade.",
+    "resumo": "Todos os requisitos atendidos segundo a análise automática.",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 08/09/2025\n\n\nNaturalizando\nMOISE STERLING - G2975982: \n \n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo, visto que o naturalizando não compareceu nem justificou a falta ao agendamento/notificação.\n \n3. Notificado o requerente do Agendamento e apresentação dos documentos para conferência e coleta biométrica, não cumpriu a Notificação, deixando de apresentar os seguintes documentos:\n\n\n“....\n1.\tDeclaração de interesse em traduzir ou adaptar o nome à língua portuguesa.\n2.\tCarteira de Registro Nacional Migratório ou do passaporte e via original para conferência.\n3.\tComprovante de situação cadastral do CPF (Cadastro de Pessoa Física).\n4.\tCertidão de antecedentes criminais emitida pela Justiça Federal e Estadual dos locais e países onde residiu nos últimos cinco anos.\n5.\tCertidão de antecedentes criminais ou documento equivalente expedido pelo país de origem, legalizada e traduzida, no Brasil, por tradutor público juramentado, observada a Convenção sobre a eliminação da exigência de legalização de documentos públicos estrangeiros, promulgada pelo Decreto nº 8.660, de 29 de janeiro de 2016.\n6.\tComprovante de reabilitação, nos termos da legislação vigente, se for o caso.\n7.\tComprovante de residência, que pode ser algum dos documentos previstos no Art. 54 da Portaria Interministerial nº 11, de 03.05.2018, publicada em 04.05.2018; 8.1 - comprovante de endereço, como contas de água, energia ou telefone; 8.2 - cópia de contrato de locação ou escritura de compra e venda de imóvel em nome do interessado ou de genitor ou cônjuge ou companheiro, acompanhado respectivamente da certidão de nascimento, ou casamento, ou comprovação de união estável; 8.3 - declaração de instituição financeira atestando cadastro de cliente; 8.4 - comprovante de vínculo profissional, conforme a atividade desenvolvida, como: a) declaração de empregador atestando vínculo empregatício naquela localidade; b) comprovante de autônomo; c) comprovante de que exerce atividade de empresário; d) cópia da Carteira de Trabalho e Previdência Social; 8.5 - certificados de conclusão de cursos; 8.6 - diplomas;  8.7 - histórico escolar;  8.8 - exames médicos; 8.9 - extrato da Previdência Social; 8.10 - extratos de plano de saúde; ou 8.11 - outros documentos que atestem a residência contínua e ininterrupta no País.\n8.\tPassaporte, ainda que vencido, observadas as normas do Mercosul.\n9.\tCertidão de casamento atualizada, expedida nos últimos 90 dias, se houver.\n10.\tDocumentos que comprovem união estável, se houver.\n11.\tCertidão de nascimento do filho brasileiro, se houver.\n12.\tComprovação de que sabe comunicar-se em língua portuguesa, que pode ser feita por um dos documentos abaixo referidos, conforme PORTARIA INTERMINISTERIAL Nº 16, DE 3 DE OUTUBRO DE 2018, sendo dispensado para os originários de países de língua portuguesa: 13.1 - certificado de: a) proficiência em língua portuguesa para estrangeiros obtido por meio do Exame Celpe-Bras, realizado pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira - INEP; b) conclusão em curso de ensino superior ou pós-graduação, realizado em instituição educacional brasileira, registrada no Ministério da Educação; c) aprovação no exame da Ordem dos Advogados do Brasil - OAB aplicado pelas unidades seccionais da Ordem dos Advogados do Brasil; d) conclusão de curso de idioma português direcionado a imigrantes realizado em instituição de ensino superior reconhecida pelo Ministério da Educação; ou e) aprovação em avaliação da capacidade de comunicação em língua portuguesa aplicado por instituição de ensino superior reconhecida pelo Ministério da Educação na qual seja oferecido curso de idioma mencionado na alínea \"d\"; 13.2 - comprovante de: a) conclusão do ensino fundamental ou médio por meio do Exame Nacional para Certificação de Competências de Jovens e Adultos - ENCCEJA; ou b) matrícula em instituição de ensino superior reconhecida pelo Ministério da Educação decorrente de aprovação em vestibular ou de aproveitamento de nota obtida no Exame Nacional do Ensino Médio - ENEM;  13.3 - nomeação para o cargo de professor, técnico ou cientista decorrente de aprovação em concurso promovido por universidade pública; 13.4 - histórico ou documento equivalente que comprove conclusão em curso de ensino fundamental, médio ou supletivo, realizado em instituição de ensino brasileira, reconhecido pela Secretaria de Educação competente; ou 13.5 - diploma de curso de Medicina revalidado por Instituição de Ensino Superior Pública após aprovação obtida no Exame Nacional de Diplomas Médicos Expedidos por Instituições de Educação Superior Estrangeira - REVALIDA aplicado pelo INEP.\n13.\tDeclaração Conjunta assinada por ambos parceiros, em caso de casamento, União Estável, filho\n\n\n4. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n5. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 04 anos de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n6. Em relação às condições especiais para diminuição do prazo de residência, NÃO SE APLICA.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. Certidão de Movimentos Migratórios.\n\n9. Pesquisa no SISMIGRA.\n\n10. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO INDEFERIMENTO em razão do NÃO preenchimento das condições, S.M.J.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": false,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "763365",
+    "codigo_processo": "763365",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:46:23",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "20 de Ago de 2025",
+    "resultado_final": "DEFERIMENTO",
+    "motivos_indeferimento": [],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": true
+    },
+    "documentos_complementares": {
+      "percentual_completude": 100.0,
+      "documentos_faltantes": []
+    },
+    "despacho": "Processo deferido automaticamente com base na análise de elegibilidade.",
+    "resumo": "Todos os requisitos atendidos segundo a análise automática.",
+    "parecer_pf": {
+      "parecer_texto": "RELATóRIO OPINATIVO/PARECER\nDATA 29/08/2025\n\n\nNaturalizando\nJAMESLEY ESTIMABLE - G314924Y: \n \n\n1. Nos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo/Parecer.\n\n2. A relação de documentos exigidos pela legislação, não foi apresentada integralmente conforme documentos juntados ao processo, visto que o naturalizando não compareceu nem justificou a falta ao agendamento/notificação.\n \n3. Notificado o requerente do Agendamento e apresentação dos documentos para conferência e coleta biométrica, não cumpriu a Notificação, deixando de apresentar os seguintes documentos:\n\n\n“....\n1.\tDeclaração de interesse em traduzir ou adaptar o nome à língua portuguesa.\n2.\tCarteira de Registro Nacional Migratório ou do passaporte e via original para conferência.\n3.\tComprovante de situação cadastral do CPF (Cadastro de Pessoa Física).\n4.\tCertidão de antecedentes criminais emitida pela Justiça Federal e Estadual dos locais e países onde residiu nos últimos cinco anos.\n5.\tCertidão de antecedentes criminais ou documento equivalente expedido pelo país de origem, legalizada e traduzida, no Brasil, por tradutor público juramentado, observada a Convenção sobre a eliminação da exigência de legalização de documentos públicos estrangeiros, promulgada pelo Decreto nº 8.660, de 29 de janeiro de 2016.\n6.\tComprovante de reabilitação, nos termos da legislação vigente, se for o caso.\n7.\tComprovante de residência, que pode ser algum dos documentos previstos no Art. 54 da Portaria Interministerial nº 11, de 03.05.2018, publicada em 04.05.2018; 8.1 - comprovante de endereço, como contas de água, energia ou telefone; 8.2 - cópia de contrato de locação ou escritura de compra e venda de imóvel em nome do interessado ou de genitor ou cônjuge ou companheiro, acompanhado respectivamente da certidão de nascimento, ou casamento, ou comprovação de união estável; 8.3 - declaração de instituição financeira atestando cadastro de cliente; 8.4 - comprovante de vínculo profissional, conforme a atividade desenvolvida, como: a) declaração de empregador atestando vínculo empregatício naquela localidade; b) comprovante de autônomo; c) comprovante de que exerce atividade de empresário; d) cópia da Carteira de Trabalho e Previdência Social; 8.5 - certificados de conclusão de cursos; 8.6 - diplomas;  8.7 - histórico escolar;  8.8 - exames médicos; 8.9 - extrato da Previdência Social; 8.10 - extratos de plano de saúde; ou 8.11 - outros documentos que atestem a residência contínua e ininterrupta no País.\n8.\tPassaporte, ainda que vencido, observadas as normas do Mercosul.\n9.\tCertidão de casamento atualizada, expedida nos últimos 90 dias, se houver.\n10.\tDocumentos que comprovem união estável, se houver.\n11.\tCertidão de nascimento do filho brasileiro, se houver.\n12.\tComprovação de que sabe comunicar-se em língua portuguesa, que pode ser feita por um dos documentos abaixo referidos, conforme PORTARIA INTERMINISTERIAL Nº 16, DE 3 DE OUTUBRO DE 2018, sendo dispensado para os originários de países de língua portuguesa: 13.1 - certificado de: a) proficiência em língua portuguesa para estrangeiros obtido por meio do Exame Celpe-Bras, realizado pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira - INEP; b) conclusão em curso de ensino superior ou pós-graduação, realizado em instituição educacional brasileira, registrada no Ministério da Educação; c) aprovação no exame da Ordem dos Advogados do Brasil - OAB aplicado pelas unidades seccionais da Ordem dos Advogados do Brasil; d) conclusão de curso de idioma português direcionado a imigrantes realizado em instituição de ensino superior reconhecida pelo Ministério da Educação; ou e) aprovação em avaliação da capacidade de comunicação em língua portuguesa aplicado por instituição de ensino superior reconhecida pelo Ministério da Educação na qual seja oferecido curso de idioma mencionado na alínea \"d\"; 13.2 - comprovante de: a) conclusão do ensino fundamental ou médio por meio do Exame Nacional para Certificação de Competências de Jovens e Adultos - ENCCEJA; ou b) matrícula em instituição de ensino superior reconhecida pelo Ministério da Educação decorrente de aprovação em vestibular ou de aproveitamento de nota obtida no Exame Nacional do Ensino Médio - ENEM;  13.3 - nomeação para o cargo de professor, técnico ou cientista decorrente de aprovação em concurso promovido por universidade pública; 13.4 - histórico ou documento equivalente que comprove conclusão em curso de ensino fundamental, médio ou supletivo, realizado em instituição de ensino brasileira, reconhecido pela Secretaria de Educação competente; ou 13.5 - diploma de curso de Medicina revalidado por Instituição de Ensino Superior Pública após aprovação obtida no Exame Nacional de Diplomas Médicos Expedidos por Instituições de Educação Superior Estrangeira - REVALIDA aplicado pelo INEP.\n13.\tDeclaração Conjunta assinada por ambos parceiros, em caso de casamento, União Estável, filho\n\n\n4. De acordo com a documentação apresentada, o naturalizando possui capacidade civil.\n\n5. Em relação às condições exigidas para a naturalização ordinária, verificou-se que possui 08 anos e 07 meses de residência por prazo indeterminado, imediatamente anteriores ao pedido de naturalização.\n\n6. Em relação às condições especiais para diminuição do prazo de residência, NÃO SE APLICA.\n\n7. Não foram identificados antecedentes criminais a partir das consultas aos bancos de dados disponíveis.\n\n8. Certidão de Movimentos Migratórios.\n\n9. Pesquisa no SISMIGRA.\n\n10. Diante do exposto, encaminho ao Ministério da Justiça e Segurança Pública com opinião FAVORÁVEL AO INDEFERIMENTO em razão do NÃO preenchimento das condições, S.M.J.\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": false,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": []
+    }
+  },
+  {
+    "numero_processo": "762641",
+    "codigo_processo": "762641",
+    "tipo_analise": "Naturalização Ordinária",
+    "data_analise": "22/11/2025 14:47:25",
+    "nome": "N/A",
+    "protocolo": "N/A",
+    "data_inicial": "18 de Ago de 2025",
+    "resultado_final": "INDEFERIMENTO",
+    "motivos_indeferimento": [
+      "Art. 65, inciso IV da Lei nº 13.445/2017",
+      "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF"
+    ],
+    "requisitos": {
+      "capacidade_civil": true,
+      "residencia_minima": true,
+      "comunicacao_portugues": true,
+      "antecedentes_criminais": false
+    },
+    "documentos_complementares": {
+      "percentual_completude": 75.0,
+      "documentos_faltantes": [
+        "Não anexou item 4"
+      ]
+    },
+    "despacho": "Processo indeferido por não atender aos requisitos",
+    "resumo": "Não atendeu 2 requisito(s)",
+    "parecer_pf": {
+      "parecer_texto": "1.\tNos termos da legislação, realizadas as diligências necessárias à instrução do presente pedido de Naturalização Ordinária apresento o presente Relatório Opinativo.\n2.\tDe acordo com a documentação apresentada, o interessado possui capacidade civil. \n3.\tA relação de documentos exigidos pela legislação, NÃO foi apresentada integralmente conforme documentos juntados ao processo. NÃO apresentou:\na.\tCópia da Carteira de Registro Nacional Migratório;\nb.\tComprovante de situação cadastral do Cadastro de Pessoas Físicas - CPF;\nc.\tCertidão de antecedentes criminais emitida pela Justiça Federal e Estadual dos locais onde residiu nos últimos quatro anos;\nd.\tAtestado de antecedentes criminais ou documento equivalente emitido pelo país de origem legalizado e traduzido, no Brasil, por tradutor público juramentado, observada a Convenção sobre a eliminação da exigência de legalização de documentos públicos estrangeiros, promulgada pelo Decreto nº 8.660, de 29 de janeiro de 2016;\ne.\tComprovante de residência, nos termos do art. 56 da Portaria nº 623/2020;\nf.\tCópia do documento de viagem internacional, ainda que vencido, observadas as regras do Mercosul; e,\ng.\tDocumento indicativo da capacidade de se comunicar em língua portuguesa.\n4. Restituído o processo ao requerente em 29/08/2025 para que anexasse os documentos faltantes a fim de comprovar que preenche os requisitos previstos na legislação, em 01/09/2025, o processo foi devolvido pelo requerente sem complementação das exigências. \n5.\tEm relação às condições exigidas para a naturalização ordinária verificou-se que o imigrante teve registro em 11/01/2019 como temporário com base no Acordo Mercosul; em 19/11/2020 passou a residente com base no mesmo Acordo, possuindo, portanto, 04 (quatro) anos de residência por prazo indeterminado. Solicitação de naturalização feita em 18/08/2025. \n6.\tAntecedentes criminais não identificados por meio de consulta aos bancos de dados disponíveis.\n7. Diante do exposto, encaminhe-se ao Ministério da Justiça e Segurança Pública com opinião pelo ARQUIVAMENTO/INDEFERIMENTO do processo, em razão de não preencher as exigências do artigo 65 da Lei nº 13.445/2017 e do parágrafo 2º do artigo 7º da Portaria nº 623/2020.\n\nGILVANÊS BAKAI\nAGENTE DE POLÍCIA FEDERAL\nCLASSE ESPECIAL – MAT. 2997\nEm, 30/09/2025\n",
+      "proposta_pf": "Indeferimento",
+      "excedeu_ausencia": false,
+      "ausencia_pais": false,
+      "problema_portugues": false,
+      "nao_compareceu_pf": false,
+      "documentos_nao_apresentados": false,
+      "faculdade_invalida": false,
+      "alertas": [
+        "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF"
+      ]
+    }
   }
 ]

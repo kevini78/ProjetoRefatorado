@@ -139,7 +139,13 @@ class OrdinariaProcessor:
                 print(f"[AVISO] Erro ao retornar para workspace: {e}")
             
             # RESULTADO FINAL
-            status_final = 'Deferimento' if resultado_elegibilidade.get('elegibilidade_final') == 'deferimento' else 'Indeferimento'
+            eleg_final = resultado_elegibilidade.get('elegibilidade_final')
+            if eleg_final == 'deferimento':
+                status_final = 'Deferimento'
+            elif eleg_final == 'analise_manual':
+                status_final = 'Análise Manual'
+            else:
+                status_final = 'Indeferimento'
             
             resultado_final = {
                 'numero_processo': numero_processo,

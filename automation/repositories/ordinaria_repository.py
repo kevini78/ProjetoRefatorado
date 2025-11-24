@@ -478,80 +478,346 @@ class OrdinariaRepository:
             return None
     
     def extrair_parecer_pf(self) -> Dict[str, Any]:
-        """
-        Extrai e analisa o parecer da Polícia Federal
-        (preserva lógica original dos padrões de alerta da PF)
+        """Extrai e analisa o parecer da Polícia Federal.
+
+        Mantém a lógica original e adiciona alertas padronizados que
+        impactam diretamente a decisão automática (indeferimento ou
+        encaminhamento para análise manual).
         """
         try:
             elemento_parecer = self.driver.find_element(By.ID, "CHPF_PARECER")
             parecer_texto = elemento_parecer.get_attribute("value") or elemento_parecer.text
-            
+
             if not parecer_texto:
                 return {
                     'parecer_texto': '',
                     'proposta_pf': 'Não encontrado',
                     'excedeu_ausencia': False,
+                    'ausencia_pais': False,
                     'problema_portugues': False,
+                    'nao_compareceu_pf': False,
+                    'documentos_nao_apresentados': False,
+                    'faculdade_invalida': False,
                     'alertas': []
                 }
-            
-            alertas = []
-            
-            # PADRÕES DE ALERTA DA PF (preserva lógica original)
-            
+
+            alertas: List[str] = []
+            texto_lower = parecer_texto.lower()
+
+            # PADRÕES DE ALERTA DA PF (preserva lógica original + novos alertas)
+
             # 1. Verificar excesso de ausência
-            padroes_ausencia = [
-                r'excedeu.*ausência',
-                r'ausente.*por.*mais.*de.*\d+.*dias',
-                r'período.*ausência.*superior',
-                r'ultrapassou.*limite.*ausência',
-                r'ausência.*prolongada'
-            ]
-            
             excedeu_ausencia = False
-            for padrao in padroes_ausencia:
+
+            padroes_nao_excedeu = [
+                r'não\s+ausentou.*excedendo',
+                r'não\s+excede',
+                r'não\s+excedeu',
+                r'nao\s+ausentou.*excedendo',
+                r'nao\s+excede',
+                r'nao\s+excedeu',
+                r'não.*excedendo\s+o\s+prazo',
+                r'nao.*excedendo\s+o\s+prazo'
+            ]
+
+            padroes_ausencia_positiva = [
+                r'(?<!não\s)(?<!nao\s)excedendo\s+o\s+prazo\s+máximo\s+de\s+ausência',
+                r'(?<!não\s)(?<!nao\s)excede.*prazo.*ausência',
+                r'ausentou.*superior\s+a\s+\d+\s+meses',
+                r'período\s+superior\s+a\s+12\s+meses',
+                r'se\s+ausentou\s+do\s+território\s+nacional\s+por\s+período\s+superior\s+a\s+90\s+dias\s+em\s+12\s+meses',
+                r'ausentou.*superior\s+a\s+90\s+dias\s+em\s+12\s+meses',
+                r'excedendo\s+o\s+prazo\s+máximo\s+permitido\s+pela\s+legislação',
+                r'(?<!não\s)(?<!nao\s)excedeu\s+o\s+limite'
+            ]
+
+            padroes_negacao_90_dias = [
+                r'não\s+se\s+ausentou.*90\s+dias',
+                r'nao\s+se\s+ausentou.*90\s+dias',
+                r'não\s+ausentou.*90\s+dias',
+                r'nao\s+ausentou.*90\s+dias'
+            ]
+
+            padroes_excesso_ausencias = [
+                r'se\s+ausentou\s+do\s+território\s+nacional\s+por\s+período\s+superior\s+a\s+29\s+meses',
+                r'se\s+ausentou\s+do\s+territorio\s+nacional\s+por\s+periodo\s+superior\s+a\s+29\s+meses',
+                r'se\s+ausentou.*superior\s+a\s+29\s+meses.*últimos\s+4\s+anos',
+                r'se\s+ausentou.*superior\s+a\s+29\s+meses.*ultimos\s+4\s+anos',
+                r'se\s+ausentou\s+do\s+território\s+nacional\s+por\s+período\s+superior\s+a\s+11\s+meses',
+                r'se\s+ausentou\s+do\s+territorio\s+nacional\s+por\s+periodo\s+superior\s+a\s+11\s+meses',
+                r'se\s+ausentou.*superior\s+a\s+11\s+meses.*últimos\s+12\s+meses',
+                r'se\s+ausentou.*superior\s+a\s+11\s+meses.*ultimos\s+12\s+meses',
+                r'excedendo\s+o\s+prazo\s+máximo\s+permitido\s+pela\s+legislação',
+                r'excedendo\s+o\s+prazo\s+maximo\s+permitido\s+pela\s+legislacao'
+            ]
+
+            encontrou_nao_excedeu = any(
+                re.search(p, parecer_texto, re.IGNORECASE) for p in padroes_nao_excedeu
+            )
+            tem_negacao_90 = any(
+                re.search(p, parecer_texto, re.IGNORECASE) for p in padroes_negacao_90_dias
+            )
+
+            for padrao in padroes_excesso_ausencias:
                 if re.search(padrao, parecer_texto, re.IGNORECASE):
                     excedeu_ausencia = True
-                    alertas.append("Excedeu limite de ausência do país")
+                    alertas.append('🚨 EXCEDEU LIMITE DE AUSÊNCIAS - INDEFERIMENTO AUTOMÁTICO')
                     break
-            
-            # 2. Verificar problemas com português
-            padroes_portugues = [
-                r'não.*consegue.*comunicar.*português',
-                r'dificuldade.*comunicação.*português',
-                r'não.*domina.*língua.*portuguesa',
-                r'comunicação.*português.*inadequada',
-                r'não.*atende.*requisito.*português'
-            ]
-            
+
+            if not excedeu_ausencia and not encontrou_nao_excedeu:
+                for padrao in padroes_ausencia_positiva:
+                    if '90\s+dias' in padrao and tem_negacao_90:
+                        continue
+                    if re.search(padrao, parecer_texto, re.IGNORECASE):
+                        excedeu_ausencia = True
+                        alertas.append('⚠️ EXCEDEU LIMITE DE AUSÊNCIA DO PAÍS')
+                        break
+
+            if not excedeu_ausencia:
+                if re.search(
+                    r"limite\s+permitido\s+de\s+aus[êe]ncia.*n[ãa]o\s+foi\s+observado",
+                    parecer_texto,
+                    re.IGNORECASE,
+                ):
+                    excedeu_ausencia = True
+                    alertas.append('⚠️ EXCEDEU LIMITE DE AUSÊNCIA DO PAÍS')
+
+            # 2. Verificar problemas com português (comunicação em atendimento)
             problema_portugues = False
-            for padrao in padroes_portugues:
-                if re.search(padrao, parecer_texto, re.IGNORECASE):
-                    problema_portugues = True
-                    alertas.append("Problema na comunicação em português identificado pela PF")
+
+            padroes_doc_comprovado = [
+                r'foi\s+comprovad[ao].*atendimento\s+presencial',
+                r'comprovad[ao].*atendimento.*presencial',
+                r'confirmada\s+durante.*atendimento\s+presencial',
+                r'capacidade.*comunicar.*portugu[eê]s.*comprovad[ao]',
+                r'apesar\s+da\s+deficiência.*consegue.*comunicar.*português.*satisfatória',
+                r'apesar.*deficiência.*consegue.*se\s+comunicar.*português',
+                r'consegue.*se\s+comunicar.*português.*maneira.*satisfatória',
+            ]
+
+            doc_portugues_comprovado = any(
+                re.search(p, parecer_texto, re.IGNORECASE) for p in padroes_doc_comprovado
+            )
+
+            padroes_negacao = [
+                r'(?:não|nao)\s+foi\s+comprovad[ao]',
+                r'(?:não|nao)\s+comprovad[ao]',
+                r'capacidade.*comunicar.*portugu[eê]s.*(?:não|nao)\s+foi\s+comprovad[ao]',
+                r'sua\s+capacidade.*comunicar.*portugu[eê]s.*(?:não|nao)\s+foi\s+comprovad[ao]',
+                r'ausência\s+de\s+apresentação\s+do\s+documento\s+respectivo',
+                r'tendo\s+em\s+vista\s+a\s+ausência\s+de\s+apresentação',
+            ]
+
+            if not doc_portugues_comprovado:
+                for padrao in padroes_negacao:
+                    if re.search(padrao, parecer_texto, re.IGNORECASE):
+                        problema_portugues = True
+                        alertas.append('⚠️ DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL')
+                        break
+
+            padroes_portugues = [
+                r'não\s+consegue\s+se\s+comunicar\s+em\s+língua\s+portuguesa',
+                r'não.*comunicar.*português',
+                r'sem\s+comunicação\s+em\s+português',
+                r'não\s+demonstrou\s+proficiência',
+                r'não.*consegue.*comunicar.*português',
+                r'nao.*consegue.*comunicar.*portugues',
+                r'dificuldade.*comunicação.*português',
+                r'dificuldade.*comunicacao.*portugues',
+                r'não.*domina.*língua.*portuguesa',
+                r'nao.*domina.*lingua.*portuguesa',
+                r'comunicação.*português.*inadequada',
+                r'comunicacao.*portugues.*inadequada',
+                r'não.*atende.*requisito.*português',
+                r'nao.*atende.*requisito.*portugues',
+            ]
+
+            if not problema_portugues and not doc_portugues_comprovado:
+                for padrao in padroes_portugues:
+                    if re.search(padrao, parecer_texto, re.IGNORECASE):
+                        problema_portugues = True
+                        alertas.append('⚠️ NÃO CONSEGUE SE COMUNICAR EM PORTUGUÊS (atendimento presencial)')
+                        break
+
+            # 2.1 Documento de português não comprovado no atendimento/pelos autos (compatibilidade)
+            padroes_doc_portugues = [
+                r'não\s+foi\s+comprovad[ao]\s+pelo\s+documento',
+                r'nao\s+foi\s+comprovad[ao]\s+pelo\s+documento',
+                r'documento.*portugu[eê]s.*não\s+foi\s+comprovad[ao]',
+                r'documento.*portugues.*nao\s+foi\s+comprovad[ao]',
+            ]
+            for padrao in padroes_doc_portugues:
+                if re.search(padrao, texto_lower, re.IGNORECASE):
+                    if 'DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL' not in alertas:
+                        alertas.append('DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL')
                     break
-            
+
+            # 2.2 Documentos não apresentados integralmente / não comparecimento
+            documentos_nao_apresentados = False
+            nao_compareceu_pf = False
+
+            padroes_documentos_nao_apresentados = [
+                r'a\s+relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada\s+integralmente',
+                r'a\s+relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada',
+                r'documentos\s+exigidos.*não\s+foi\s+apresentada\s+integralmente',
+                r'documentos\s+exigidos.*não\s+foi\s+apresentada',
+                r'não\s+foi\s+apresentada\s+integralmente.*documentos',
+                r'não\s+foi\s+apresentada.*documentos',
+                r'não\s+anexando',
+            ]
+
+            padroes_nao_compareceu = [
+                r'não\s+compareceu\s+à\s+unidade\s+para\s+apresentar\s+a\s+documentação',
+                r'nao\s+compareceu\s+a\s+unidade\s+para\s+apresentar\s+a\s+documentacao',
+                r'não\s+compareceu\s+à\s+unidade.*coletar.*dados\s+biométricos',
+                r'nao\s+compareceu\s+a\s+unidade.*coletar.*dados\s+biometricos',
+                r'requerente\s+não\s+compareceu\s+à\s+unidade',
+                r'requerente\s+nao\s+compareceu\s+a\s+unidade',
+                r'não\s+compareceu.*apresentar.*documentação.*coletar.*biométricos',
+                r'nao\s+compareceu.*apresentar.*documentacao.*coletar.*biometricos',
+            ]
+
+            documentos_apresentados_integralmente = bool(
+                re.search(
+                    r"\b(foi|foram)\s+apresentad[ao]s?\s+integralmente\b",
+                    parecer_texto,
+                    re.IGNORECASE,
+                )
+            )
+
+            for padrao in padroes_nao_compareceu:
+                if re.search(padrao, parecer_texto, re.IGNORECASE):
+                    nao_compareceu_pf = True
+                    break
+
+            if not documentos_apresentados_integralmente and not nao_compareceu_pf:
+                for padrao in padroes_documentos_nao_apresentados:
+                    if re.search(padrao, parecer_texto, re.IGNORECASE):
+                        documentos_nao_apresentados = True
+                        break
+
+            if nao_compareceu_pf:
+                alertas.append('🚨 REQUERENTE NÃO COMPARECEU À PF - INDEFERIMENTO AUTOMÁTICO')
+            elif documentos_nao_apresentados:
+                alertas.append('⚠️ DOCUMENTOS NÃO APRESENTADOS INTEGRALMENTE')
+
+            # 5. Ausência de prazo de residência
+            menciona_residencia = re.search(
+                r"resid[êe]ncia|indeterminad|permanente", parecer_texto, re.IGNORECASE
+            )
+            menciona_prazo = re.search(
+                r"\b(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d+\s+anos?|\d+\s+meses?)\b",
+                parecer_texto,
+                re.IGNORECASE,
+            )
+
+            if menciona_residencia and not menciona_prazo:
+                alertas.append('⚠️ PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO')
+
+            # 6. Ausência de coleta biométrica
+            padroes_biometria_ausente = [
+                r'art\.?\s*7[ºo°]?\s*,?\s*§?\s*2[ºo°]?\s*,?\s*da\s+portaria\s*n?º?\s*623',
+                r'artigo\s+7[ºo°]?\s*,?\s*§?\s*2[ºo°]?\s*,?\s*portaria\s*623',
+                r'parágrafo\s+2[ºo°]?\s+do\s+artigo\s+7[ºo°]?\s+da\s+portaria\s*n?º?\s*623',
+                r'fulcro\s+no\s+art\.?\s*7[ºo°]?\s*,?\s*§?\s*2[ºo°]?',
+                r'com\s+base\s+no\s+art\.?\s*7[ºo°]?\s*,?\s*§?\s*2[ºo°]?',
+                r'n[ãa]o\s+compareceu.*coleta.*biom[ée]tric',
+                r'n[ãa]o\s+compareceu.*dados\s+biom[ée]tricos',
+                r'n[ãa]o\s+compareceu.*agendamento.*coleta',
+                r'faltou.*agendamento.*coleta.*biometria',
+                r'faltou.*ocasi[õo][ẽe]s.*coleta',
+                r'aus[êe]ncia.*coleta\s+biom[ée]trica',
+                r'aus[êe]ncia.*sem\s+justificativa.*coleta\s+biom[ée]trica',
+                r'deixamos\s+realizar.*coleta.*biometr',
+                r'n[ãa]o\s+fora\s+feita.*coleta\s+biom[ée]trica',
+                r'n[ãa]o\s+foi\s+feita.*coleta\s+biom[ée]rica',
+                r'indeferimento/arquivamento.*art\.?\s*7',
+                r'arquivamento/indeferimento.*art\.?\s*7',
+                r'sugest[ãa]o\s+de\s+indeferimento/arquivamento',
+                r'opini[ãa]o\s+pelo\s+arquivamento.*art\.?\s*7',
+                r'opini[ãa]o\s+pelo\s+indeferimento.*art\.?\s*7',
+                r"deixamos\s+realizar\s+a\s+coleta.*biometr|dispensa\s+da\s+coleta.*biom[ée]rica|coleta.*biom[ée]tric[oa]s?.*n[ãa]o\s+(foi|fora)\s+(efetuada|feita)|n[ãa]o\s+(foi|fora)\s+(efetuada|feita).*coleta.*biom[ée]tric[oa]s?",
+            ]
+
+            for padrao in padroes_biometria_ausente:
+                if re.search(padrao, parecer_texto, re.IGNORECASE):
+                    alertas.append('⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF')
+                    break
+
+            # 7. Faculdade inválida no e-MEC
+            faculdade_invalida = False
+            padroes_faculdade_invalida = [
+                r'cnpj.*consta\s+como\s+sendo\s+de\s+outra\s+instituição',
+                r'cnpj.*consta.*outra\s+instituição\s+de\s+ensino',
+                r'instituição\s+de\s+ensino.*não\s+funciona.*endereço',
+                r'instituicao\s+de\s+ensino.*nao\s+funciona.*endereco',
+                r'faculdade.*não\s+funciona.*endereço.*desde',
+                r'faculdade.*nao\s+funciona.*endereco.*desde',
+                r'site.*não\s+são\s+mais\s+válidos',
+                r'site.*nao\s+sao\s+mais\s+validos',
+                r'e-mails.*não\s+são\s+mais\s+válidos',
+                r'e-mails.*nao\s+sao\s+mais\s+validos',
+                r'não\s+foram\s+encontrados.*sites.*ativos',
+                r'nao\s+foram\s+encontrados.*sites.*ativos',
+                r'pesquisas.*não.*encontrados.*outros.*sites.*ativos',
+                r'pesquisas.*nao.*encontrados.*outros.*sites.*ativos',
+            ]
+
+            for padrao in padroes_faculdade_invalida:
+                if re.search(padrao, parecer_texto, re.IGNORECASE):
+                    faculdade_invalida = True
+                    alertas.append('⚠️ FACULDADE INVÁLIDA NO E-MEC - DOCUMENTO DE PORTUGUÊS INVÁLIDO')
+                    break
+
+            # 8. Ausência do país (requerente fora do Brasil)
+            ausencia_pais = False
+            padroes_ausencia_pais = [
+                r'não\s+se\s+encontra\s+em\s+território\s+nacional',
+                r'nao\s+se\s+encontra\s+em\s+territorio\s+nacional',
+                r'não\s+encontra\s+em\s+território\s+nacional',
+                r'nao\s+encontra\s+em\s+territorio\s+nacional',
+                r'ausente\s+do\s+território\s+nacional',
+                r'ausente\s+do\s+territorio\s+nacional',
+                r'fora\s+do\s+território\s+nacional',
+                r'fora\s+do\s+territorio\s+nacional',
+                r'impedindo\s+a\s+continuidade\s+do\s+processo',
+                r'impedindo\s+a\s+continuidade',
+                r'não\s+se\s+encontra.*território.*nacional.*data.*entrada.*processo',
+                r'nao\s+se\s+encontra.*territorio.*nacional.*data.*entrada.*processo',
+            ]
+
+            for padrao in padroes_ausencia_pais:
+                if re.search(padrao, parecer_texto, re.IGNORECASE):
+                    ausencia_pais = True
+                    alertas.append('🚨 REQUERENTE NÃO ESTÁ NO PAÍS - INDEFERIMENTO AUTOMÁTICO')
+                    break
+
             # 3. Extrair proposta da PF
             proposta_pf = 'Indeferimento'  # Default
-            
+
             padroes_deferimento = [
                 r'proposta.*deferimento',
                 r'recomenda.*deferimento',
                 r'sugere.*deferimento',
-                r'favorável.*ao.*pedido'
+                r'favorável.*ao.*pedido',
+                r'favoravel.*ao.*pedido',
             ]
-            
+
             for padrao in padroes_deferimento:
                 if re.search(padrao, parecer_texto, re.IGNORECASE):
                     proposta_pf = 'Deferimento'
                     break
-            
+
             return {
                 'parecer_texto': parecer_texto,
                 'proposta_pf': proposta_pf,
                 'excedeu_ausencia': excedeu_ausencia,
+                'ausencia_pais': ausencia_pais,
                 'problema_portugues': problema_portugues,
-                'alertas': alertas
+                'nao_compareceu_pf': nao_compareceu_pf,
+                'documentos_nao_apresentados': documentos_nao_apresentados,
+                'faculdade_invalida': faculdade_invalida,
+                'alertas': alertas,
             }
             
         except Exception as e:
@@ -560,8 +826,12 @@ class OrdinariaRepository:
                 'parecer_texto': '',
                 'proposta_pf': 'Erro na extração',
                 'excedeu_ausencia': False,
+                'ausencia_pais': False,
                 'problema_portugues': False,
-                'alertas': [f'Erro na extração: {e}']
+                'nao_compareceu_pf': False,
+                'documentos_nao_apresentados': False,
+                'faculdade_invalida': False,
+                'alertas': [f'Erro na extração: {e}'],
             }
     
     def _montar_snapshot_legacy(self, numero_processo: str, resultado_elegibilidade: Dict[str, Any],
@@ -572,6 +842,14 @@ class OrdinariaRepository:
         parecer_pf = resultado_elegibilidade.get('parecer_pf', {}) or {}
         documentos_complementares = resultado_elegibilidade.get('documentos_complementares', {}) or {}
 
+        elegibilidade_final = resultado_elegibilidade.get('elegibilidade_final')
+        if elegibilidade_final == 'deferimento':
+            resultado_final = 'DEFERIMENTO'
+        elif elegibilidade_final == 'analise_manual':
+            resultado_final = 'ANALISE_MANUAL'
+        else:
+            resultado_final = 'INDEFERIMENTO'
+
         return {
                 'numero_processo': numero_processo,
                 'codigo_processo': getattr(self.lecom_action, 'numero_processo_limpo', numero_processo),
@@ -580,7 +858,7 @@ class OrdinariaRepository:
                 'nome': dados_pessoais.get('nome') or dados_pessoais.get('nome_completo', 'N/A'),
                 'protocolo': dados_pessoais.get('protocolo', 'N/A'),
                 'data_inicial': resultado_elegibilidade.get('data_inicial_processo') or self.lecom_action.data_inicial_processo,
-                'resultado_final': 'DEFERIMENTO' if resultado_elegibilidade.get('elegibilidade_final') == 'deferimento' else 'INDEFERIMENTO',
+                'resultado_final': resultado_final,
                 'motivos_indeferimento': resultado_elegibilidade.get('requisitos_nao_atendidos', []),
                 'requisitos': {
                     'capacidade_civil': resultado_elegibilidade.get('requisito_i_capacidade_civil', {}).get('atendido', False),

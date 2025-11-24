@@ -100,7 +100,11 @@ class OrdinariaService:
             parecer_pf_dados.setdefault('proposta_pf', 'Não encontrado')
             parecer_pf_dados.setdefault('alertas', [])
             parecer_pf_dados.setdefault('excedeu_ausencia', False)
+            parecer_pf_dados.setdefault('ausencia_pais', False)
             parecer_pf_dados.setdefault('problema_portugues', False)
+            parecer_pf_dados.setdefault('nao_compareceu_pf', False)
+            parecer_pf_dados.setdefault('documentos_nao_apresentados', False)
+            parecer_pf_dados.setdefault('faculdade_invalida', False)
 
             detalhe_capacidade = {
                 'atendido': False,
@@ -369,21 +373,103 @@ class OrdinariaService:
                 print(f"   {'✅' if status_requisitos['II'] else '❌'} Requisito II (Residência): {'ATENDIDO' if status_requisitos['II'] else 'NÃO ATENDIDO'}")
                 print(f"   {'✅' if status_requisitos['III'] else '❌'} Requisito III (Português): {'ATENDIDO' if status_requisitos['III'] else 'NÃO ATENDIDO'}")
                 print(f"   {'✅' if status_requisitos['IV'] else '❌'} Requisito IV (Antecedentes): {'ATENDIDO' if status_requisitos['IV'] else 'NÃO ATENDIDO'}")
-                
-                print(f"\n📋 Total de motivos de indeferimento encontrados: {len(motivos_indeferimento)}")
-                if motivos_indeferimento:
-                    for i, motivo in enumerate(motivos_indeferimento, 1):
+
+                # Integração com alertas do Parecer PF
+                alertas_pf = parecer_pf_dados.get('alertas', []) or []
+                alertas_pf_upper = [str(a).upper() for a in alertas_pf]
+
+                # Alertas PF que geram indeferimento automático, mesmo com documentos válidos
+                alertas_pf_indeferimento_chaves = [
+                    "🚨 REQUERENTE NÃO ESTÁ NO PAÍS - INDEFERIMENTO AUTOMÁTICO",
+                    "⚠️ DOCUMENTOS NÃO APRESENTADOS INTEGRALMENTE",
+                    "DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL",
+                    "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF",
+                    "⚠️ EXCEDEU LIMITE DE AUSÊNCIA DO PAÍS",
+                    "🚨 EXCEDEU LIMITE DE AUSÊNCIAS - INDEFERIMENTO AUTOMÁTICO",
+                    "⚠️ NÃO CONSEGUE SE COMUNICAR EM PORTUGUÊS (ATENDIMENTO PRESENCIAL)",
+                    "🚨 REQUERENTE NÃO COMPARECEU À PF - INDEFERIMENTO AUTOMÁTICO",
+                    "⚠️ FACULDADE INVÁLIDA NO E-MEC - DOCUMENTO DE PORTUGUÊS INVÁLIDO",
+                ]
+
+                # Alerta PF que força análise manual
+                alertas_pf_analise_manual_chaves = [
+                    "⚠️ PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO",
+                ]
+
+                def _possui_alerta(chave: str) -> bool:
+                    chave_upper = chave.upper()
+                    return any(chave_upper in alerta for alerta in alertas_pf_upper)
+
+                tem_alerta_pf_analise_manual = any(
+                    _possui_alerta(ch) for ch in alertas_pf_analise_manual_chaves
+                )
+
+                # Se a verificação de residência marcou alerta crítico, forçar análise manual
+                if resultado_residencia.get('alerta_critico'):
+                    if not _possui_alerta("PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO"):
+                        parecer_pf_dados.setdefault('alertas', []).append(
+                            "⚠️ PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO"
+                        )
+                        alertas_pf_upper.append("PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO")
+                    tem_alerta_pf_analise_manual = True
+
+                # Motivos adicionais vindos exclusivamente do Parecer PF
+                motivos_pf_indeferimento: List[str] = []
+                for alerta in parecer_pf_dados.get('alertas', []):
+                    alerta_upper = str(alerta).upper()
+                    if any(ch.upper() in alerta_upper for ch in alertas_pf_indeferimento_chaves):
+                        if alerta not in motivos_pf_indeferimento:
+                            motivos_pf_indeferimento.append(alerta)
+
+                # Consolidar todos os motivos de indeferimento (requisitos + PF)
+                motivos_totais = list(motivos_indeferimento)
+                for motivo_pf in motivos_pf_indeferimento:
+                    if motivo_pf not in motivos_totais:
+                        motivos_totais.append(motivo_pf)
+
+                print(f"\n📋 Total de motivos de indeferimento encontrados: {len(motivos_totais)}")
+                if motivos_totais:
+                    for i, motivo in enumerate(motivos_totais, 1):
                         print(f"  {i}. {motivo}")
-                
-                # Determinar resultado final baseado nos motivos coletados
-                if motivos_indeferimento:
+
+                # Determinar resultado final baseado nos motivos coletados e alertas PF
+                if tem_alerta_pf_analise_manual:
+                    print(f"\n⚠️ DECISÃO PRELIMINAR: ANÁLISE MANUAL")
+                    print(
+                        "⚠️ Caso marcado para análise manual devido a alerta crítico no Parecer PF "
+                        "(prazo de residência não especificado/dados insuficientes)."
+                    )
+                    requisitos_atendidos = sum(
+                        1 for atendido in status_requisitos.values() if atendido
+                    )
+                    resultado = {
+                        'elegibilidade_final': 'analise_manual',
+                        'motivos_indeferimento': motivos_totais,
+                        'requisitos_nao_atendidos': motivos_totais,
+                        'requisitos_atendidos': requisitos_atendidos,
+                        'total_requisitos': len(status_requisitos),
+                        'status_requisitos': status_requisitos,
+                        'requisito_i_capacidade_civil': resultado_capacidade,
+                        'requisito_ii_residencia_minima': resultado_residencia,
+                        'requisito_iii_comunicacao_portugues': resultado_comunicacao,
+                        'requisito_iv_antecedentes_criminais': resultado_antecedentes,
+                        'documentos_complementares': resultado_documentos_comp,
+                        'documentos_faltantes': resultado_documentos_comp.get('documentos_faltantes', []),
+                        'parecer_pf': parecer_pf_dados
+                    }
+                elif motivos_totais:
                     print(f"\n❌ DECISÃO PRELIMINAR: INDEFERIMENTO")
-                    print(f"❌ Foram identificados {len(motivos_indeferimento)} motivo(s) de indeferimento")
-                    requisitos_atendidos = sum(1 for atendido in status_requisitos.values() if atendido)
+                    print(
+                        f"❌ Foram identificados {len(motivos_totais)} motivo(s) de indeferimento "
+                        "(incluindo alertas da PF, se houver)."
+                    )
+                    requisitos_atendidos = sum(
+                        1 for atendido in status_requisitos.values() if atendido
+                    )
                     resultado = {
                         'elegibilidade_final': 'indeferimento',
-                        'motivos_indeferimento': motivos_indeferimento,
-                        'requisitos_nao_atendidos': motivos_indeferimento,
+                        'motivos_indeferimento': motivos_totais,
+                        'requisitos_nao_atendidos': motivos_totais,
                         'requisitos_atendidos': requisitos_atendidos,
                         'total_requisitos': len(status_requisitos),
                         'status_requisitos': status_requisitos,
@@ -1527,29 +1613,51 @@ class OrdinariaService:
             return self._gerar_decisao_erro(str(e))
     
     def _gerar_decisao_fallback(self, resultado_elegibilidade: Dict[str, Any]) -> Dict[str, Any]:
-        """Gera decisão usando lógica de fallback"""
+        """Gera decisão usando lógica de fallback.
+
+        Esta função é usada quando o gerador de decisões modular não
+        retorna no formato esperado. Aqui centralizamos o mapeamento entre
+        `elegibilidade_final` e o campo `status` exibido na planilha
+        (coluna "Resultado").
+        """
         try:
             elegibilidade_final = resultado_elegibilidade.get('elegibilidade_final', 'indeferimento_automatico')
-            motivos = resultado_elegibilidade.get('motivos_indeferimento', [])
-            
-            if elegibilidade_final == 'deferimento_automatico':
+            motivos = resultado_elegibilidade.get('motivos_indeferimento', []) or []
+
+            # DEFERIMENTO (inclui deferimento "automático" ou simples)
+            if elegibilidade_final in ('deferimento', 'deferimento_automatico'):
                 return {
                     'status': 'DEFERIMENTO',
                     'tipo_decisao': 'DEFERIMENTO',
-                    'despacho_completo': 'Processo deferido automaticamente',
+                    'despacho_completo': 'Processo deferido automaticamente com base na análise de elegibilidade.',
                     'motivos_indeferimento': [],
                     'fundamentos_legais': ['Art. 65 da Lei nº 13.445/2017'],
-                    'resumo_analise': 'Todos os requisitos atendidos'
+                    'resumo_analise': 'Todos os requisitos atendidos segundo a análise automática.'
                 }
-            else:
+
+            # ANÁLISE MANUAL (ex.: parecer PF sem prazo de residência especificado)
+            if elegibilidade_final in ('analise_manual', 'analise manual'):
                 return {
-                    'status': 'INDEFERIMENTO',
-                    'tipo_decisao': 'INDEFERIMENTO', 
-                    'despacho_completo': 'Processo indeferido por não atender aos requisitos',
+                    'status': 'ANALISE MANUAL',
+                    'tipo_decisao': 'ANALISE MANUAL',
+                    'despacho_completo': (
+                        'Processo encaminhado para ANÁLISE MANUAL devido a alerta(s) crítico(s) '
+                        'no parecer da PF ou dados insuficientes para decisão automática.'
+                    ),
                     'motivos_indeferimento': motivos,
-                    'fundamentos_legais': motivos,
-                    'resumo_analise': f'Não atendeu {len(motivos)} requisito(s)'
+                    'fundamentos_legais': [],
+                    'resumo_analise': 'Caso marcado para análise manual (sem decisão automática de deferimento/indeferimento).'
                 }
+
+            # Demais casos: tratar como INDEFERIMENTO
+            return {
+                'status': 'INDEFERIMENTO',
+                'tipo_decisao': 'INDEFERIMENTO', 
+                'despacho_completo': 'Processo indeferido por não atender aos requisitos',
+                'motivos_indeferimento': motivos,
+                'fundamentos_legais': motivos,
+                'resumo_analise': f'Não atendeu {len(motivos)} requisito(s)'
+            }
                 
         except Exception as e:
             print(f"[ERRO] Erro no fallback: {e}")
