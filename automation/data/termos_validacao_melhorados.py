@@ -321,14 +321,8 @@ TERMOS_COMUNICACAO_PORTUGUES = {
 
 TERMOS_ANTECEDENTES_ORIGEM = {
     'obrigatorios_alta_prioridade': [
-        # Presentes em 100% dos documentos válidos
-        'documento',           # 6.786x
-        'ministério',          # 5.197x
-        'república',           # 5.017x
-        'tribunal',            # 4.395x
-        'certificado',         # 3.300x
-        'registro',            # 2.879x
-        'antecedentes',        # 2.773x
+        # Termo específico que identifica o documento
+        'antecedentes',        # 2.773x - Único termo genérico suficientemente específico
     ],
     
     'obrigatorios_media_prioridade': [
@@ -339,15 +333,70 @@ TERMOS_ANTECEDENTES_ORIGEM = {
         'tradução',            # 1.990x
         'selo',                # 2.015x
         'data',                # 2.597x
+        # Termos genéricos movidos de alta prioridade (validação secundária)
+        'documento',           # 6.786x
+        'ministério',          # 5.197x
+        'república',           # 5.017x
+        'tribunal',            # 4.395x
+        'certificado',         # 3.300x
+        'registro',            # 2.879x
+    ],
+    
+    'exclusao_brasil': [
+        # Termos fortes que identificam documento emitido no BRASIL (evitar falsos positivos)
+        'polícia federal',
+        'policia federal',
+        'departamento de polícia federal',
+        'departamento de policia federal',
+        'república federativa do brasil',
+        'republica federativa do brasil',
+        'conselho nacional de justiça',
+        'cnj',
+        'gov.br',
+        'tribunal regional federal',
+        'trf1',
+        'trf-1',
+        'trf 1',
+        'trf2',
+        'trf-2',
+        'trf 2',
+        'trf3',
+        'trf-3',
+        'trf 3',
+        'trf4',
+        'trf-4',
+        'trf 4',
+        'trf5',
+        'trf-5',
+        'trf 5',
+        'justiça federal do brasil',
+        'justica federal do brasil',
+        'ministério da justiça e segurança pública',
+        'ministerio da justiça e segurança pública',
+        'ministerio da justiça e seguranca publica',
+        'ministerio da justiça e segurança publica',
+        'poder judiciário da união',
+        'poder judiciario da uniao',
+        'tribunal de justiça do distrito federal e dos territórios',
+        'tribunal de justica do distrito federal e dos territórios',
+        'tribunal de justiça do distrito federal e dos territorios',
+        'tribunal de justica do distrito federal e dos territorios',
+        'tribunal de justiça do distrito federal e território',
+        'tribunal de justica do distrito federal e territorio',
+        'tribunal de justiça do distrito federal',
+        'tribunal de justica do distrito federal',
+        'tjdf',
+        'tjdft',
+        'tjdf.tj.br',
+        'tjdf.jus.br',
     ],
     
     'traducao_legalizacao': [
-        # Termos de tradução e legalização (60-70% dos válidos)
+        # Termos de tradução e legalização (OBRIGATÓRIOS para país de origem)
         'tradutor',            # 1.198x
         'juramentado',         # 597x
         'legalização',         # 611x
         'apostila',            # 599x
-        'certidão',            # 1.375x
         'tradutor público juramentado',
         'tradutora pública juramentada',
         'traducao juramentada',
@@ -439,6 +488,8 @@ TERMOS_ANTECEDENTES_ORIGEM = {
     ],
     
     'minimo_termos': 5,  # Deve conter pelo menos 5 termos obrigatórios
+    'requer_traducao': True,  # OBRIGATÓRIO ter pelo menos 1 termo de tradução/legalização
+    'bloquear_se_brasil': True,  # Reprovar se detectar termos de documento brasileiro
 }
 
 # ============================================================================
@@ -587,8 +638,9 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
         termos_negacao = termos.get('negacao_condenacao', [])
         tem_negacao = any(termo in texto_lower for termo in termos_negacao)
     
-    # Para Antecedentes_Origem, verificar indícios de TRADUÇÃO JURAMENTADA (ou similar)
+    # Para Antecedentes_Origem, verificar requisitos especiais
     tem_traducao = False
+    tem_exclusao_brasil = False
     if tipo_documento == 'Antecedentes_Origem':
         termos_trad = termos.get('traducao_legalizacao', [])
         if termos_trad:
@@ -597,6 +649,10 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
         if not tem_traducao:
             heuristicas_trad = ['tradução', 'traducao', 'juramentad', 'apostila', 'haia', 'legalização', 'legalizacao']
             tem_traducao = any(h in texto_lower for h in heuristicas_trad)
+
+        termos_exclusao = termos.get('exclusao_brasil', [])
+        if termos_exclusao:
+            tem_exclusao_brasil = any(t in texto_lower for t in termos_exclusao)
     
     # Calcular pontuação
     pontos = 0
@@ -624,6 +680,8 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
     
     # Verificar mínimo de termos obrigatórios
     minimo_termos = termos.get('minimo_termos', 3)
+    requer_traducao = termos.get('requer_traducao', False)
+    bloquear_se_brasil = termos.get('bloquear_se_brasil', False)
     total_encontrados = len(encontrados_alta) + len(encontrados_media)
     
     # REGRAS DE VALIDAÇÃO:
@@ -639,10 +697,19 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
     
     # BLOQUEIO ESPECÍFICO PARA ANTECEDENTES_ORIGEM SEM TRADUÇÃO
     bloqueio_character_certificate = False
+    bloqueio_documento_brasil = False
     if tipo_documento == 'Antecedentes_Origem':
-        # Se não há evidência de tradução/juramentação e também não há negação EM PORTUGUÊS → INVALIDAR
-        if not (tem_traducao or tem_negacao):
+        # Exigir tradução/legalização quando configurado
+        if requer_traducao and not tem_traducao:
             valido = False
+        elif not requer_traducao and not (tem_traducao or tem_negacao):
+            # Regras retrocompatíveis caso a flag não esteja ativada
+            valido = False
+
+        if bloquear_se_brasil and tem_exclusao_brasil and not tem_traducao:
+            bloqueio_documento_brasil = True
+            valido = False
+
         # Bloquear "Police Character Certificate" sem tradução
         import re as _re
         if _re.search(r'police\s+character\s+certificate', texto_lower):
@@ -658,8 +725,13 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
     motivo_extra = ""
     if tem_negacao:
         motivo_extra += " [SEM CONDENAÇÃO ✓]"
-    if tipo_documento == 'Antecedentes_Origem' and not (tem_traducao or tem_negacao):
-        motivo_extra += " [FALTA TRADUÇÃO JURAMENTADA/PORTUGUÊS ✗]"
+    if tipo_documento == 'Antecedentes_Origem':
+        if requer_traducao and not tem_traducao:
+            motivo_extra += " [FALTA TRADUÇÃO/LEGALIZAÇÃO ✗]"
+        elif not requer_traducao and not (tem_traducao or tem_negacao):
+            motivo_extra += " [FALTA TRADUÇÃO JURAMENTADA/PORTUGUÊS ✗]"
+        if bloquear_se_brasil and tem_exclusao_brasil and not tem_traducao:
+            motivo_extra += " [DOCUMENTO BRASILEIRO DETECTADO ✗]"
     if bloqueio_character_certificate:
         motivo_extra += " [CHARACTER CERTIFICATE SEM TRADUÇÃO ✗]"
     
@@ -672,6 +744,9 @@ def validar_documento_melhorado(tipo_documento: str, texto_ocr: str, minimo_conf
         'minimo_requerido': minimo_termos,
         'tem_negacao': tem_negacao,
         'tem_traducao': tem_traducao,
+        'requer_traducao': requer_traducao,
+        'detectou_termo_brasil': tem_exclusao_brasil,
+        'bloqueio_documento_brasil': bloqueio_documento_brasil,
         'motivo': f'Documento {"VÁLIDO" if valido else "INVÁLIDO"} - Confiança: {confianca}% ({total_encontrados}/{minimo_termos} termos obrigatórios){motivo_extra}'
     }
          

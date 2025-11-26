@@ -104,22 +104,35 @@ class OrdinariaRepository:
             script_dados = """
             var dados = {};
             
-            // Buscar todos os inputs, selects e textareas
-            var elementos = document.querySelectorAll('input, select, textarea, span[id], div[id]');
+            // Buscar APENAS inputs, selects e textareas (não spans/divs)
+            var elementos = document.querySelectorAll('input, select, textarea');
             
             elementos.forEach(function(elemento) {
                 var valor = '';
                 var id = elemento.id || elemento.name || '';
                 
-                if (elemento.tagName === 'INPUT' || elemento.tagName === 'TEXTAREA') {
-                    valor = elemento.value;
+                // Pular elementos sem ID/name válido
+                if (!id || id.length < 2) return;
+                
+                if (elemento.tagName === 'INPUT') {
+                    // Para inputs, tentar diferentes atributos
+                    if (elemento.type === 'radio' || elemento.type === 'checkbox') {
+                        // Para radio/checkbox, pegar apenas se estiver marcado
+                        if (elemento.checked) {
+                            valor = elemento.value || elemento.getAttribute('value') || '';
+                        }
+                    } else {
+                        // Para outros inputs, pegar o valor
+                        valor = elemento.value || elemento.getAttribute('value') || elemento.getAttribute('rawvalue') || '';
+                    }
+                } else if (elemento.tagName === 'TEXTAREA') {
+                    valor = elemento.value || '';
                 } else if (elemento.tagName === 'SELECT') {
                     valor = elemento.options[elemento.selectedIndex] ? elemento.options[elemento.selectedIndex].text : '';
-                } else {
-                    valor = elemento.textContent || elemento.innerText;
                 }
                 
-                if (id && valor && valor.trim().length > 0) {
+                // Só adicionar se tiver valor válido
+                if (valor && valor.trim().length > 0 && valor.trim().length < 500) {
                     dados[id] = valor.trim();
                 }
             });
@@ -157,11 +170,42 @@ class OrdinariaRepository:
                         if valor_existente and len(valor_existente) > len(valor_str):
                             continue
 
-                    dados[nome_campo] = valor_str
+                    # Filtrar valores que são claramente labels ou textos de interface
+                    valores_invalidos = [
+                        'live_help', 'visibility', 'cloud_download', 'Data de upload',
+                        'Registro Nacional Migratório', 'RNM/RNE', 'Protocolo',
+                        'Sexo', 'MasculinoFeminino', 'Qualidade de', 'Requerimento de',
+                        'Documento de identificação', 'Carteira de Registro', '.pdf'
+                    ]
                     
-                    # Log apenas campos importantes para debug (removido CPF)
-                    if nome_campo in ['data_nascimento', 'nome', 'rnm', 'pai', 'mae']:
-                        print(f"[OK] {nome_campo}: {valor_str}")
+                    # Verificar se o valor não é um label/texto de interface
+                    if not any(inv in valor_str for inv in valores_invalidos):
+                        # Evitar sobrescrever valores bons com valores ruins
+                        valor_existente = dados.get(nome_campo)
+                        
+                        # Regra especial para RNM: preferir formato G123456-X
+                        if nome_campo == 'rnm':
+                            # Se o novo valor parece um RNM válido (formato G123456-X ou similar)
+                            import re
+                            if re.match(r'^[A-Z]\d{6}-[A-Z0-9]$', valor_str):
+                                dados[nome_campo] = valor_str
+                                print(f"[OK] {nome_campo}: {valor_str}")
+                                continue
+                            # Se já existe um RNM válido, não sobrescrever
+                            elif valor_existente and re.match(r'^[A-Z]\d{6}-[A-Z0-9]$', valor_existente):
+                                continue
+                        
+                        if valor_existente:
+                            # Se já existe um valor, só substituir se o novo for melhor
+                            # (mais longo e não contém caracteres especiais de interface)
+                            if len(valor_str) <= len(valor_existente):
+                                continue
+                        
+                        dados[nome_campo] = valor_str
+                        
+                        # Log apenas campos importantes para debug
+                        if nome_campo in ['data_nascimento', 'nome', 'rnm', 'pai', 'mae', 'numero_processo', 'sexo']:
+                            print(f"[OK] {nome_campo}: {valor_str}")
             
             # Tentar seletores específicos se não encontrou dados suficientes
             if len(dados) < 3:
@@ -175,7 +219,9 @@ class OrdinariaRepository:
                     'nacionalidade': ['#NACIONALIDADE', '[name="nacionalidade"]', '[id*="nacionalidade"]'],
                     'rnm': ['#RNM', '[name="rnm"]', '[id*="rnm"]'],
                     'pai': ['#PAI', '[name="pai"]', '[id*="pai"]'],
-                    'mae': ['#MAE', '[name="mae"]', '[id*="mae"]']
+                    'mae': ['#MAE', '[name="mae"]', '[id*="mae"]'],
+                    'numero_processo': ['#PROTOCOLO', '[name="PROTOCOLO"]', '[id*="protocolo"]', 'input[label*="Protocolo"]'],
+                    'sexo': ['#ORD_SEX', '[name="ORD_SEX"]', '[id*="sex"]']
                 }
                 
                 for campo, seletores in campos_formulario.items():
@@ -350,10 +396,10 @@ class OrdinariaRepository:
             'ord_sobrenome': 'sobrenome',
             'ord_nas': 'data_nascimento',
             'ord_nac': 'nacionalidade',
-            'ord_cpf': 'cpf',
             'ord_rnm': 'rnm',
             'ord_pai': 'pai',
             'ord_mae': 'mae',
+            'ord_sex': 'sexo',
             'ord_sexo': 'sexo',
             'ord_estado_civil': 'estado_civil',
             'ord_fi1': 'pai',
@@ -368,6 +414,7 @@ class OrdinariaRepository:
             'ord_cidade': 'cidade',
             'ord_uf': 'uf',
             'ord_cep': 'cep',
+            'protocolo': 'numero_processo',
             'data_nascimento': 'data_nascimento',
         }
         if id_lower in mapeamento_direto:
@@ -408,6 +455,14 @@ class OrdinariaRepository:
             return 'pais_nascimento'
         if 'pais' in id_lower:
             return 'nacionalidade'
+        
+        # Protocolo/Número do processo
+        if 'protocolo' in id_lower or 'num_processo' in id_lower:
+            return 'numero_processo'
+        
+        # Sexo/Gênero
+        if 'sexo' in id_lower or 'genero' in id_lower or 'sex' in id_lower:
+            return 'sexo'
 
         # Fallback: id original em lowercase
         return id_lower
@@ -640,17 +695,18 @@ class OrdinariaRepository:
                         break
 
             # 2.1 Documento de português não comprovado no atendimento/pelos autos (compatibilidade)
-            padroes_doc_portugues = [
-                r'não\s+foi\s+comprovad[ao]\s+pelo\s+documento',
-                r'nao\s+foi\s+comprovad[ao]\s+pelo\s+documento',
-                r'documento.*portugu[eê]s.*não\s+foi\s+comprovad[ao]',
-                r'documento.*portugues.*nao\s+foi\s+comprovad[ao]',
-            ]
-            for padrao in padroes_doc_portugues:
-                if re.search(padrao, texto_lower, re.IGNORECASE):
-                    if 'DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL' not in alertas:
-                        alertas.append('DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL')
-                    break
+            if not doc_portugues_comprovado:
+                padroes_doc_portugues = [
+                    r'não\s+foi\s+comprovad[ao]\s+pelo\s+documento',
+                    r'nao\s+foi\s+comprovad[ao]\s+pelo\s+documento',
+                    r'documento.*portugu[eê]s.*não\s+foi\s+comprovad[ao]',
+                    r'documento.*portugues.*nao\s+foi\s+comprovad[ao]',
+                ]
+                for padrao in padroes_doc_portugues:
+                    if re.search(padrao, texto_lower, re.IGNORECASE):
+                        if '⚠️ DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL' not in alertas:
+                            alertas.append('⚠️ DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL')
+                        break
 
             # 2.2 Documentos não apresentados integralmente / não comparecimento
             documentos_nao_apresentados = False
@@ -659,11 +715,22 @@ class OrdinariaRepository:
             padroes_documentos_nao_apresentados = [
                 r'a\s+relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada\s+integralmente',
                 r'a\s+relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada',
+                r'relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada\s+integralmente',
+                r'relação\s+de\s+documentos\s+exigidos.*não\s+foi\s+apresentada',
                 r'documentos\s+exigidos.*não\s+foi\s+apresentada\s+integralmente',
                 r'documentos\s+exigidos.*não\s+foi\s+apresentada',
                 r'não\s+foi\s+apresentada\s+integralmente.*documentos',
                 r'não\s+foi\s+apresentada.*documentos',
                 r'não\s+anexando',
+                r'não\s+apresentou',
+                r'não\s+compareceu.*agendamento',
+                r'nao\s+compareceu.*agendamento',
+                r'não\s+compareceu.*notificação',
+                r'nao\s+compareceu.*notificacao',
+                r'não\s+compareceu.*coleta\s+biométrica',
+                r'nao\s+compareceu.*coleta\s+biometrica',
+                r'não\s+compareceu.*conferência\s+documental',
+                r'nao\s+compareceu.*conferencia\s+documental',
             ]
 
             padroes_nao_compareceu = [
@@ -685,6 +752,14 @@ class OrdinariaRepository:
                 )
             )
 
+            if documentos_apresentados_integralmente:
+                if re.search(
+                    r"n[ãa]o\s+(?:foi|foram)\s+apresentad[ao]s?\s+integralmente",
+                    parecer_texto,
+                    re.IGNORECASE,
+                ):
+                    documentos_apresentados_integralmente = False
+
             for padrao in padroes_nao_compareceu:
                 if re.search(padrao, parecer_texto, re.IGNORECASE):
                     nao_compareceu_pf = True
@@ -697,7 +772,8 @@ class OrdinariaRepository:
                         break
 
             if nao_compareceu_pf:
-                alertas.append('🚨 REQUERENTE NÃO COMPARECEU À PF - INDEFERIMENTO AUTOMÁTICO')
+                if not any('REQUERENTE NÃO COMPARECEU À PF' in alerta for alerta in alertas):
+                    alertas.append('🚨 REQUERENTE NÃO COMPARECEU À PF - INDEFERIMENTO AUTOMÁTICO')
             elif documentos_nao_apresentados:
                 alertas.append('⚠️ DOCUMENTOS NÃO APRESENTADOS INTEGRALMENTE')
 
@@ -741,7 +817,9 @@ class OrdinariaRepository:
 
             for padrao in padroes_biometria_ausente:
                 if re.search(padrao, parecer_texto, re.IGNORECASE):
-                    alertas.append('⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF')
+                    nao_compareceu_pf = True
+                    if '⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF' not in alertas:
+                        alertas.append('⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF')
                     break
 
             # 7. Faculdade inválida no e-MEC

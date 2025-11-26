@@ -257,7 +257,10 @@ class OrdinariaService:
             print("- Comprovante de reabilitação (se necessário)")
             
             try:
-                documentos_antecedentes_validos = 0
+                brasil_valido = False
+                origem_valido = False
+                motivos_antecedentes = []
+                documentos_faltantes_antecedentes = []
                 
                 # Baixar e validar Certidão de antecedentes criminais (Brasil)
                 print("\n[DOC] Processando: Certidão de antecedentes criminais (Brasil)")
@@ -265,10 +268,13 @@ class OrdinariaService:
                 sucesso_brasil = self.document_action.baixar_e_validar_documento_individual('Certidão de antecedentes criminais (Brasil)')
                 
                 if sucesso_brasil:
+                    brasil_valido = True
                     print("✅ Certidão de antecedentes criminais (Brasil): VÁLIDO")
-                    documentos_antecedentes_validos += 1
                 else:
-                    print("[ERRO] Certidão de antecedentes criminais (Brasil): NÃO ANEXADO")
+                    motivos_antecedentes.append('Certidão de antecedentes criminais do Brasil não anexada ou inválida')
+                    documentos_faltantes_antecedentes.append('Certidão de antecedentes criminais da Justiça Federal')
+                    documentos_faltantes_antecedentes.append('Certidão de antecedentes criminais da Justiça Estadual')
+                    print("❌ Certidão de antecedentes criminais (Brasil): NÃO ANEXADO OU INVÁLIDO")
                 
                 # Baixar e validar Atestado antecedentes criminais (país de origem)
                 print("\n[DOC] Processando: Atestado antecedentes criminais (país de origem)")
@@ -276,28 +282,45 @@ class OrdinariaService:
                 sucesso_origem = self.document_action.baixar_e_validar_documento_individual('Atestado antecedentes criminais (país de origem)')
                 
                 if sucesso_origem:
+                    origem_valido = True
                     print("✅ Atestado antecedentes criminais (país de origem): VÁLIDO")
-                    documentos_antecedentes_validos += 1
                 else:
-                    print("[ERRO] Atestado antecedentes criminais (país de origem): NÃO ANEXADO")
+                    motivos_antecedentes.append('Atestado de antecedentes criminais do país de origem não anexado ou inválido')
+                    documentos_faltantes_antecedentes.append('Atestado de antecedentes criminais do país de origem')
+                    print("❌ Atestado antecedentes criminais (país de origem): NÃO ANEXADO OU INVÁLIDO")
                 
-                # Verificar se pelo menos um documento de antecedentes foi validado
-                print(f"\n============================================================")
-                print(f"📊 RESUMO REQUISITO IV: {documentos_antecedentes_validos}/2 documentos válidos")
-                print(f"============================================================")
+                # Verificar se AMBOS os documentos são válidos
+                print(f"\n{'='*60}")
+                print(f"📊 RESUMO REQUISITO IV: Brasil={brasil_valido}, Origem={origem_valido}")
+                print(f"{'='*60}")
                 
-                if documentos_antecedentes_validos >= 2:
+                if brasil_valido and origem_valido:
                     print("✅ REQUISITO IV: ATENDIDO - AMBOS os documentos de antecedentes válidos")
                     print("[OK] Antecedentes criminais → check")
                     status_requisitos['IV'] = True
-                    resultado_antecedentes = {'atendido': True, 'motivo': 'Antecedentes criminais em ordem (Brasil e país de origem)', 'avaliado': True}
+                    resultado_antecedentes = {
+                        'atendido': True, 
+                        'motivo': 'Antecedentes criminais em ordem (Brasil e país de origem)', 
+                        'brasil_valido': True,
+                        'origem_valido': True,
+                        'avaliado': True
+                    }
                 else:
-                    print("❌ REQUISITO IV: NÃO ATENDIDO - É necessário AMBOS os documentos de antecedentes válidos")
-                    print("[ERRO] Não comprovou ausência de condenação criminal em AMBOS os documentos")
+                    print("❌ REQUISITO IV: NÃO ATENDIDO")
+                    motivo_detalhado = '; '.join(motivos_antecedentes)
+                    print(f"[ERRO] {motivo_detalhado}")
                     print("📖 Fundamento: Art. 65, inciso IV da Lei nº 13.445/2017")
                     motivos_indeferimento.append('Art. 65, inciso IV da Lei nº 13.445/2017')
                     status_requisitos['IV'] = False
-                    resultado_antecedentes = {'atendido': False, 'motivo': 'Antecedentes criminais inválidos ou não anexados', 'avaliado': True}
+                    resultado_antecedentes = {
+                        'atendido': False, 
+                        'motivo': motivo_detalhado,
+                        'motivos_especificos': motivos_antecedentes,
+                        'documentos_faltantes': documentos_faltantes_antecedentes,
+                        'brasil_valido': brasil_valido,
+                        'origem_valido': origem_valido,
+                        'avaliado': True
+                    }
                     
             except Exception as e:
                 print(f"[ERRO] Erro ao verificar antecedentes: {e}")
@@ -380,15 +403,16 @@ class OrdinariaService:
 
                 # Alertas PF que geram indeferimento automático, mesmo com documentos válidos
                 alertas_pf_indeferimento_chaves = [
-                    "🚨 REQUERENTE NÃO ESTÁ NO PAÍS - INDEFERIMENTO AUTOMÁTICO",
-                    "⚠️ DOCUMENTOS NÃO APRESENTADOS INTEGRALMENTE",
+                    "REQUERENTE NÃO ESTÁ NO PAÍS",
+                    "INDEFERIMENTO AUTOMÁTICO",
+                    "DOCUMENTOS NÃO APRESENTADOS INTEGRALMENTE",
                     "DOCUMENTO DE PORTUGUÊS NÃO COMPROVADO NO ATENDIMENTO PRESENCIAL",
-                    "⚠️ AUSÊNCIA DE COLETA BIOMÉTRICA CONSTATADA NO PARECER PF",
-                    "⚠️ EXCEDEU LIMITE DE AUSÊNCIA DO PAÍS",
-                    "🚨 EXCEDEU LIMITE DE AUSÊNCIAS - INDEFERIMENTO AUTOMÁTICO",
-                    "⚠️ NÃO CONSEGUE SE COMUNICAR EM PORTUGUÊS (ATENDIMENTO PRESENCIAL)",
-                    "🚨 REQUERENTE NÃO COMPARECEU À PF - INDEFERIMENTO AUTOMÁTICO",
-                    "⚠️ FACULDADE INVÁLIDA NO E-MEC - DOCUMENTO DE PORTUGUÊS INVÁLIDO",
+                    "EXCEDEU LIMITE DE AUSÊNCIA DO PAÍS",
+                    "EXCEDEU LIMITE DE AUSÊNCIAS",
+                    "NÃO CONSEGUE SE COMUNICAR EM PORTUGUÊS",
+                    "ATENDIMENTO PRESENCIAL",
+                    "REQUERENTE NÃO COMPARECEU",
+                    "AUSÊNCIA DE COLETA BIOMÉTRICA",
                 ]
 
                 # Alerta PF que força análise manual
@@ -403,15 +427,25 @@ class OrdinariaService:
                 tem_alerta_pf_analise_manual = any(
                     _possui_alerta(ch) for ch in alertas_pf_analise_manual_chaves
                 )
+                
+                # Se não compareceu à PF (incluindo ausência de coleta biométrica), NÃO vai para análise manual
+                # Isso tem prioridade sobre qualquer outro alerta
+                if parecer_pf_dados.get('nao_compareceu_pf'):
+                    tem_alerta_pf_analise_manual = False
+                    print("[ALERTA PF] Não compareceu à PF - INDEFERIMENTO AUTOMÁTICO (prioridade máxima)")
+                elif tem_alerta_pf_analise_manual:
+                    print("[ALERTA PF] Detectado alerta que requer ANÁLISE MANUAL")
 
                 # Se a verificação de residência marcou alerta crítico, forçar análise manual
-                if resultado_residencia.get('alerta_critico'):
+                # EXCETO se não compareceu à PF
+                if resultado_residencia.get('alerta_critico') and not parecer_pf_dados.get('nao_compareceu_pf'):
                     if not _possui_alerta("PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO"):
                         parecer_pf_dados.setdefault('alertas', []).append(
                             "⚠️ PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO"
                         )
                         alertas_pf_upper.append("PARECER PF SEM PRAZO DE RESIDÊNCIA ESPECIFICADO")
                     tem_alerta_pf_analise_manual = True
+                    print("[ALERTA PF] Alerta crítico de residência - forçando ANÁLISE MANUAL")
 
                 # Motivos adicionais vindos exclusivamente do Parecer PF
                 motivos_pf_indeferimento: List[str] = []
@@ -420,6 +454,7 @@ class OrdinariaService:
                     if any(ch.upper() in alerta_upper for ch in alertas_pf_indeferimento_chaves):
                         if alerta not in motivos_pf_indeferimento:
                             motivos_pf_indeferimento.append(alerta)
+                            print(f"[ALERTA PF] Detectado alerta de indeferimento: {alerta}")
 
                 # Consolidar todos os motivos de indeferimento (requisitos + PF)
                 motivos_totais = list(motivos_indeferimento)
@@ -466,6 +501,19 @@ class OrdinariaService:
                     requisitos_atendidos = sum(
                         1 for atendido in status_requisitos.values() if atendido
                     )
+                    
+                    # Consolidar documentos faltantes (complementares + antecedentes)
+                    documentos_faltantes_totais = resultado_documentos_comp.get('documentos_faltantes', [])
+                    if resultado_antecedentes.get('documentos_faltantes'):
+                        documentos_faltantes_totais.extend(resultado_antecedentes['documentos_faltantes'])
+                    
+                    # Gerar texto do despacho de indeferimento
+                    despacho_indeferimento = self._gerar_despacho_indeferimento(
+                        dados_pessoais, 
+                        status_requisitos,
+                        documentos_faltantes_totais
+                    )
+                    
                     resultado = {
                         'elegibilidade_final': 'indeferimento',
                         'motivos_indeferimento': motivos_totais,
@@ -479,11 +527,16 @@ class OrdinariaService:
                         'requisito_iv_antecedentes_criminais': resultado_antecedentes,
                         'documentos_complementares': resultado_documentos_comp,
                         'documentos_faltantes': resultado_documentos_comp.get('documentos_faltantes', []),
-                        'parecer_pf': parecer_pf_dados
+                        'parecer_pf': parecer_pf_dados,
+                        'despacho_automatico': despacho_indeferimento
                     }
                 else:
                     print(f"\n✅ DECISÃO PRELIMINAR: DEFERIMENTO")
                     print(f"✅ Todos os requisitos foram atendidos")
+                    
+                    # Gerar texto da portaria de deferimento
+                    despacho_deferimento = self._gerar_portaria_deferimento(dados_pessoais)
+                    
                     resultado = {
                         'elegibilidade_final': 'deferimento',
                         'motivos_indeferimento': [],
@@ -496,7 +549,8 @@ class OrdinariaService:
                         'requisito_iv_antecedentes_criminais': resultado_antecedentes,
                         'documentos_complementares': resultado_documentos_comp,
                         'documentos_faltantes': resultado_documentos_comp.get('documentos_faltantes', []),
-                        'parecer_pf': parecer_pf_dados
+                        'parecer_pf': parecer_pf_dados,
+                        'despacho_automatico': despacho_deferimento
                     }
                     
             except Exception as e:
@@ -1094,34 +1148,67 @@ class OrdinariaService:
         
         # Padrões de regex para extrair tempo de residência (baseado no código original)
         padroes = [
-            r'possuindo[,\s]+portanto[,\s]+(\d+)\s+\((?:um|dois|três|quatro|cinco|seis|sete|oito|nove|dez)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
-            r'possuindo[,\s]+portanto[,\s]+(\d+)\s+\((?:um|dois|três|quatro|cinco|seis|sete|oito|nove|dez)\)\s+anos?',
+            # Padrão: "Foi constatado que reside no Brasil desde DD/MM/AAAA"
+            r'(?:foi\s+constatado|constatou-se)\s+que\s+reside\s+no\s+brasil\s+desde\s+(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4})',
+            r'reside\s+no\s+brasil\s+desde\s+(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4})',
+            
+            # Padrões com "possuindo, portanto" + extenso entre parênteses
+            r'possuindo[,\s]+portanto[,\s]+(\d+)\s+\((?:um|dois|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\)\s+anos?\s+de\s+resid[eê]ncia',
+            r'possuindo[,\s]+portanto[,\s]+(\d+)\s+\((?:um|dois|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
+            r'possuindo[,\s]+portanto[,\s]+(\d+)\s+\((?:um|dois|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\)\s+anos?',
             r'possuindo[,\s]+portanto[,\s]+(\d+)\s+anos?',
-            r'possuindo[,\s]+(\d+)\s+\((?:um|dois|três|quatro|cinco|seis|sete|oito|nove|dez)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
-            r'portanto[,\s]+(\d+)\s+\((?:um|dois|três|quatro|cinco|seis|sete|oito|nove|dez)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
+            r'possuindo[,\s]+(\d+)\s+\((?:um|dois|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
+            r'portanto[,\s]+(\d+)\s+\((?:um|dois|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze)\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
             r'totalizando\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+anos?\s+e\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+meses?',
             r'totalizando\s+(\d+)\s+\([a-zúéáóíõç]+\)\s+anos?\s*\.?\s*$',
-            r'possui\s+(\d+)\s*anos?\s+de\s+residência',
-            r'possui\s+(\d+)\s*anos?\s+.*residência',
-            r'(\d+)\s*anos?\s+de\s+residência'
+            r'possui\s+(\d+)\s*anos?\s+de\s+resid[eê]ncia',
+            r'possui\s+(\d+)\s*anos?\s+.*resid[eê]ncia',
+            r'(\d+)\s*anos?\s+de\s+resid[eê]ncia'
         ]
         
         for i, padrao in enumerate(padroes, 1):
-            print(f"[DEBUG] Testando padrão {i}: {padrao[:50]}...")
+            print(f"[DEBUG] Testando padrão {i}: {padrao[:80]}...")
             match = re.search(padrao, parecer_texto, re.IGNORECASE)
             if match:
                 try:
-                    anos = int(match.group(1))
-                    meses = int(match.group(2)) if len(match.groups()) > 1 else 0
+                    valor_extraido = match.group(1)
+                    
+                    # Verificar se é uma data (padrões 1 e 2)
+                    if i <= 2 and re.match(r'\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}', valor_extraido):
+                        # Calcular tempo desde a data até hoje
+                        from datetime import datetime
+                        
+                        # Normalizar separadores
+                        data_str = valor_extraido.replace('.', '/').replace('-', '/')
+                        
+                        # Tentar diferentes formatos
+                        for formato in ['%d/%m/%Y', '%d/%m/%y']:
+                            try:
+                                data_inicio = datetime.strptime(data_str, formato)
+                                data_hoje = datetime.now()
+                                diferenca = data_hoje - data_inicio
+                                anos_residencia = diferenca.days / 365.25
+                                print(f"[TEMPO] ✅ Data encontrada: {data_str} → {anos_residencia:.2f} anos de residência")
+                                return anos_residencia
+                            except ValueError:
+                                continue
+                        
+                        print(f"[AVISO] Não foi possível converter data: {valor_extraido}")
+                        continue
+                    
+                    # Caso contrário, é um número de anos
+                    anos = int(valor_extraido)
+                    meses = int(match.group(2)) if len(match.groups()) > 1 and match.group(2) else 0
                     tempo_total = anos + (meses / 12.0)
-                    print(f"[TEMPO] Tempo extraído do parecer (padrão {i}): {tempo_total:.2f} anos")
+                    print(f"[TEMPO] ✅ Tempo extraído do parecer (padrão {i}): {tempo_total:.2f} anos")
                     return tempo_total
-                except (ValueError, IndexError):
+                except (ValueError, IndexError) as e:
+                    print(f"[DEBUG] Erro ao processar match: {e}")
                     continue
             else:
                 print(f"[DEBUG] ❌ Nenhum match no padrão {i}")
         
-        print("[DEBUG] ❌ Nenhum padrão de tempo encontrado no parecer")
+        print("[AVISO] Não foi possível extrair tempo específico do parecer")
         return 0.0
     
     def analisar_elegibilidade_completa(self, dados_pessoais: Dict[str, Any], 
@@ -1428,8 +1515,10 @@ class OrdinariaService:
             texto_brasil = documentos_ocr.get('Certidão de antecedentes criminais (Brasil)', '')
             texto_origem = documentos_ocr.get('Atestado antecedentes criminais (país de origem)', '')
             
-            documentos_validos = 0
+            brasil_valido = False
+            origem_valido = False
             motivos_especificos = []
+            documentos_faltantes_detalhados = []
             
             # Validar antecedentes Brasil
             if texto_brasil:
@@ -1438,26 +1527,35 @@ class OrdinariaService:
                     resultado_brasil = validar_documento_melhorado('Antecedentes_Brasil', texto_brasil, minimo_confianca=70)
                     
                     if resultado_brasil['valido']:
-                        documentos_validos += 1
+                        brasil_valido = True
                         
                         # Verificar se é estadual, federal ou ambos
                         tipo_antecedentes = self._identificar_tipo_antecedentes_brasil(texto_brasil)
                         print(f"✅ Antecedentes Brasil: VÁLIDO ({tipo_antecedentes})")
                     else:
-                        motivos_especificos.append('Antecedentes criminais do Brasil inválido')
+                        motivos_especificos.append('Certidão de antecedentes criminais do Brasil inválida')
+                        documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Federal')
+                        documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Estadual')
+                        print(f"❌ Antecedentes Brasil: INVÁLIDO")
                         
                 except ImportError:
                     # Fallback básico
                     if 'não consta' in texto_brasil.lower() or 'nada consta' in texto_brasil.lower():
-                        documentos_validos += 1
+                        brasil_valido = True
                         
                         # Verificar se é estadual, federal ou ambos (mesmo no fallback)
                         tipo_antecedentes = self._identificar_tipo_antecedentes_brasil(texto_brasil)
                         print(f"✅ Antecedentes Brasil: VÁLIDO ({tipo_antecedentes}) - validação básica")
                     else:
-                        motivos_especificos.append('Antecedentes criminais do Brasil inválido')
+                        motivos_especificos.append('Certidão de antecedentes criminais do Brasil inválida')
+                        documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Federal')
+                        documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Estadual')
+                        print(f"❌ Antecedentes Brasil: INVÁLIDO")
             else:
-                motivos_especificos.append('Antecedentes criminais do Brasil não anexado')
+                motivos_especificos.append('Certidão de antecedentes criminais do Brasil não anexada')
+                documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Federal')
+                documentos_faltantes_detalhados.append('Certidão de antecedentes criminais da Justiça Estadual')
+                print(f"❌ Antecedentes Brasil: NÃO ANEXADO")
             
             # Validar antecedentes país de origem
             if texto_origem:
@@ -1466,30 +1564,45 @@ class OrdinariaService:
                     resultado_origem = validar_documento_melhorado('Antecedentes_Origem', texto_origem, minimo_confianca=70)
                     
                     if resultado_origem['valido']:
-                        documentos_validos += 1
+                        origem_valido = True
                         print("✅ Antecedentes país de origem: VÁLIDO")
                     else:
-                        motivos_especificos.append('Antecedentes criminais do país de origem inválido')
+                        motivos_especificos.append('Atestado de antecedentes criminais do país de origem inválido')
+                        documentos_faltantes_detalhados.append('Atestado de antecedentes criminais do país de origem')
+                        print(f"❌ Antecedentes país de origem: INVÁLIDO")
                         
                 except ImportError:
-                    # Fallback básico
-                    documentos_validos += 1
+                    # Fallback básico - aceitar se tiver conteúdo
+                    origem_valido = True
+                    print("✅ Antecedentes país de origem: VÁLIDO (fallback)")
             else:
-                motivos_especificos.append('Antecedentes criminais do país de origem não anexado')
+                motivos_especificos.append('Atestado de antecedentes criminais do país de origem não anexado')
+                documentos_faltantes_detalhados.append('Atestado de antecedentes criminais do país de origem')
+                print(f"❌ Antecedentes país de origem: NÃO ANEXADO")
             
-            # Verificar se todos os documentos são válidos
-            if documentos_validos >= 2:  # Brasil + Origem
+            print(f"\n{'='*60}")
+            print(f"📊 RESUMO REQUISITO IV: Brasil={brasil_valido}, Origem={origem_valido}")
+            print(f"{'='*60}")
+            
+            # Verificar se AMBOS os documentos são válidos
+            if brasil_valido and origem_valido:
                 return {
                     'atendido': True,
-                    'motivo': 'Antecedentes criminais em ordem',
+                    'motivo': 'Antecedentes criminais em ordem (Brasil e país de origem)',
                     'avaliado': True
                 }
             else:
                 motivo_detalhado = '; '.join(motivos_especificos) if motivos_especificos else 'Antecedentes criminais inválidos ou não anexados'
+                print(f"❌ REQUISITO IV: NÃO ATENDIDO")
+                print(f"[ERRO] {motivo_detalhado}")
+                
                 return {
                     'atendido': False,
                     'motivo': motivo_detalhado,
                     'motivos_especificos': motivos_especificos,
+                    'documentos_faltantes': documentos_faltantes_detalhados,
+                    'brasil_valido': brasil_valido,
+                    'origem_valido': origem_valido,
                     'avaliado': True
                 }
                 
@@ -1598,10 +1711,21 @@ class OrdinariaService:
                 resultado = self.gerador_decisao.gerar_decisao_automatica(resultado_elegibilidade)
                 
                 # Verificar se o resultado é válido
-                if isinstance(resultado, dict) and 'status' in resultado:
-                    return resultado
+                if isinstance(resultado, dict):
+                    # O gerador retorna um dict com 'tipo_decisao' e 'despacho_completo'
+                    # Converter para o formato esperado se necessário
+                    if 'tipo_decisao' in resultado and 'despacho_completo' in resultado:
+                        # Já está no formato correto
+                        if 'status' not in resultado:
+                            resultado['status'] = resultado['tipo_decisao']
+                        return resultado
+                    elif 'status' in resultado:
+                        return resultado
+                    else:
+                        print(f"[AVISO] Gerador original retornou formato inválido: {type(resultado)}")
+                        return self._gerar_decisao_fallback(resultado_elegibilidade)
                 else:
-                    print(f"[AVISO] Gerador original retornou formato inválido: {type(resultado)}")
+                    print(f"[AVISO] Gerador original retornou tipo inválido: {type(resultado)}")
                     return self._gerar_decisao_fallback(resultado_elegibilidade)
                     
             except Exception as e_gerador:
@@ -1626,10 +1750,14 @@ class OrdinariaService:
 
             # DEFERIMENTO (inclui deferimento "automático" ou simples)
             if elegibilidade_final in ('deferimento', 'deferimento_automatico'):
+                # Usar portaria gerada se disponível, senão usar texto padrão
+                despacho = resultado_elegibilidade.get('despacho_automatico', 
+                    'Processo deferido automaticamente com base na análise de elegibilidade.')
+                
                 return {
                     'status': 'DEFERIMENTO',
                     'tipo_decisao': 'DEFERIMENTO',
-                    'despacho_completo': 'Processo deferido automaticamente com base na análise de elegibilidade.',
+                    'despacho_completo': despacho,
                     'motivos_indeferimento': [],
                     'fundamentos_legais': ['Art. 65 da Lei nº 13.445/2017'],
                     'resumo_analise': 'Todos os requisitos atendidos segundo a análise automática.'
@@ -1719,3 +1847,498 @@ class OrdinariaService:
                 'erro': str(e),
                 'resumo': 'Erro ao gerar resumo executivo'
             }
+    
+    def _gerar_portaria_deferimento(self, dados_pessoais: Dict[str, Any]) -> str:
+        """
+        Gera o texto da portaria de deferimento com os dados do requerente
+        
+        Args:
+            dados_pessoais: Dicionário com dados pessoais extraídos do formulário
+            
+        Returns:
+            String com o texto completo da portaria formatada
+        """
+        try:
+            # DEBUG: Mostrar todos os campos disponíveis
+            print(f"[DEBUG PORTARIA] Campos disponíveis em dados_pessoais:")
+            for key in sorted(dados_pessoais.keys()):
+                if key in ['numero_processo', 'protocolo', 'sexo', 'genero', 'uf', 'estado', 'pai', 'mae', 'rnm']:
+                    print(f"  - {key}: {dados_pessoais[key]}")
+            
+            # Extrair dados necessários
+            numero_processo = dados_pessoais.get('numero_processo', '[NÚMERO DO PROCESSO]')
+            nome_completo = dados_pessoais.get('nome_completo', '[NOME COMPLETO]')
+            rnm = dados_pessoais.get('rnm', dados_pessoais.get('crnm', '[RNM]'))
+            pais_nascimento = dados_pessoais.get('pais_nascimento', dados_pessoais.get('nacionalidade', '[PAÍS DE NASCIMENTO]'))
+            data_nascimento_raw = dados_pessoais.get('data_nascimento', '[DATA DE NASCIMENTO]')
+            nome_pai = dados_pessoais.get('pai', dados_pessoais.get('nome_pai', '[NOME DO PAI]'))
+            nome_mae = dados_pessoais.get('mae', dados_pessoais.get('nome_mae', '[NOME DA MÃE]'))
+            estado_sigla = dados_pessoais.get('uf', dados_pessoais.get('estado', '[ESTADO]'))
+            
+            # Converter data para formato por extenso
+            data_nascimento = self._formatar_data_por_extenso(data_nascimento_raw)
+            
+            # Converter sigla do estado para nome completo
+            estado = self._converter_sigla_estado(estado_sigla)
+            
+            # Formatar gênero para o texto (nascido/nascida)
+            genero = dados_pessoais.get('genero', dados_pessoais.get('sexo', '')).upper()
+            nascido_a = 'nascido' if genero in ['M', 'MASCULINO'] else 'nascida' if genero in ['F', 'FEMININO'] else 'nascido(a)'
+            filho_a = 'filho' if genero in ['M', 'MASCULINO'] else 'filha' if genero in ['F', 'FEMININO'] else 'filho(a)'
+            
+            # Gerar texto da portaria
+            portaria = f"""Assunto: Deferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623, de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, RESOLVE, tendo em vista o cumprimento do Art. 65 da Lei nº 13.445/2017, e demais requisitos previstos na legislação vigente:
+
+CONCEDER a nacionalidade brasileira, por naturalização, à pessoa abaixo relacionada, nos termos do art. 12, II, "a", da Constituição Federal, e em conformidade com o Art. 65 da Lei nº 13.445, de 24 de maio de 2017, regulamentada pelo Decreto nº 9.199, de 20 de novembro de 2017, a fim de que possa gozar dos direitos outorgados pela Constituição e leis do Brasil:
+
+{nome_completo} - {rnm}, natural de {pais_nascimento}, {nascido_a} em {data_nascimento}, {filho_a} de {nome_pai} e de {nome_mae}, residente no estado do {estado} (Processo nº {numero_processo}).
+
+A pessoa referida nesta Portaria deverá comparecer perante a Justiça Eleitoral para o devido cadastramento, nos termos do Art. 231 do Decreto nº 9.199, de 20 de novembro de 2017, que regulamenta a Lei nº 13.445, de 24 de maio de 2017."""
+            
+            print("[OK] Portaria de deferimento gerada com sucesso")
+            return portaria
+            
+        except Exception as e:
+            print(f"[ERRO] Erro ao gerar portaria de deferimento: {e}")
+            return f"[ERRO] Não foi possível gerar a portaria de deferimento: {str(e)}"
+    
+    def _formatar_data_por_extenso(self, data_str: str) -> str:
+        """
+        Converte data de DD/MM/YYYY para formato por extenso
+        Exemplo: 19/06/1973 -> 19 de junho de 1973
+        """
+        try:
+            from datetime import datetime
+            
+            meses = {
+                1: 'janeiro', 2: 'fevereiro', 3: 'março', 4: 'abril',
+                5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+                9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+            }
+            
+            # Tentar diferentes formatos de data
+            formatos = ['%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%d.%m.%Y']
+            
+            for formato in formatos:
+                try:
+                    data_obj = datetime.strptime(data_str, formato)
+                    dia = data_obj.day
+                    mes = meses[data_obj.month]
+                    ano = data_obj.year
+                    return f"{dia} de {mes} de {ano}"
+                except ValueError:
+                    continue
+            
+            # Se nenhum formato funcionou, retornar original
+            print(f"[AVISO] Não foi possível converter data '{data_str}' para extenso")
+            return data_str
+            
+        except Exception as e:
+            print(f"[AVISO] Erro ao formatar data por extenso: {e}")
+            return data_str
+    
+    def _converter_sigla_estado(self, sigla: str) -> str:
+        """
+        Converte sigla do estado para nome completo
+        Exemplo: RS -> Rio Grande do Sul
+        """
+        estados = {
+            'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
+            'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal', 'ES': 'Espírito Santo',
+            'GO': 'Goiás', 'MA': 'Maranhão', 'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul',
+            'MG': 'Minas Gerais', 'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná',
+            'PE': 'Pernambuco', 'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
+            'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima', 'SC': 'Santa Catarina',
+            'SP': 'São Paulo', 'SE': 'Sergipe', 'TO': 'Tocantins'
+        }
+        
+        sigla_upper = sigla.upper().strip()
+        return estados.get(sigla_upper, sigla)
+    
+    def _obter_parecer_pf_seguro(self) -> Dict[str, Any]:
+        """
+        Obtém dados do parecer PF de forma segura (com cache)
+        """
+        try:
+            # Verificar se já existe cache
+            if hasattr(self, '_parecer_pf_cache') and self._parecer_pf_cache:
+                return self._parecer_pf_cache
+            
+            # Tentar obter do repository
+            parecer_pf = self.repository.extrair_parecer_pf()
+            
+            # Armazenar em cache
+            self._parecer_pf_cache = parecer_pf
+            
+            return parecer_pf
+            
+        except Exception as e:
+            print(f"[AVISO] Erro ao obter parecer PF: {e}")
+            return {
+                'parecer_texto': '',
+                'proposta_pf': 'Não encontrado',
+                'excedeu_ausencia': False,
+                'ausencia_pais': False,
+                'problema_portugues': False,
+                'nao_compareceu_pf': False,
+                'documentos_nao_apresentados': False
+            }
+    
+    def _gerar_despacho_indeferimento(self, dados_pessoais: Dict[str, Any], 
+                                     status_requisitos: Dict[str, bool],
+                                     documentos_faltantes: list) -> str:
+        """
+        Gera o texto do despacho de indeferimento com os dados do requerente
+        
+        Args:
+            dados_pessoais: Dicionário com dados pessoais extraídos do formulário
+            status_requisitos: Status de cada requisito (I, II, III, IV)
+            documentos_faltantes: Lista de documentos não apresentados
+            
+        Returns:
+            String com o texto completo do despacho formatado
+        """
+        try:
+            # Extrair dados necessários
+            numero_processo = dados_pessoais.get('numero_processo', '[NÚMERO DO PROCESSO]')
+            nome_completo = dados_pessoais.get('nome_completo', '[NOME COMPLETO]')
+            
+            # Contar quantos requisitos não foram atendidos
+            requisitos_nao_atendidos = sum(1 for atendido in status_requisitos.values() if not atendido)
+            
+            # Verificar alertas PF para templates específicos (SEMPRE TÊM PRIORIDADE)
+            parecer_pf = self._obter_parecer_pf_seguro()
+            
+            # Template 1: Requerente não compareceu à PF (PRIORIDADE MÁXIMA)
+            if parecer_pf.get('nao_compareceu_pf'):
+                return self._template_nao_compareceu_pf(numero_processo, nome_completo, status_requisitos)
+            
+            # Template 2: Excedeu limite de ausências (PRIORIDADE MÁXIMA)
+            if parecer_pf.get('excedeu_ausencia'):
+                return self._template_excedeu_ausencias(numero_processo, nome_completo)
+            
+            # Template 3: Documentos não apresentados integralmente (PRIORIDADE MÁXIMA)
+            if parecer_pf.get('documentos_nao_apresentados'):
+                if documentos_faltantes or any(not atendido for atendido in status_requisitos.values()):
+                    return self._template_documentos_nao_apresentados(numero_processo, nome_completo, status_requisitos, documentos_faltantes)
+                else:
+                    return self._template_documentos_nao_apresentados_pf(numero_processo, nome_completo, status_requisitos)
+            
+            # Templates específicos APENAS quando há UM ÚNICO requisito não atendido
+            if requisitos_nao_atendidos == 1:
+                # Template 4: Menor de idade (requisito I não atendido)
+                if not status_requisitos.get('I', True):
+                    return self._template_capacidade_civil(numero_processo, nome_completo)
+                
+                # Template 5: Antecedentes criminais específico (APENAS se for o único problema)
+                if not status_requisitos.get('IV', True):
+                    return self._template_antecedentes_criminais(numero_processo, nome_completo, documentos_faltantes)
+            
+            # Identificar quais incisos não foram atendidos
+            incisos_nao_atendidos = []
+            mapeamento_incisos = {
+                'I': 'I',
+                'II': 'II',
+                'III': 'III',
+                'IV': 'IV'
+            }
+            
+            for requisito, atendido in status_requisitos.items():
+                if not atendido:
+                    incisos_nao_atendidos.append(mapeamento_incisos.get(requisito, requisito))
+            
+            # Formatar lista de incisos
+            if len(incisos_nao_atendidos) == 0:
+                texto_descumprimento = "descumprimento das exigências previstas no art. 65 da Lei nº 13.445/2017"
+            elif len(incisos_nao_atendidos) == 1:
+                texto_incisos = f"inciso {incisos_nao_atendidos[0]}"
+                texto_descumprimento = f"descumprimento do(s) {texto_incisos} do art. 65 da Lei nº 13.445/2017"
+            elif len(incisos_nao_atendidos) == 2:
+                texto_incisos = f"incisos {incisos_nao_atendidos[0]} e {incisos_nao_atendidos[1]}"
+                texto_descumprimento = f"descumprimento do(s) {texto_incisos} do art. 65 da Lei nº 13.445/2017"
+            else:
+                texto_incisos = f"incisos {', '.join(incisos_nao_atendidos[:-1])} e {incisos_nao_atendidos[-1]}"
+                texto_descumprimento = f"descumprimento do(s) {texto_incisos} do art. 65 da Lei nº 13.445/2017"
+            
+            # Texto base do despacho
+            despacho = f"""Assunto: Indeferimento do pedido
+Processo Naturalizar-se nº {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, indefere o pedido, tendo em vista o {texto_descumprimento}"""
+            
+            # Se houver documentos faltantes, adicionar informação
+            if documentos_faltantes:
+                # Especificar documentos por extenso
+                docs_texto = self._formatar_documentos_faltantes(documentos_faltantes, status_requisitos)
+                if docs_texto:
+                    despacho += f", por não ter apresentado {docs_texto}"
+            
+            despacho += "."
+            
+            print(f"[OK] Despacho de indeferimento gerado com sucesso ({len(despacho)} caracteres)")
+            print(f"[DEBUG] Primeiros 150 caracteres do despacho: {despacho[:150]}")
+            return despacho
+            
+        except Exception as e:
+            print(f"[ERRO] Erro ao gerar despacho de indeferimento: {e}")
+            return f"[ERRO] Não foi possível gerar o despacho de indeferimento: {str(e)}"
+    
+    def _formatar_documentos_faltantes(self, documentos_faltantes: list, status_requisitos: Dict[str, bool]) -> str:
+        """
+        Formata documentos faltantes por extenso para o despacho
+        
+        Args:
+            documentos_faltantes: Lista de documentos não apresentados
+            status_requisitos: Status de cada requisito para identificar contexto
+            
+        Returns:
+            String formatada com os documentos faltantes
+        """
+        if not documentos_faltantes:
+            return ""
+        
+        # Mapeamento de documentos para nomes por extenso
+        mapeamento_nomes = {
+            'Atestado de antecedentes criminais do país de origem': 'o atestado de antecedentes criminais do país de origem (legalizado e traduzido)',
+            'Certidão de antecedentes criminais da Polícia Federal': 'a certidão de antecedentes criminais da Polícia Federal',
+            'Certidão de antecedentes criminais da Justiça Federal': 'a certidão de antecedentes criminais da Justiça Federal',
+            'Certidão de antecedentes criminais da Justiça Estadual': 'a certidão de antecedentes criminais da Justiça Estadual',
+            'Documento de proficiência em português': 'o documento de proficiência em língua portuguesa',
+            'Comprovante de residência': 'o comprovante de residência',
+            'Comprovante de tempo de residência': 'o comprovante de tempo de residência',
+            'Carteira de Registro Nacional Migratório': 'a Carteira de Registro Nacional Migratório (CRNM/RNM)',
+            'Comprovante de situação cadastral do CPF': 'o comprovante de situação cadastral do CPF',
+            'Documento de viagem internacional': 'o documento de viagem internacional',
+            'Passaporte': 'o passaporte'
+        }
+        
+        # Identificar documentos por extenso
+        docs_formatados = []
+        tem_antecedentes_brasil = False
+        tem_antecedentes_origem = False
+        
+        for doc in documentos_faltantes:
+            doc_encontrado = None
+            for doc_key, doc_nome in mapeamento_nomes.items():
+                if doc_key.lower() in doc.lower() or doc.lower() in doc_key.lower():
+                    doc_encontrado = doc_nome
+                    # Rastrear antecedentes para mensagem especial
+                    if 'antecedentes' in doc.lower():
+                        if 'origem' in doc.lower() or 'país' in doc.lower():
+                            tem_antecedentes_origem = True
+                        else:
+                            tem_antecedentes_brasil = True
+                    break
+            
+            if doc_encontrado and doc_encontrado not in docs_formatados:
+                docs_formatados.append(doc_encontrado)
+        
+        # Se inciso IV não atendido e há antecedentes, especificar quais
+        if not status_requisitos.get('IV', True) and (tem_antecedentes_brasil or tem_antecedentes_origem):
+            # Remover antecedentes genéricos e adicionar especificação
+            docs_formatados = [d for d in docs_formatados if 'antecedentes' not in d]
+            
+            if tem_antecedentes_brasil and tem_antecedentes_origem:
+                docs_formatados.append('as certidões de antecedentes criminais da Justiça Federal e Estadual, e o atestado de antecedentes criminais do país de origem (legalizado e traduzido)')
+            elif tem_antecedentes_brasil:
+                docs_formatados.append('as certidões de antecedentes criminais da Justiça Federal e Estadual')
+            elif tem_antecedentes_origem:
+                docs_formatados.append('o atestado de antecedentes criminais do país de origem (legalizado e traduzido)')
+        
+        # Formatar lista
+        if len(docs_formatados) == 0:
+            return ""
+        elif len(docs_formatados) == 1:
+            return docs_formatados[0]
+        elif len(docs_formatados) == 2:
+            return f"{docs_formatados[0]} e {docs_formatados[1]}"
+        else:
+            return f"{', '.join(docs_formatados[:-1])} e {docs_formatados[-1]}"
+    
+    def _mapear_documentos_para_itens_anexo(self, documentos_faltantes: list) -> list:
+        """
+        Mapeia documentos faltantes para itens do Anexo I da Portaria 623/2020
+        
+        Itens do Anexo I:
+        3. Cópia da Carteira de Registro Nacional Migratório (CRNM/RNM)
+        4. Comprovante de situação cadastral do CPF
+        5. Certidão de antecedentes criminais da Justiça Federal e Estadual
+        6. Atestado de antecedentes criminais do país de origem (legalizado e traduzido)
+        8. Comprovante de residência
+        9. Cópia do documento de viagem internacional
+        13. Documento indicativo da capacidade de se comunicar em língua portuguesa
+        """
+        mapeamento = {
+            'Carteira de Registro Nacional Migratório': '3',
+            'Comprovante de situação cadastral do CPF': '4',
+            'Certidão de antecedentes criminais da Polícia Federal': '5',
+            'Certidão de antecedentes criminais da Justiça Federal': '5',
+            'Certidão de antecedentes criminais da Justiça Estadual': '5',
+            'Atestado de antecedentes criminais do país de origem': '6',
+            'Comprovante de residência': '8',
+            'Comprovante de tempo de residência': '8',
+            'Documento de viagem internacional': '9',
+            'Passaporte': '9',
+            'Documento de proficiência em português': '13',
+            'Comprovante de capacidade civil': 'capacidade civil'  # Não é item do Anexo I
+        }
+        
+        itens = []
+        for doc in documentos_faltantes:
+            # Buscar correspondência exata ou parcial
+            item_encontrado = None
+            for doc_key, item in mapeamento.items():
+                if doc_key.lower() in doc.lower() or doc.lower() in doc_key.lower():
+                    item_encontrado = item
+                    break
+            
+            if item_encontrado and item_encontrado not in itens and item_encontrado != 'capacidade civil':
+                itens.append(item_encontrado)
+        
+        # Ordenar numericamente
+        return sorted(itens, key=lambda x: int(x) if x.isdigit() else 999)
+    
+    def _template_nao_compareceu_pf(self, numero_processo: str, nome_completo: str, status_requisitos: Dict[str, bool]) -> str:
+        """Template para quando o requerente não compareceu à PF"""
+        # Identificar incisos não atendidos
+        incisos = []
+        if not status_requisitos.get('I', True):
+            incisos.append('I')
+        if not status_requisitos.get('II', True):
+            incisos.append('II')
+        if not status_requisitos.get('III', True):
+            incisos.append('III')
+        if not status_requisitos.get('IV', True):
+            incisos.append('IV')
+        
+        # Formatar texto dos incisos
+        if len(incisos) == 0:
+            texto_incisos = "art. 65"
+        elif len(incisos) == 1:
+            texto_incisos = f"inciso {incisos[0]}, art. 65"
+        else:
+            texto_incisos = f"incisos {', '.join(incisos)}, art. 65"
+        
+        return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, considerando que o/a requerente foi notificado/a e não compareceu à Polícia Federal para conferência dos documentos originais e coleta biométrica, indefere o pedido tendo em vista o não cumprimento das exigências previstas no {texto_incisos} da Lei nº 13.445/2017, c/c art. 227 do Decreto nº 9.199/2017, e §2º, art. 7º da Portaria nº 623 de 13 de novembro de 2020."""
+    
+    def _template_excedeu_ausencias(self, numero_processo: str, nome_completo: str) -> str:
+        """Template para quando o requerente excedeu o limite de ausências"""
+        return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, indefere o pedido, tendo em vista que o requerente se ausentou do Brasil, excedendo o prazo máximo de ausência do país, portanto não atende à exigência contida no inciso II, art. 65 da Lei nº 13.445, de 2017, c/c §2º, art. 233, do Decreto 9.199/2017."""
+    
+    def _template_documentos_nao_apresentados(self, numero_processo: str, nome_completo: str, 
+                                             status_requisitos: Dict[str, bool], documentos_faltantes: list) -> str:
+        """Template para quando documentos não foram apresentados integralmente"""
+        # Identificar incisos não atendidos
+        incisos = []
+        if not status_requisitos.get('I', True):
+            incisos.append('I')
+        if not status_requisitos.get('II', True):
+            incisos.append('II')
+        if not status_requisitos.get('III', True):
+            incisos.append('III')
+        if not status_requisitos.get('IV', True):
+            incisos.append('IV')
+        
+        # Formatar texto dos incisos
+        if len(incisos) == 0:
+            texto_incisos = "art. 65"
+        elif len(incisos) == 1:
+            texto_incisos = f"inciso {incisos[0]}, art. 65"
+        elif len(incisos) == 2:
+            texto_incisos = f"incisos {incisos[0]} e {incisos[1]}, art. 65"
+        else:
+            texto_incisos = f"incisos {', '.join(incisos[:-1])} e {incisos[-1]}, art. 65"
+        
+        return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, considerando que o/a requerente não apresentou os documentos necessários, foi notificado/a a complementar e não respondeu às exigências dentro do prazo previsto, indefere o pedido tendo em vista o não cumprimento das exigências previstas no {texto_incisos} da Lei nº 13.445/2017."""
+
+    def _template_documentos_nao_apresentados_pf(self, numero_processo: str, nome_completo: str, status_requisitos: Dict[str, bool]) -> str:
+        """Template específico quando somente o parecer PF aponta falta de documentos"""
+        incisos = []
+        if not status_requisitos.get('I', True):
+            incisos.append('I')
+        if not status_requisitos.get('II', True):
+            incisos.append('II')
+        if not status_requisitos.get('III', True):
+            incisos.append('III')
+        if not status_requisitos.get('IV', True):
+            incisos.append('IV')
+
+        if len(incisos) == 1:
+            complemento = f"no inciso {incisos[0]} do art. 65"
+        elif len(incisos) == 2:
+            complemento = f"nos incisos {incisos[0]} e {incisos[1]} do art. 65"
+        elif len(incisos) > 2:
+            complemento = f"nos incisos {', '.join(incisos[:-1])} e {incisos[-1]} do art. 65"
+        else:
+            complemento = "no art. 65"
+
+        return f"""Assunto: Indeferimento do pedido
+Processo Naturalizar-se nº {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, considerando que o/a requerente não apresentou os documentos necessários, foi notificado/a a complementar e não respondeu às exigências dentro do prazo previsto, indefere o pedido tendo em vista o não cumprimento das exigências previstas {complemento} da Lei nº 13.445/2017."""
+    
+    def _template_capacidade_civil(self, numero_processo: str, nome_completo: str) -> str:
+        """Template para quando o requerente não tem capacidade civil (menor de idade)"""
+        return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, indefere o pedido, tendo em vista que o/a requerente é menor de idade e portanto não atende à exigência de ter capacidade civil, segundo a lei brasileira, o requisito previsto no inciso I, art. 65 da Lei nº 13.445/2017."""
+    
+    def _template_antecedentes_criminais(self, numero_processo: str, nome_completo: str, documentos_faltantes: list) -> str:
+        """Template para quando faltam documentos de antecedentes criminais"""
+        # Identificar quais documentos de antecedentes estão faltando
+        docs_brasil = [d for d in documentos_faltantes if 'brasil' in d.lower() or 'federal' in d.lower() or 'estadual' in d.lower()]
+        docs_origem = [d for d in documentos_faltantes if 'origem' in d.lower() or 'país' in d.lower()]
+        
+        # Mapear para itens do Anexo I
+        itens_faltantes = []
+        if docs_brasil:
+            itens_faltantes.append('5')  # Item 5: Certidões Brasil (Federal e Estadual)
+        if docs_origem:
+            itens_faltantes.append('6')  # Item 6: Atestado país de origem
+        
+        if itens_faltantes:
+            if len(itens_faltantes) == 1:
+                texto_itens = f"item {itens_faltantes[0]}"
+            else:
+                texto_itens = f"itens {' e '.join(itens_faltantes)}"
+            
+            # Especificar qual documento está faltando
+            if docs_brasil and docs_origem:
+                especificacao = "certidões de antecedentes criminais do Brasil (Justiça Federal e Estadual) e atestado de antecedentes criminais do país de origem"
+            elif docs_brasil:
+                especificacao = "certidões de antecedentes criminais do Brasil (Justiça Federal e Estadual)"
+            else:
+                especificacao = "atestado de antecedentes criminais do país de origem (legalizado e traduzido)"
+            
+            return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, indefere o pedido, tendo em vista que o/a requerente não apresentou {especificacao}, conforme exigido no(s) {texto_itens} do Anexo I da Portaria 623/2020, não atendendo ao requisito previsto no inciso IV, art. 65 da Lei nº 13.445/2017."""
+        
+        # Fallback genérico
+        return f"""Assunto: Indeferimento do pedido
+Processo: {numero_processo}
+Interessado: {nome_completo}
+
+A COORDENADORA DE PROCESSOS MIGRATÓRIOS, no uso da competência delegada pela Portaria nº 623 de 13 de novembro de 2020, publicada no Diário Oficial da União, de 17 de novembro de 2020, indefere o pedido, tendo em vista o não cumprimento do requisito previsto no inciso IV, art. 65 da Lei nº 13.445/2017 (inexistência de condenação penal)."""
