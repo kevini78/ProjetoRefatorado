@@ -689,17 +689,19 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
 
                 # Observações / cláusulas
                 observacoes_parts = []
-                if status_label == 'indeferimento automático' or indeferimento_auto:
+                analise_manual = bool(resultado.get('analise_manual'))
+                
+                if analise_manual:
+                    # Caso de análise manual (portaria anexada)
+                    motivo_manual = resultado.get('motivo_manual') or resultado.get('motivo') or 'Análise manual recomendada'
+                    observacoes_parts.append(
+                        f"Processo {codigo}: ANÁLISE MANUAL RECOMENDADA - {motivo_manual}"
+                    )
+                elif status_label == 'indeferimento automático' or indeferimento_auto:
                     base_motivo = motivo_indef or 'Indeferimento automático sem motivo detalhado'
                     observacoes_parts.append(
                         f"Processo {codigo} INDEFERIDO automaticamente: {base_motivo}"
                     )
-                    # Cláusula de análise manual para casos de naturalização não encontrada
-                    if 'naturalização provisória não encontrada no banco' in base_motivo.lower():
-                        observacoes_parts.append(
-                            "Cláusula: ANÁLISE MANUAL RECOMENDADA caso exista portaria ou outro "
-                            "documento de naturalização anexado no processo."
-                        )
                 elif status_label in ('erro', 'timeout'):
                     obs_erro = resultado.get('erro') or 'Erro não detalhado'
                     observacoes_parts.append(
@@ -719,7 +721,9 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
                 observacoes = " ".join(observacoes_parts).strip()
 
                 # Documento baixado?
-                if indeferimento_auto and total_docs == 0:
+                if analise_manual:
+                    doc_baixado = 'Análise manual (portaria anexada)'
+                elif indeferimento_auto and total_docs == 0:
                     doc_baixado = 'Não (indeferimento automático)'
                 else:
                     doc_baixado = 'Sim' if total_docs > 0 else 'Não'
@@ -737,7 +741,12 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
                     'documento_baixado': doc_baixado,
                     'documentos_processados': len(docs_proc),
                     'total_documentos': total_docs,
+                    'validacoes_individuais': resultado.get('validacoes_individuais', {}),
+                    'decisao_final': resultado.get('decisao_final', 'N/A'),
+                    'parecer_pf': resultado.get('parecer_pf', {}),
+                    'despacho_automatico': resultado.get('despacho_automatico', ''),
                 }
+                    
             except Exception as e:  # pragma: no cover - defensivo
                 out = {
                     'codigo': codigo,
@@ -773,16 +782,72 @@ def worker_analise_definitiva(job_service, job_id: str, filepath: str, column_na
                 doc_baixado = r.get('documento_baixado') or ''
                 docs_proc = int(r.get('documentos_processados') or 0)
                 total_docs = int(r.get('total_documentos') or 0)
+                
+                # Extrair validações individuais
+                validacoes = r.get('validacoes_individuais', {})
+                decisao_final = r.get('decisao_final', 'N/A')
+                
+                # Função auxiliar para converter status em check/X
+                def status_to_symbol(status_dict, key='status'):
+                    status = status_dict.get(key, 'N/A')
+                    if status == 'VÁLIDO':
+                        return '✅'
+                    elif status == 'INVÁLIDO':
+                        return '❌'
+                    elif status == 'ANÁLISE MANUAL':
+                        return '⚠️'
+                    elif status == 'NÃO VERIFICADO':
+                        return '➖'
+                    else:
+                        return 'N/A'
+                
+                # Naturalização Provisória
+                nat_prov = validacoes.get('naturalizacao_provisoria', {})
+                nat_prov_status = status_to_symbol(nat_prov)
+                nat_prov_fonte = nat_prov.get('fonte', 'N/A')
+                
+                # Documento Oficial de Identidade
+                doc_id = validacoes.get('documento_identidade', {})
+                doc_id_status = status_to_symbol(doc_id)
+                
+                # Certidão de Antecedentes Brasil
+                antecedentes = validacoes.get('antecedentes_brasil', {})
+                antecedentes_status = status_to_symbol(antecedentes)
+                
+                # Comprovante de Residência
+                residencia = validacoes.get('comprovante_residencia_18_20', {})
+                residencia_status = status_to_symbol(residencia)
+                
+                # Idade 18-20 (separada)
+                idade_atendida = residencia.get('idade_atendida', False)
+                idade_status = '✅' if idade_atendida else '❌'
+                idade_calculada = residencia.get('idade_calculada', 'N/A')
+                
+                # Alertas PF
+                parecer_pf = r.get('parecer_pf', {})
+                alertas_pf = parecer_pf.get('alertas', [])
+                alertas_pf_texto = ' | '.join(alertas_pf) if alertas_pf else 'Nenhum'
+                
+                # Despacho Automático
+                despacho_automatico = r.get('despacho_automatico', '')
 
                 rows.append({
                     'Código': codigo,
                     'Status': status_detalhado,
-                    'Resultado Processamento': status_detalhado,
+                    'Decisão Final': decisao_final,
+                    'Naturalização Provisória': nat_prov_status,
+                    'Fonte Nat. Provisória': nat_prov_fonte,
+                    'Documento Oficial de Identidade': doc_id_status,
+                    'Certidão Antecedentes Brasil': antecedentes_status,
+                    'Comprovante Residência': residencia_status,
+                    'Idade 18-20': idade_status,
+                    'Idade Calculada': idade_calculada,
+                    'Alertas PF': alertas_pf_texto,
+                    'Despacho Automático': despacho_automatico,
                     'Verificação da análise do robô': '',  # Campo para preenchimento manual (Correta/Incorreta)
                     'Data Processamento': data_proc,
                     'Observações': observacoes,
                     'Documento Baixado': doc_baixado,
-                    'Caminho Documento': '',  # Não há caminho consolidado neste fluxo modular
                     'Documentos Processados': docs_proc,
                     'Total Documentos': total_docs,
                 })

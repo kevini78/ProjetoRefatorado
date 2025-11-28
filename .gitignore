@@ -7,7 +7,7 @@
 *.db
 *.sqlite
 *.sqlite3
-naturalizacao.db
+!naturalizacao.db
 
 # Python
 __pycache__/
